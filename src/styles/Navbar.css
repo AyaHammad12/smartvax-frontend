@@ -1,0 +1,94 @@
+/* أنماط الشريط الجانبي */
+.sidebar {
+  position: fixed;
+  left: 0;
+  top: 0;
+  height: 100vh;
+  width: 60px;
+  background-color: #8e44ad; /* اللون النهدي البارد */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 10px;
+  transition: width 0.3s ease-in-out;
+}
+
+.sidebar.open {
+  width: 200px;
+}
+
+/* الأيقونة التي تتحكم في توسيع الشريط الجانبي */
+.menu-icon {
+  font-size: 24px;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+/* الحاوية التي تحتوي على الشعار */
+.logo-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 30px;
+}
+
+.logo {
+  width: 40px;
+  height: 40px;
+  margin-right: 10px;
+}
+
+.nav-title {
+  font-size: 18px;
+  color: white;
+  font-family: "Arial", sans-serif;
+  font-weight: bold;
+}
+
+.hide {
+  display: none;
+}
+
+/* تصميم الروابط */
+.nav-links {
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.nav-links li {
+  width: 100%;
+}
+
+.nav-links a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  padding: 15px;
+  transition: background 0.3s;
+}
+
+.nav-links a:hover {
+  background-color: #6c3483;
+}
+
+.icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+/* إظهار النص بجانب الأيقونة عند توسيع الشريط الجانبي */
+.show {
+  display: inline;
+}
+
+/* جعل النص غير مرئي عند تصغير الشريط الجانبي */
+.sidebar .hide {
+  display: none;
+}
+
+.sidebar.open .hide {
+  display: inline;
+}

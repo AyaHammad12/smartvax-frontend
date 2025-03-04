@@ -1,0 +1,14 @@
+.vaccine-info-container {
+  padding: 20px;
+  text-align: center;
+  background-color: #eef;
+}
+
+.vaccine-info-container h2 {
+  color: #007bff;
+}
+
+.vaccine-info-container p {
+  color: #333;
+  font-size: 16px;
+}
