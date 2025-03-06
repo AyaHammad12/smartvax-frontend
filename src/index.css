@@ -16,11 +16,19 @@ code {
 }
 
 .main-content {
-  /* margin-left: 60px; */
+  margin-left: 60px;
   padding: 20px;
   transition: margin-left 0.3s ease-in-out;
 }
 
 .sidebar.open + .main-content {
   margin-left: 200px;
+}
+
+.app-container {
+  display: flex;
+}
+
+.no-margin .main-content {
+  margin-left: 0; /* إزالة المسافة عند الدخول لصفحات تسجيل الدخول */
 }
