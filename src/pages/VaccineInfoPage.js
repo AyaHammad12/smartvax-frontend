@@ -1,11 +1,13 @@
 import React from "react";
-import "../styles/VaccineInfoPage.css";
+import { useParams } from "react-router-dom";
 
 const VaccineInfoPage = () => {
+  const { vaccineName } = useParams(); // استلام اسم اللقاح من الرابط
+
   return (
-    <div className="vaccine-info-container">
-      <h2>Vaccine Information</h2>
-      <p>Details about vaccines, side effects, and benefits.</p>
+    <div>
+      <h1>Vaccine Information: {vaccineName}</h1>
+      {/* هنا يمكنك إضافة المزيد من التفاصيل حول اللقاح حسب الاسم */}
     </div>
   );
 };
