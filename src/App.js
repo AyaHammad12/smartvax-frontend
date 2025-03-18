@@ -1,89 +1,3 @@
-// import React from "react";
-// import {
-//   BrowserRouter as Router,
-//   Routes,
-//   Route,
-//   useLocation,
-// } from "react-router-dom";
-// import LogoutPage from "./pages/LogoutPage";
-// import HomePage from "./pages/HomePage";
-// import LoginPage from "./pages/LoginPage";
-// import RegisterPage from "./pages/RegisterPage";
-// import VaccineInfoPage from "./pages/VaccineInfoPage";
-// import BookAppointmentPage from "./pages/BookAppointmentPage";
-// import FeedbackPage from "./pages/FeedbackPage";
-// import ParentDashboard from "./pages/ParentDashboard";
-// import HealthWorkerDashboard from "./pages/HealthWorkerDashboard";
-// import Navbar from "./components/Navbar";
-// import HWAppointmentScheduling from "./pages/HWAppointmentScheduling";
-// import ProfilePage from "./pages/ProfilePage";
-// import AccountPage from "./pages/AccountPage";
-// import ReminderPage from "./pages/ReminderPage";
-// import HelpPage from "./pages/HelpPage";
-// import SearchPage from "./pages/SearchPage";
-
-// import SearchChildByID from "./pages/SearchChildByID";
-// import ManegmentRequestsAppointment from "./pages/ManegmentRequestsAppointment";
-
-// const AppContent = () => {
-//   const location = useLocation();
-//   const hideNavbarRoutes = ["/login", "/register", "/logout"];
-
-//   return (
-//     <div>
-//       {!hideNavbarRoutes.includes(location.pathname) && <Navbar />}
-//       <div className="main-content">
-//         <Routes>
-//           <Route path="/" element={<LoginPage />} />
-//           <Route path="/login" element={<LoginPage />} />
-//           <Route path="/logout" element={<LogoutPage />} />
-//           <Route path="/register" element={<RegisterPage />} />
-//           <Route
-//             path="/vaccine-info/:vaccineName/:day"
-//             element={<VaccineInfoPage />}
-//           />
-//           <Route path="/book-appointment" element={<BookAppointmentPage />} />
-//           <Route path="/feedback" element={<FeedbackPage />} />
-//           <Route path="/dashboard/parent" element={<ParentDashboard />} />
-//           <Route
-//             path="/dashboard/healthworker"
-//             element={<HealthWorkerDashboard />}
-//           />
-//           <Route
-//             path="/appointment-scheduling/:day/:vaccineName"
-//             element={<HWAppointmentScheduling />}
-//           />
-//           <Route path="/profile" element={<ProfilePage />} />
-//           <Route path="/account" element={<AccountPage />} />
-//           <Route path="/reminder" element={<ReminderPage />} />
-//           <Route path="/help" element={<HelpPage />} />
-//           <Route path="/search" element={<SearchPage />} />
-//           {/* <Route path="/search" element={<SearchPage />} /> */}
-
-//           {/* <Link to="/Search-Child-By-ID" title="SearchChildByID">
-//             <Link to="/Manegment-Requests-Appointment" title="ManegmentRequestsAppointment"> */}
-
-//           <Route path="/Search-Child-By-ID" element={<SearchChildByID />} />
-//           <Route
-//             path="/Manegment-Requests-Appointment"
-//             element={<ManegmentRequestsAppointment />}
-//           />
-//         </Routes>
-//       </div>
-//     </div>
-//   );
-// };
-
-// function App() {
-//   return (
-//     <Router>
-//       <AppContent />
-//     </Router>
-//   );
-// }
-
-// export default App;
-
 import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
@@ -92,12 +6,13 @@ import {
   useLocation,
   useNavigate,
 } from "react-router-dom";
+
+import "./styles/Navbar.css"; /* تأكد أن المسار صحيح */
+import "./App.css";
+
 import LogoutPage from "./pages/LogoutPage";
-import HomePage from "./pages/HomePage";
 import LoginPage from "./pages/LoginPage";
-import RegisterPage from "./pages/RegisterPage";
 import VaccineInfoPage from "./pages/VaccineInfoPage";
-import BookAppointmentPage from "./pages/BookAppointmentPage";
 import FeedbackPage from "./pages/FeedbackPage";
 import ParentDashboard from "./pages/ParentDashboard";
 import HealthWorkerDashboard from "./pages/HealthWorkerDashboard";
@@ -109,42 +24,71 @@ import ReminderPage from "./pages/ReminderPage";
 import HelpPage from "./pages/HelpPage";
 import SearchPage from "./pages/SearchPage";
 import SearchChildByID from "./pages/SearchChildByID";
+
 import ManegmentRequestsAppointment from "./pages/ManegmentRequestsAppointment";
+import ManagerDashboard from "./pages/ManagerDashboard";
+import ManageWorkers from "./pages/ManageWorkers";
+import ReportsPage from "./pages/ReportsPage";
+import ReschedulePage from "./pages/ReschedulePage";
+import ParentAppointments from "./pages/ParentAppointments";
+import VaccineAppointments from "./pages/VaccineAppointments";
+import RegisterPage from "./pages/RegisterPage";
+import ScheduledVaccinationsPage from "./pages/ScheduledVaccinationsPage";
+import ReviewsPage from "./pages/ReviewsPage";
 
 const AppContent = () => {
   const location = useLocation();
   const navigate = useNavigate();
+
+  // قائمة بالمسارات التي لا يجب أن يظهر فيها الـ Navbar
   const hideNavbarRoutes = ["/login", "/register", "/logout"];
 
+  // حالة لتخزين الدور (role)
   const [role, setRole] = useState(null);
 
+  const [appointments, setAppointments] = useState([
+    {
+      id: 1,
+      vaccine: "Polio",
+      date: "2024-04-15",
+      status: "scheduled",
+      center: "",
+    },
+    {
+      id: 2,
+      vaccine: "MMR",
+      date: "2024-06-10",
+      status: "scheduled",
+      center: "",
+    },
+  ]);
+
   useEffect(() => {
-    const storedRole = localStorage.getItem("role"); // جلب الدور من localStorage
-    if (storedRole) {
+    const updateRole = () => {
+      const storedRole = localStorage.getItem("role");
       setRole(storedRole);
+    };
 
-      console.log("-- app the role is : ", { role });
-    }
-  }, []);
+    // جلب الدور عند تحميل الصفحة
+    updateRole();
 
-  // // حالة لتخزين الدور (role) من الـ localStorage
-  // const [role, setRole] = useState(null);
+    // مراقبة أي تغيير في `localStorage`
+    window.addEventListener("storage", updateRole);
 
-  // useEffect(() => {
-  //   const storedRole = localStorage.getItem("role");
-  //   setRole(storedRole);
-  //   console.log("the role is : ", { role });
-  // }, []);
+    return () => {
+      window.removeEventListener("storage", updateRole);
+    };
+  }, [location.pathname]);
 
   const handleLogout = () => {
-    // إزالة الدور من الـ localStorage عند تسجيل الخروج
-    localStorage.removeItem("role");
-    navigate("/login"); // إعادة توجيه المستخدم إلى صفحة تسجيل الدخول
+    localStorage.removeItem("role"); // مسح الدور عند تسجيل الخروج
+    setRole(null); // تحديث الحالة
+    navigate("/login"); // إعادة التوجيه إلى صفحة تسجيل الدخول
   };
 
-  // إظهار الـ Navbar إذا كان الدور موجودًا ولم يكن من ضمن المسارات المخفية
-  // const showNavbar = role && !hideNavbarRoutes.includes(location.pathname);
-  const showNavbar = !hideNavbarRoutes.includes(location.pathname);
+  // التحقق مما إذا كان يجب عرض الـ Navbar أم لا
+  const showNavbar = role && !hideNavbarRoutes.includes(location.pathname);
+
   return (
     <div>
       {showNavbar && <Navbar role={role} />}
@@ -157,11 +101,11 @@ const AppContent = () => {
             element={<LogoutPage handleLogout={handleLogout} />}
           />
           <Route path="/register" element={<RegisterPage />} />
+
           <Route
-            path="/vaccine-info/:vaccineName/:day"
+            path="/vaccine-info/:vaccineName"
             element={<VaccineInfoPage />}
           />
-          <Route path="/book-appointment" element={<BookAppointmentPage />} />
           <Route path="/feedback" element={<FeedbackPage />} />
           <Route path="/dashboard/parent" element={<ParentDashboard />} />
           <Route
@@ -169,7 +113,7 @@ const AppContent = () => {
             element={<HealthWorkerDashboard />}
           />
           <Route
-            path="/appointment-scheduling/:day/:vaccineName"
+            path="/appointment-scheduling/:day"
             element={<HWAppointmentScheduling />}
           />
           <Route path="/profile" element={<ProfilePage />} />
@@ -178,10 +122,45 @@ const AppContent = () => {
           <Route path="/help" element={<HelpPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/Search-Child-By-ID" element={<SearchChildByID />} />
+
           <Route
             path="/Manegment-Requests-Appointment"
             element={<ManegmentRequestsAppointment />}
           />
+          <Route path="/dashboard/manager" element={<ManagerDashboard />} />
+          <Route path="/manage-workers" element={<ManageWorkers />} />
+          <Route path="/reports" element={<ReportsPage />} />
+          <Route
+            path="/appointments"
+            element={
+              <ParentAppointments
+                appointments={appointments}
+                setAppointments={setAppointments}
+              />
+            }
+          />
+          <Route
+            path="/reschedule/:appointmentId"
+            element={
+              <ReschedulePage
+                appointments={appointments}
+                setAppointments={setAppointments}
+              />
+            }
+          />
+
+          {/* <Route path="/appointments" element={<ParentAppointments />} /> */}
+          <Route
+            path="/vaccine-appointments"
+            element={<VaccineAppointments />}
+          />
+
+          <Route
+            path="/scheduled-vaccinations"
+            element={<ScheduledVaccinationsPage />}
+          />
+
+          <Route path="/reviews/:vaccineName" element={<ReviewsPage />} />
         </Routes>
       </div>
     </div>

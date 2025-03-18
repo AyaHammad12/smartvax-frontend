@@ -4,25 +4,49 @@
   left: 0;
   top: 0;
   height: 100vh;
-  width: 60px;
-  background-color: #8e44ad; /* اللون النهدي البارد */
+  width: 65px; /* تقليل عرض الشريط الجانبي */
+  background-color: #a660c5; /* اللون النهدي البارد */
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding-top: 10px;
+  padding-top: 15px;
   transition: width 0.3s ease-in-out;
+  overflow: hidden;
 }
 
 .sidebar.open {
-  width: 200px;
+  width: 200px; /* تقليل العرض عند الفتح */
+}
+
+.navbar {
+  background-color: #8e44ad;
+  color: white !important;
+  padding: 12px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 55px; /* تقليل ارتفاع الناف بار */
+  font-size: 16px;
+}
+
+.navbar a {
+  color: white !important;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
 }
 
 /* الأيقونة التي تتحكم في توسيع الشريط الجانبي */
 .menu-icon {
-  font-size: 24px;
-  color: white;
+  font-size: 26px; /* تقليل حجم الأيقونة */
+  color: white !important;
   cursor: pointer;
   margin-bottom: 20px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.menu-icon:hover {
+  transform: scale(1.1);
 }
 
 /* الحاوية التي تحتوي على الشعار */
@@ -30,24 +54,34 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-bottom: 30px;
+  margin-bottom: 25px;
+  transition: transform 0.3s ease-in-out;
 }
 
+/* تحسين حجم صورة الشعار مع إضافة مسافة للنص */
 .logo {
-  width: 40px;
-  height: 40px;
-  margin-right: 10px;
+  width: 50px; /* تصغير حجم الصورة */
+  height: 50px;
+  margin-right: 12px; /* إضافة مسافة بين الصورة والنص */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* عند فتح الشريط الجانبي، يكبر الشعار قليلاً */
+.sidebar.open .logo {
+  transform: scale(1.2);
 }
 
 .nav-title {
   font-size: 18px;
-  color: white;
+  color: white !important;
   font-family: "Arial", sans-serif;
   font-weight: bold;
+  transition: opacity 0.3s ease-in-out;
 }
 
-.hide {
-  display: none;
+.sidebar:not(.open) .nav-title {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
 }
 
 /* تصميم الروابط */
@@ -59,29 +93,40 @@
 
 .nav-links li {
   width: 100%;
+  transition: background 0.3s ease-in-out;
 }
 
 .nav-links a {
   display: flex;
   align-items: center;
   text-decoration: none;
-  color: white;
-  padding: 15px;
-  transition: background 0.3s;
+  color: white !important;
+  padding: 10px 15px; /* تقليل التباعد */
+  transition: background 0.3s ease-in-out, padding-left 0.3s ease-in-out;
+  font-size: 16px; /* تصغير حجم النص قليلاً */
 }
 
 .nav-links a:hover {
   background-color: #6c3483;
+  padding-left: 18px;
 }
 
+/* تحسين حجم الأيقونات */
 .icon {
-  font-size: 20px;
-  margin-right: 10px;
+  font-size: 24px; /* تقليل حجم الأيقونات */
+  margin-right: 10px; /* ضبط المسافة */
+  transition: transform 0.3s ease-in-out;
+}
+
+/* عند فتح الشريط الجانبي، تكبر الأيقونات قليلاً */
+.sidebar.open .icon {
+  transform: scale(1.2);
 }
 
 /* إظهار النص بجانب الأيقونة عند توسيع الشريط الجانبي */
 .show {
   display: inline;
+  transition: opacity 0.3s ease-in-out;
 }
 
 /* جعل النص غير مرئي عند تصغير الشريط الجانبي */
@@ -91,4 +136,5 @@
 
 .sidebar.open .hide {
   display: inline;
+  opacity: 1;
 }

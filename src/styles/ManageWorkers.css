@@ -1,0 +1,68 @@
+.manage-container {
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+h1 {
+  color: #6c3483;
+}
+
+.btn-add {
+  background: #8e44ad;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.btn-add:hover {
+  background: #6c3483;
+}
+
+.worker-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 15px;
+}
+
+.worker-card {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  width: 250px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease;
+}
+
+.worker-card:hover {
+  transform: scale(1.05);
+}
+
+.worker-card h3 {
+  color: #8e44ad;
+}
+
+.worker-card p {
+  color: #333;
+}
+
+.btn-remove {
+  background: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  transition: 0.3s;
+}
+
+.btn-remove:hover {
+  background: #c82333;
+}

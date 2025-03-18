@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -32,3 +33,7 @@ code {
 .no-margin .main-content {
   margin-left: 0; /* إزالة المسافة عند الدخول لصفحات تسجيل الدخول */
 }
+
+/* استيراد Navbar.css بعد جميع الأنماط الأخرى */
+@import "./styles/Navbar.css";
+@import "./styles/VaccineInfoPage.css";

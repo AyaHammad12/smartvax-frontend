@@ -5,6 +5,9 @@ const LogoutPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    const storedRole = localStorage.getItem("role");
+    console.log("the output of rule in logout is : ", storedRole);
+
     // إزالة بيانات المستخدم عند تحميل الصفحة
     localStorage.removeItem("role");
     localStorage.removeItem("username");

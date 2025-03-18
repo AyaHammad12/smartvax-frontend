@@ -1,13 +1,13 @@
-import React from "react";
 import { useParams } from "react-router-dom";
 
 const HWAppointmentScheduling = () => {
-  const { day } = useParams(); // استلام اليوم من الرابط
+  const { day } = useParams();
+
+  console.log("Received Day:", day);
 
   return (
     <div>
-      <h1>Appointment Scheduling for {day}</h1>
-      {/* هنا يمكنك إضافة المواعيد الخاصة بهذا اليوم */}
+      <h1>Schedule Appointments for Day {day}</h1>
     </div>
   );
 };

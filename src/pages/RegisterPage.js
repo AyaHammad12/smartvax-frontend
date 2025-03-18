@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/AuthPage.css"; // تأكد من أن المسار صحيح
-import registerImage from "../img/image.png"; // استيراد الصورة
+import registerImage from "../img/logo.png"; // استيراد الصورة
 import "font-awesome/css/font-awesome.min.css"; // استيراد Font Awesome
 
 const RegisterPage = () => {
@@ -69,7 +69,7 @@ const RegisterPage = () => {
                 type="text"
                 value={formData.id}
                 onChange={handleChange}
-                placeholder="ID"
+                placeholder="Childe ID"
                 required
               />
             </div>
