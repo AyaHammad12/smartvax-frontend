@@ -1,0 +1,44 @@
+.scheduled-vaccinations-container {
+  max-width: 700px;
+  margin: auto;
+  padding: 20px;
+  text-align: center;
+}
+
+.vaccination-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.vaccination-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  text-align: left;
+  min-height: 80px; /* ✅ تجنب البطاقات الفارغة */
+  visibility: visible; /* ✅ تأكد من أن العناصر مرئية */
+  display: block; /* ✅ ضمان ظهور العناصر */
+}
+
+.vaccination-card h3,
+.vaccination-card p {
+  color: #333;
+}
+
+.vaccination-card.upcoming {
+  border-left: 5px solid blue;
+}
+
+.vaccination-card.completed {
+  border-left: 5px solid green;
+}
+
+.vaccination-card.missed {
+  border-left: 5px solid red;
+}
+
+.vaccination-card.in-progress {
+  border-left: 5px solid rgba(255, 166, 0, 0.841);
+}

@@ -5,7 +5,7 @@ import { FaBell } from "react-icons/fa";
 import React, { useEffect, useState } from "react";
 
 // const HealthWorkerDashboard = () => {
-//   return (
+//da return (
 //     <div className="dashboard-container">
 //       <h2>Health Worker Dashboard</h2>
 //       <ul>
@@ -58,7 +58,7 @@ const HealthWorkerDashboard = () => {
         <p>Vaccination: 23th January</p>
       </div>
       <br />
-      <Calendar />
+      <Calendar role={role} /> {/* تمرير role هنا */}
     </div>
   );
 };

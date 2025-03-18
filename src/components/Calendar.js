@@ -36,6 +36,8 @@ const Calendar = ({ role }) => {
     }
 
     for (let i = 1; i <= daysInMonth; i++) {
+      const month = String(currentMonth + 1).padStart(2, "0"); // الشهر بصيغة رقمية من 01-12
+      const year = currentYear; // السنة الحالية
       const dateKey = `${currentYear}-${String(currentMonth + 1).padStart(
         2,
         "0"
@@ -48,8 +50,8 @@ const Calendar = ({ role }) => {
           <DayCell
             key={i}
             day={i}
-            // month={}
-            // year={}
+            month={month} // 🔹 تمرير الشهر هنا
+            year={year}
             status={dayData?.status || "default"}
             vaccineName={dayData?.vaccineName}
             role="parent"
@@ -61,6 +63,8 @@ const Calendar = ({ role }) => {
           <DayCell
             key={i}
             day={i}
+            month={month} // 🔹 تمرير الشهر هنا
+            year={year}
             status="default" // لا حاجة لحالة التطعيم أو اسم التطعيم هنا
             role="health worker"
           />
