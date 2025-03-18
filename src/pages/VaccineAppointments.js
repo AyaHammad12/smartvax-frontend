@@ -5,46 +5,46 @@ import "../styles/ParentAppointments.css";
 const VaccineAppointments = () => {
   const location = useLocation();
   const queryParams = new URLSearchParams(location.search);
-  const vaccineName = queryParams.get("vaccine") || "Unknown";
+  const vaccineName = queryParams.get("vaccine") || "غير معروف";
   const navigate = useNavigate();
 
   const [appointments, setAppointments] = useState([]);
 
   useEffect(() => {
-    if (vaccineName !== "Unknown") {
+    if (vaccineName !== "غير معروف") {
       // إضافة مواعيد افتراضية لهذا التطعيم
       setAppointments([
         {
           id: 1,
           vaccine: vaccineName,
           date: "2024-04-15",
-          status: "scheduled",
+          status: "مجدول",
           center: "",
         },
         {
           id: 2,
           vaccine: vaccineName,
           date: "2024-06-10",
-          status: "scheduled",
+          status: "مجدول",
           center: "",
         },
       ]);
     }
   }, [vaccineName]);
 
-  const availableCenters = ["Center A", "Center B", "Center C"];
+  const availableCenters = ["المركز أ", "المركز ب", "المركز ج"];
   const [selectedCenter, setSelectedCenter] = useState({});
 
   const handleConfirmWithCenter = (id) => {
     if (!selectedCenter[id]) {
-      alert("Please select a vaccination center.");
+      alert("يرجى اختيار مركز تطعيم.");
       return;
     }
 
     setAppointments(
       appointments.map((appt) =>
         appt.id === id
-          ? { ...appt, status: "confirmed", center: selectedCenter[id] }
+          ? { ...appt, status: "مؤكد", center: selectedCenter[id] }
           : appt
       )
     );
@@ -52,21 +52,21 @@ const VaccineAppointments = () => {
 
   return (
     <div className="appointments-container">
-      <h1>Appointments for {vaccineName}</h1>
+      <h1>المواعيد الخاصة بـ {vaccineName}</h1>
       <div className="appointments-grid">
         {appointments.map((appt) => (
           <div key={appt.id} className={`appointment-card scheduled-card`}>
             <h3>{appt.vaccine}</h3>
             <p>
-              <strong>Date:</strong> {appt.date}
+              <strong>التاريخ:</strong> {appt.date}
             </p>
             <p>
-              <strong>Center:</strong> {appt.center || "Not selected"}
+              <strong>المركز:</strong> {appt.center || "لم يتم تحديده"}
             </p>
             <p>
-              <strong>Status:</strong> {appt.status}
+              <strong>الحالة:</strong> {appt.status}
             </p>
-            {appt.status === "scheduled" && (
+            {appt.status === "مجدول" && (
               <>
                 <select
                   value={selectedCenter[appt.id] || ""}
@@ -77,7 +77,7 @@ const VaccineAppointments = () => {
                     })
                   }
                 >
-                  <option value="">Select a center</option>
+                  <option value="">اختر مركزًا</option>
                   {availableCenters.map((center, index) => (
                     <option key={index} value={center}>
                       {center}
@@ -88,7 +88,7 @@ const VaccineAppointments = () => {
                   onClick={() => handleConfirmWithCenter(appt.id)}
                   className="confirm-btn"
                 >
-                  Confirm Appointment
+                  تأكيد الموعد
                 </button>
               </>
             )}

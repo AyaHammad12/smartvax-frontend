@@ -3,61 +3,61 @@ import "../styles/HelpPage.css"; // تأكد من وجود ملف CSS مناسب
 
 const HelpPage = () => {
   return (
-    <div className="help-container">
-      <h2>Help & Support</h2>
-      <p>Find answers to common questions and learn how to use SmartVax.</p>
+    <div className="help-container" dir="rtl">
+      <h2>المساعدة والدعم</h2>
+      <p>
+        ابحث عن إجابات للأسئلة الشائعة وتعرف على كيفية استخدام تطبيق SmartVax.
+      </p>
 
       <div className="faq-section">
-        <h3>Frequently Asked Questions (FAQs)</h3>
+        <h3>الأسئلة الشائعة (FAQs)</h3>
         <details>
-          <summary>How do I book a vaccination appointment?</summary>
+          <summary>كيف يمكنني حجز موعد تطعيم؟</summary>
           <p>
-            To book an appointment, go to the "Parent Appointment" page, select
-            the desired date and vaccination, and confirm your booking.
+            لحجز موعد، انتقل إلى صفحة "مواعيد الوالدين"، اختر التاريخ المناسب
+            والتطعيم المطلوب، ثم قم بتأكيد الحجز.
           </p>
         </details>
 
         <details>
-          <summary>How can I search for a specific vaccination?</summary>
+          <summary>كيف يمكنني البحث عن تطعيم معين؟</summary>
           <p>
-            Use the "Search Vax" feature in the navigation menu to find detailed
-            information about any vaccine.
+            استخدم خاصية "البحث عن لقاح" في القائمة للعثور على معلومات مفصلة عن
+            أي لقاح.
           </p>
         </details>
 
         <details>
-          <summary>How do I update my account details?</summary>
+          <summary>كيف يمكنني تحديث بيانات حسابي؟</summary>
           <p>
-            Navigate to the "Account" page where you can update your email,
-            phone number, and address. Username and role cannot be changed.
+            انتقل إلى صفحة "الحساب" حيث يمكنك تحديث البريد الإلكتروني، رقم
+            الهاتف، والعنوان. اسم المستخدم والدور لا يمكن تغييره.
           </p>
         </details>
 
         <details>
-          <summary>
-            What should I do if I missed a scheduled vaccination?
-          </summary>
+          <summary>ماذا أفعل إذا فاتني موعد التطعيم؟</summary>
           <p>
-            If you missed a vaccination, go to the "Scheduled Vax" page and
-            check the missed status. Contact your healthcare provider for
-            rescheduling.
+            إذا فاتك التطعيم، انتقل إلى صفحة "التطعيمات المجدولة" وتحقق من
+            حالته. تواصل مع مزود الرعاية الصحية لإعادة الجدولة.
           </p>
         </details>
 
         <details>
-          <summary>How can I contact support?</summary>
+          <summary>كيف يمكنني التواصل مع الدعم؟</summary>
           <p>
-            You can reach our support team via email at support@smartvax.com or
-            call our helpline at +123456789.
+            يمكنك التواصل مع فريق الدعم عبر البريد الإلكتروني
+            support@smartvax.com أو الاتصال على الرقم +123456789.
           </p>
         </details>
       </div>
 
-      <h3>Need More Help?</h3>
+      <h3>هل تحتاج إلى مزيد من المساعدة؟</h3>
       <p>
-        If you need further assistance, feel free to contact our support team.
+        إذا كنت بحاجة إلى مساعدة إضافية، لا تتردد في التواصل مع فريق الدعم
+        لدينا.
       </p>
-      <button className="contact-btn">Contact Support</button>
+      <button className="contact-btn">الاتصال بالدعم</button>
     </div>
   );
 };

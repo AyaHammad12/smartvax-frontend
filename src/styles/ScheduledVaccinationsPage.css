@@ -3,6 +3,7 @@
   margin: auto;
   padding: 20px;
   text-align: center;
+  direction: rtl;
 }
 
 .vaccination-list {
@@ -12,11 +13,12 @@
 }
 
 .vaccination-card {
+  text-align: right;
   background: #fff;
   padding: 15px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  text-align: left;
+  text-align: right;
   min-height: 80px; /* ✅ تجنب البطاقات الفارغة */
   visibility: visible; /* ✅ تأكد من أن العناصر مرئية */
   display: block; /* ✅ ضمان ظهور العناصر */
@@ -25,20 +27,22 @@
 .vaccination-card h3,
 .vaccination-card p {
   color: #333;
+  direction: rtl;
+  text-align: right;
 }
 
 .vaccination-card.upcoming {
-  border-left: 5px solid blue;
+  border-right: 5px solid blue;
 }
 
 .vaccination-card.completed {
-  border-left: 5px solid green;
+  border-right: 5px solid green;
 }
 
 .vaccination-card.missed {
-  border-left: 5px solid red;
+  border-right: 5px solid red;
 }
 
 .vaccination-card.in-progress {
-  border-left: 5px solid rgba(255, 166, 0, 0.841);
+  border-right: 5px solid rgba(255, 166, 0, 0.841);
 }

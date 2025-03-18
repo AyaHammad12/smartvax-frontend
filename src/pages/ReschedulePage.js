@@ -9,7 +9,7 @@ const ReschedulePage = ({ appointments, setAppointments }) => {
 
   const handleReschedule = () => {
     if (!reason) {
-      alert("Please provide a reason for rescheduling.");
+      alert("يرجى إدخال سبب إعادة الجدولة.");
       return;
     }
 
@@ -18,14 +18,14 @@ const ReschedulePage = ({ appointments, setAppointments }) => {
       .toISOString()
       .split("T")[0];
 
-    alert(`The appointment has been rescheduled to: ${newDate}`);
+    alert(`تمت إعادة جدولة الموعد إلى: ${newDate}`);
 
     setAppointments(
       appointments.map((appt) =>
         appt.id === Number(appointmentId)
           ? {
               ...appt,
-              status: "rescheduled",
+              status: "معاد جدولته",
               date: newDate,
               rescheduleReason: reason,
             }
@@ -37,16 +37,16 @@ const ReschedulePage = ({ appointments, setAppointments }) => {
   };
 
   return (
-    <div className="reschedule-container">
-      <h1>Reschedule Appointment</h1>
-      <p>Please enter the reason for rescheduling:</p>
+    <div className="reschedule-container" dir="rtl">
+      <h1>إعادة جدولة الموعد</h1>
+      <p>يرجى إدخال سبب إعادة الجدولة:</p>
       <textarea
         value={reason}
         onChange={(e) => setReason(e.target.value)}
-        placeholder="Enter reason..."
+        placeholder="أدخل السبب..."
       />
       <button onClick={handleReschedule} className="reschedule-btn">
-        Reschedule
+        إعادة الجدولة
       </button>
     </div>
   );

@@ -6,7 +6,7 @@ const LogoutPage = () => {
 
   useEffect(() => {
     const storedRole = localStorage.getItem("role");
-    console.log("the output of rule in logout is : ", storedRole);
+    console.log("الدور المخزن قبل تسجيل الخروج: ", storedRole);
 
     // إزالة بيانات المستخدم عند تحميل الصفحة
     localStorage.removeItem("role");
@@ -18,8 +18,8 @@ const LogoutPage = () => {
   }, [navigate]);
 
   return (
-    <div className="logout-container">
-      <h2>Logging out...</h2>
+    <div className="logout-container"  dir="rtl">
+      <h2>جارٍ تسجيل الخروج...</h2>
     </div>
   );
 };

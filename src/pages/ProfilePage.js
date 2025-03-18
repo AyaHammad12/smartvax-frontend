@@ -4,24 +4,15 @@ import "../styles/ProfilePage.css"; // تأكد من وجود ملف CSS للت�
 const ProfilePage = () => {
   // بيانات الطفل الأساسية (لا يمكن تعديل الاسم، رقم الهوية، تاريخ الميلاد، والجنس)
   const [childProfile, setChildProfile] = useState({
-    name: "Ali Ahmed",
+    name: "علي أحمد",
     id: "CHD123456",
     dob: "2020-05-15",
-    gender: "Male",
-    weight: "12 kg",
-    height: "90 cm",
-    parentName: "Ahmed Hassan",
+    gender: "ذكر",
+    weight: "12 كجم",
+    height: "90 سم",
+    parentName: "أحمد حسن",
     phone: "+123456789",
-    address: "123 Main St, City",
-  });
-
-  // بيانات السجل الصحي (قابلة للتعديل)
-  const [healthRecord, setHealthRecord] = useState({
-    sensitivity_to_anything: "None",
-    diabetes: "No",
-    high_blood_pressure: "No",
-    genetic_diseases: "None",
-    blood_type: "O+",
+    address: "123 شارع رئيسي، المدينة",
   });
 
   // تحديث الحقول القابلة للتعديل
@@ -29,35 +20,30 @@ const ProfilePage = () => {
     setChildProfile({ ...childProfile, [e.target.name]: e.target.value });
   };
 
-  const handleHealthRecordChange = (e) => {
-    setHealthRecord({ ...healthRecord, [e.target.name]: e.target.value });
-  };
-
-  // حفظ التعديلات (يمكن ربطه بـ API لاحقًا)
+  // حفظ التعديلات
   const handleSaveChanges = () => {
-    alert("Profile updated successfully!");
-    console.log("Updated Profile:", childProfile);
-    console.log("Updated Health Record:", healthRecord);
+    alert("تم تحديث الملف الشخصي بنجاح!");
+    console.log("الملف الشخصي المحدث:", childProfile);
   };
 
   return (
-    <div className="profile-container">
-      <h2>Child Profile</h2>
+    <div className="profile-container" dir="rtl">
+      <h2>الملف الشخصي للطفل</h2>
       <div className="profile-card">
         <p>
-          <strong>Child Name:</strong> {childProfile.name}
+          <strong>اسم الطفل:</strong> {childProfile.name}
         </p>
         <p>
-          <strong>Child ID:</strong> {childProfile.id}
+          <strong>رقم الهوية:</strong> {childProfile.id}
         </p>
         <p>
-          <strong>Date of Birth:</strong> {childProfile.dob}
+          <strong>تاريخ الميلاد:</strong> {childProfile.dob}
         </p>
         <p>
-          <strong>Gender:</strong> {childProfile.gender}
+          <strong>الجنس:</strong> {childProfile.gender}
         </p>
 
-        <label>Weight (kg):</label>
+        <label>الوزن (كجم):</label>
         <input
           type="text"
           name="weight"
@@ -65,7 +51,7 @@ const ProfilePage = () => {
           onChange={handleProfileChange}
         />
 
-        <label>Height (cm):</label>
+        <label>الطول (سم):</label>
         <input
           type="text"
           name="height"
@@ -73,7 +59,7 @@ const ProfilePage = () => {
           onChange={handleProfileChange}
         />
 
-        <label>Parent Name:</label>
+        <label>اسم ولي الأمر:</label>
         <input
           type="text"
           name="parentName"
@@ -81,7 +67,7 @@ const ProfilePage = () => {
           onChange={handleProfileChange}
         />
 
-        <label>Phone:</label>
+        <label>رقم الهاتف:</label>
         <input
           type="text"
           name="phone"
@@ -89,7 +75,7 @@ const ProfilePage = () => {
           onChange={handleProfileChange}
         />
 
-        <label>Address:</label>
+        <label>العنوان:</label>
         <input
           type="text"
           name="address"
@@ -98,63 +84,8 @@ const ProfilePage = () => {
         />
       </div>
 
-      <h2>Health Record</h2>
-      <div className="profile-card">
-        <label>Sensitivity to Anything:</label>
-        <input
-          type="text"
-          name="sensitivity_to_anything"
-          value={healthRecord.sensitivity_to_anything}
-          onChange={handleHealthRecordChange}
-        />
-
-        <label>Diabetes:</label>
-        <select
-          name="diabetes"
-          value={healthRecord.diabetes}
-          onChange={handleHealthRecordChange}
-        >
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
-
-        <label>High Blood Pressure:</label>
-        <select
-          name="high_blood_pressure"
-          value={healthRecord.high_blood_pressure}
-          onChange={handleHealthRecordChange}
-        >
-          <option value="Yes">Yes</option>
-          <option value="No">No</option>
-        </select>
-
-        <label>Genetic Diseases:</label>
-        <input
-          type="text"
-          name="genetic_diseases"
-          value={healthRecord.genetic_diseases}
-          onChange={handleHealthRecordChange}
-        />
-
-        <label>Blood Type:</label>
-        <select
-          name="blood_type"
-          value={healthRecord.blood_type}
-          onChange={handleHealthRecordChange}
-        >
-          <option value="O+">O+</option>
-          <option value="O-">O-</option>
-          <option value="A+">A+</option>
-          <option value="A-">A-</option>
-          <option value="B+">B+</option>
-          <option value="B-">B-</option>
-          <option value="AB+">AB+</option>
-          <option value="AB-">AB-</option>
-        </select>
-      </div>
-
       <button className="save-btn" onClick={handleSaveChanges}>
-        Save Changes
+        حفظ التعديلات
       </button>
     </div>
   );

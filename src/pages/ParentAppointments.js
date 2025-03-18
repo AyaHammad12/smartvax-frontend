@@ -8,7 +8,7 @@ const ParentAppointments = ({ appointments, setAppointments }) => {
   const [selectedCenter, setSelectedCenter] = useState({});
   const [selectedAppointment, setSelectedAppointment] = useState(null);
 
-  const availableCenters = ["Center A", "Center B", "Center C"];
+  const availableCenters = ["المركز أ", "المركز ب", "المركز ج"];
 
   const confirmAppointment = (id) => {
     setSelectedAppointment(id); // تحديد الموعد المطلوب تأكيده
@@ -16,14 +16,14 @@ const ParentAppointments = ({ appointments, setAppointments }) => {
 
   const handleConfirmWithCenter = (id) => {
     if (!selectedCenter[id]) {
-      alert("Please select a vaccination center.");
+      alert("يرجى اختيار مركز تطعيم.");
       return;
     }
 
     setAppointments(
       appointments.map((appt) =>
         appt.id === id
-          ? { ...appt, status: "confirmed", center: selectedCenter[id] }
+          ? { ...appt, status: "مؤكد", center: selectedCenter[id] }
           : appt
       )
     );
@@ -33,11 +33,11 @@ const ParentAppointments = ({ appointments, setAppointments }) => {
 
   const getStatusClass = (status) => {
     switch (status) {
-      case "scheduled":
+      case "مجدول":
         return "scheduled-card";
-      case "confirmed":
+      case "مؤكد":
         return "confirmed-card";
-      case "rescheduled":
+      case "معاد جدولته":
         return "rescheduled-card";
       default:
         return "";
@@ -46,7 +46,7 @@ const ParentAppointments = ({ appointments, setAppointments }) => {
 
   return (
     <div className="appointments-container">
-      <h1>Upcoming Appointments</h1>
+      <h1>المواعيد القادمة</h1>
       <div className="appointments-grid">
         {appointments.map((appt) => (
           <div
@@ -57,15 +57,15 @@ const ParentAppointments = ({ appointments, setAppointments }) => {
               <Link to={`/vaccine-info/${appt.vaccine}`}>{appt.vaccine}</Link>
             </h3>
             <p>
-              <strong>Date:</strong> {appt.date}
+              <strong>التاريخ:</strong> {appt.date}
             </p>
             <p>
-              <strong>Center:</strong> {appt.center || "Not selected"}
+              <strong>المركز:</strong> {appt.center || "لم يتم تحديده"}
             </p>
             <p>
-              <strong>Status:</strong> {appt.status}
+              <strong>الحالة:</strong> {appt.status}
             </p>
-            {appt.status === "scheduled" && (
+            {appt.status === "مجدول" && (
               <>
                 {selectedAppointment === appt.id ? (
                   <div className="dropdown-container">
@@ -78,7 +78,7 @@ const ParentAppointments = ({ appointments, setAppointments }) => {
                         })
                       }
                     >
-                      <option value="">Select a center</option>
+                      <option value="">اختر مركزًا</option>
                       {availableCenters.map((center, index) => (
                         <option key={index} value={center}>
                           {center}
@@ -89,13 +89,13 @@ const ParentAppointments = ({ appointments, setAppointments }) => {
                       onClick={() => handleConfirmWithCenter(appt.id)}
                       className="confirm-btn"
                     >
-                      Confirm Appointment
+                      تأكيد الموعد
                     </button>
                     <button
                       onClick={() => setSelectedAppointment(null)}
                       className="cancel-btn"
                     >
-                      Cancel
+                      إلغاء
                     </button>
                   </div>
                 ) : (
@@ -103,27 +103,27 @@ const ParentAppointments = ({ appointments, setAppointments }) => {
                     onClick={() => confirmAppointment(appt.id)}
                     className="confirm-btn"
                   >
-                    Confirm
+                    تأكيد
                   </button>
                 )}
                 <button
                   onClick={() => navigate(`/reschedule/${appt.id}`)}
                   className="reschedule-btn"
                 >
-                  Reschedule
+                  إعادة الجدولة
                 </button>
               </>
             )}
-            {appt.status === "rescheduled" && (
+            {appt.status === "معاد جدولته" && (
               <>
                 <p>
-                  <strong>Reason:</strong> {appt.rescheduleReason}
+                  <strong>السبب:</strong> {appt.rescheduleReason}
                 </p>
                 <button
                   onClick={() => confirmAppointment(appt.id)}
                   className="confirm-btn"
                 >
-                  Reconfirm
+                  إعادة التأكيد
                 </button>
               </>
             )}

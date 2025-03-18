@@ -7,34 +7,34 @@ const mockAppointments = [
   {
     id: 1,
     childID: "CHD123456",
-    childName: "Ali Ahmed",
-    vaccine: "Polio",
+    childName: "علي أحمد",
+    vaccine: "شلل الأطفال",
     date: "2025-04-15",
-    status: "Pending",
+    status: "قيد الانتظار",
   },
   {
     id: 2,
     childID: "CHD654321",
-    childName: "Sara Mohammed",
-    vaccine: "MMR",
+    childName: "سارة محمد",
+    vaccine: "الحصبة والنكاف والحصبة الألمانية",
     date: "2025-06-10",
-    status: "Pending",
+    status: "قيد الانتظار",
   },
   {
     id: 3,
     childID: "CHD987654",
-    childName: "Omar Khalid",
-    vaccine: "Hepatitis B",
+    childName: "عمر خالد",
+    vaccine: "التهاب الكبد B",
     date: "2025-05-20",
-    status: "Accepted",
+    status: "مقبول",
   },
   {
     id: 4,
     childID: "CHD567890",
-    childName: "Maya Noor",
-    vaccine: "DTP",
+    childName: "مايا نور",
+    vaccine: "الدفتيريا والتيتانوس والسعال الديكي",
     date: "2025-05-05",
-    status: "Rejected",
+    status: "مرفوض",
   },
 ];
 
@@ -44,8 +44,8 @@ const ManegmentRequestsAppointment = () => {
   const initialDate = queryParams.get("date") || "";
 
   const [appointments, setAppointments] = useState(mockAppointments);
-  const [filterStatus, setFilterStatus] = useState("All");
-  const [filterVaccine, setFilterVaccine] = useState("All");
+  const [filterStatus, setFilterStatus] = useState("الكل");
+  const [filterVaccine, setFilterVaccine] = useState("الكل");
   const [filterDate, setFilterDate] = useState(initialDate);
   const [filterChildID, setFilterChildID] = useState("");
 
@@ -68,9 +68,9 @@ const ManegmentRequestsAppointment = () => {
   // تصفية الطلبات بناءً على الفلاتر المختارة
   const filteredAppointments = appointments.filter((appointment) => {
     const statusMatch =
-      filterStatus === "All" || appointment.status === filterStatus;
+      filterStatus === "الكل" || appointment.status === filterStatus;
     const vaccineMatch =
-      filterVaccine === "All" || appointment.vaccine === filterVaccine;
+      filterVaccine === "الكل" || appointment.vaccine === filterVaccine;
     const dateMatch = !filterDate || appointment.date === filterDate;
     const childIDMatch =
       !filterChildID || appointment.childID.includes(filterChildID);
@@ -79,45 +79,49 @@ const ManegmentRequestsAppointment = () => {
   });
 
   return (
-    <div className="appointments-container">
-      <h2>Manage Appointment Requests</h2>
+    <div className="appointments-container" dir="rtl">
+      <h2>إدارة طلبات المواعيد</h2>
 
       {/* الفلاتر */}
       <div className="filter-container">
-        <label>Filter by Status:</label>
+        <label>تصفية حسب الحالة:</label>
         <select
           value={filterStatus}
           onChange={(e) => setFilterStatus(e.target.value)}
         >
-          <option value="All">All</option>
-          <option value="Pending">Pending</option>
-          <option value="Accepted">Accepted</option>
-          <option value="Rejected">Rejected</option>
+          <option value="الكل">الكل</option>
+          <option value="قيد الانتظار">قيد الانتظار</option>
+          <option value="مقبول">مقبول</option>
+          <option value="مرفوض">مرفوض</option>
         </select>
 
-        <label>Filter by Vaccine:</label>
+        <label>تصفية حسب اللقاح:</label>
         <select
           value={filterVaccine}
           onChange={(e) => setFilterVaccine(e.target.value)}
         >
-          <option value="All">All</option>
-          <option value="Polio">Polio</option>
-          <option value="MMR">MMR</option>
-          <option value="Hepatitis B">Hepatitis B</option>
-          <option value="DTP">DTP</option>
+          <option value="الكل">الكل</option>
+          <option value="شلل الأطفال">شلل الأطفال</option>
+          <option value="الحصبة والنكاف والحصبة الألمانية">
+            الحصبة والنكاف والحصبة الألمانية
+          </option>
+          <option value="التهاب الكبد B">التهاب الكبد B</option>
+          <option value="الدفتيريا والتيتانوس والسعال الديكي">
+            الدفتيريا والتيتانوس والسعال الديكي
+          </option>
         </select>
 
-        <label>Filter by Date:</label>
+        <label>تصفية حسب التاريخ:</label>
         <input
           type="date"
           value={filterDate}
           onChange={(e) => setFilterDate(e.target.value)}
         />
 
-        <label>Filter by Child ID:</label>
+        <label>تصفية حسب رقم هوية الطفل:</label>
         <input
           type="text"
-          placeholder="Enter Child ID..."
+          placeholder="أدخل رقم هوية الطفل..."
           value={filterChildID}
           onChange={(e) => setFilterChildID(e.target.value)}
         />
@@ -126,7 +130,7 @@ const ManegmentRequestsAppointment = () => {
       {/* قائمة الطلبات */}
       <div className="appointments-list">
         {filteredAppointments.length === 0 ? (
-          <p className="no-appointments">No appointments available.</p>
+          <p className="no-appointments">لا توجد مواعيد متاحة.</p>
         ) : (
           filteredAppointments.map((appointment) => (
             <div
@@ -135,36 +139,36 @@ const ManegmentRequestsAppointment = () => {
             >
               <h3>{appointment.childName}</h3>
               <p>
-                <strong>Child ID:</strong> {appointment.childID}
+                <strong>رقم هوية الطفل:</strong> {appointment.childID}
               </p>
               <p>
-                <strong>Vaccine:</strong> {appointment.vaccine}
+                <strong>اللقاح:</strong> {appointment.vaccine}
               </p>
               <p>
-                <strong>Date:</strong> {appointment.date}
+                <strong>التاريخ:</strong> {appointment.date}
               </p>
               <p>
-                <strong>Status:</strong>{" "}
+                <strong>الحالة:</strong>{" "}
                 <span className="status">{appointment.status}</span>
               </p>
 
-              {appointment.status === "Pending" && (
+              {appointment.status === "قيد الانتظار" && (
                 <div className="action-buttons">
                   <button
                     className="accept-btn"
                     onClick={() =>
-                      updateAppointmentStatus(appointment.id, "Accepted")
+                      updateAppointmentStatus(appointment.id, "مقبول")
                     }
                   >
-                    Accept
+                    قبول
                   </button>
                   <button
                     className="reject-btn"
                     onClick={() =>
-                      updateAppointmentStatus(appointment.id, "Rejected")
+                      updateAppointmentStatus(appointment.id, "مرفوض")
                     }
                   >
-                    Reject
+                    رفض
                   </button>
                 </div>
               )}

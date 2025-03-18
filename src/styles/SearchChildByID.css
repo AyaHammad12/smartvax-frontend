@@ -3,6 +3,7 @@
   margin: auto;
   padding: 20px;
   text-align: center;
+  direction: rtl;
 }
 
 .search-input {
@@ -38,7 +39,7 @@
   padding: 20px;
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  text-align: left;
+  text-align: right;
   margin-top: 20px;
 }
 
@@ -53,7 +54,7 @@
   padding: 10px;
   border-radius: 8px;
   margin-bottom: 10px;
-  text-align: left;
+  text-align: right;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
 }
 

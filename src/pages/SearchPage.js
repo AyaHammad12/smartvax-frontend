@@ -1,37 +1,37 @@
 import React, { useState } from "react";
 import "../styles/SearchPage.css"; // تأكد من أن ملف الـ CSS موجود ومهيأ
 
-// بيانات تطعيمات تجريبية (يمكن استبدالها ببيانات حقيقية من API)
+// بيانات تجريبية للتطعيمات (يمكن استبدالها ببيانات حقيقية من API)
 const mockVaccines = [
   {
     id: 1,
-    name: "Polio",
-    age: "2 months",
-    description: "Polio vaccine for infants",
+    name: "شلل الأطفال",
+    age: "عمر شهرين",
+    description: "لقاح شلل الأطفال للرضع",
   },
   {
     id: 2,
-    name: "MMR",
-    age: "12 months",
-    description: "Measles, Mumps, and Rubella vaccine",
+    name: "الحصبة والنكاف والحصبة الألمانية",
+    age: "عمر 12 شهرًا",
+    description: "لقاح الحصبة، النكاف، والحصبة الألمانية",
   },
   {
     id: 3,
-    name: "Hepatitis B",
-    age: "At birth",
-    description: "Protects against Hepatitis B",
+    name: "التهاب الكبد B",
+    age: "عند الولادة",
+    description: "يحمي من التهاب الكبد B",
   },
   {
     id: 4,
-    name: "DTP",
-    age: "6 weeks",
-    description: "Diphtheria, Tetanus, and Pertussis vaccine",
+    name: "الدفتيريا والتيتانوس والسعال الديكي",
+    age: "عمر 6 أسابيع",
+    description: "لقاح ضد الدفتيريا والتيتانوس والسعال الديكي",
   },
   {
     id: 5,
-    name: "Rotavirus",
-    age: "2 months",
-    description: "Protects against Rotavirus infection",
+    name: "فيروس الروتا",
+    age: "عمر شهرين",
+    description: "يحمي من فيروس الروتا",
   },
 ];
 
@@ -41,7 +41,7 @@ const SearchPage = () => {
 
   // دالة البحث عن التطعيمات
   const handleSearch = (event) => {
-    const query = event.target.value.toLowerCase(); // تحويل البحث لحروف صغيرة لتجنب الحساسية للحروف الكبيرة والصغيرة
+    const query = event.target.value.toLowerCase(); // تحويل البحث لحروف صغيرة لتجنب الحساسية لحالة الأحرف
     setSearchQuery(query);
 
     if (query.trim() === "") {
@@ -56,10 +56,10 @@ const SearchPage = () => {
 
   return (
     <div className="search-container">
-      <h2>Search for a Vaccine</h2>
+      <h2>البحث عن لقاح</h2>
       <input
         type="text"
-        placeholder="Enter vaccine name..."
+        placeholder="أدخل اسم اللقاح..."
         value={searchQuery}
         onChange={handleSearch}
         className="search-input"
@@ -71,13 +71,15 @@ const SearchPage = () => {
             <div key={vaccine.id} className="vaccine-card">
               <h3>{vaccine.name}</h3>
               <p>
-                <strong>Recommended Age:</strong> {vaccine.age}
+                <strong>العمر الموصى به:</strong> {vaccine.age}
               </p>
               <p>{vaccine.description}</p>
             </div>
           ))
         ) : (
-          <p className="no-results">No vaccines found for "{searchQuery}"</p>
+          <p className="no-results">
+            لم يتم العثور على لقاحات باسم "{searchQuery}"
+          </p>
         )}
       </div>
     </div>

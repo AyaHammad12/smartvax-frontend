@@ -36,3 +36,37 @@
     transform: rotate(360deg);
   }
 }
+
+/* ✅ تحسين تخطيط المحتوى */
+.app-container {
+  display: flex;
+  flex-direction: row-reverse;
+  width: 100%;
+}
+
+/* ✅ تحديث المساحة بناءً على اتجاه الشريط الجانبي */
+.main-content {
+  margin-right: 60px;
+  transition: margin-right 0.3s ease-in-out;
+}
+
+.sidebar.open + .main-content {
+  margin-right: 200px;
+}
+
+/* ✅ تحسين التخطيط للأجهزة الصغيرة */
+@media screen and (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+  }
+
+  .main-content {
+    width: 100%;
+    margin-right: 0;
+  }
+}

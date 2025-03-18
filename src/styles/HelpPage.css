@@ -3,6 +3,7 @@
   margin: auto;
   padding: 20px;
   text-align: center;
+  direction: rtl;
 }
 
 .help-container h2 {
@@ -11,7 +12,7 @@
 
 .faq-section {
   margin-top: 20px;
-  text-align: left;
+  text-align: right;
 }
 
 .faq-section details {

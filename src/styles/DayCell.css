@@ -10,6 +10,8 @@
   position: relative;
   background: #f9f9f9; /* القيمة الافتراضية */
   transition: background-color 0.3s ease; /* تأثير الانتقال */
+  text-align: center;
+  direction: rtl;
 }
 
 .day-number {

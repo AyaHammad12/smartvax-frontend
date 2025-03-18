@@ -1,7 +1,11 @@
 import React from "react";
 
 const ReminderPage = () => {
-  return <div>Reminder Page Content</div>;
+  return (
+    <div className="reminder-container" dir="rtl">
+      صفحة التذكيرات
+    </div>
+  );
 };
 
 export default ReminderPage;
