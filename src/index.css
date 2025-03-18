@@ -9,6 +9,8 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  direction: rtl; /* تأكيد الاتجاه من اليمين لليسار */
+  text-align: right;
 }
 
 code {
@@ -16,24 +18,48 @@ code {
     monospace;
 }
 
+/* ✅ تحسين استجابة التخطيط */
+.app-container {
+  display: flex;
+  flex-direction: row-reverse; /* جعل الاتجاه من اليمين لليسار */
+  width: 100%;
+  height: 100vh;
+}
+
+/* ✅ تحديث المساحة الجانبية بناءً على حالة الشريط الجانبي */
 .main-content {
-  margin-left: 60px;
+  margin-right: 60px; /* المسافة عند تصغير الشريط */
   padding: 20px;
-  transition: margin-left 0.3s ease-in-out;
+  transition: margin-right 0.3s ease-in-out;
+  width: 70%; /* تأكيد أن المحتوى يأخذ 70% */
 }
 
 .sidebar.open + .main-content {
-  margin-left: 200px;
+  margin-right: 200px; /* تعديل المساحة عند فتح الشريط */
 }
 
-.app-container {
-  display: flex;
-}
-
+/* ✅ جعل الصفحة تعمل بدون هامش عند تسجيل الدخول */
 .no-margin .main-content {
-  margin-left: 0; /* إزالة المسافة عند الدخول لصفحات تسجيل الدخول */
+  margin-right: 0;
 }
 
-/* استيراد Navbar.css بعد جميع الأنماط الأخرى */
+/* ✅ تحسين استجابة الشاشات الصغيرة */
+@media screen and (max-width: 768px) {
+  .app-container {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+    height: auto;
+  }
+
+  .main-content {
+    width: 100%;
+    margin-right: 0;
+  }
+}
+
+/* استيراد الأنماط بعد جميع القواعد الأخرى */
 @import "./styles/Navbar.css";
 @import "./styles/VaccineInfoPage.css";

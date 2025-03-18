@@ -20,26 +20,26 @@ const ManagerNavbar = () => {
   const managerLinks = [
     {
       path: "/dashboard/manager",
-      title: "Manager Dashboard",
-      label: "Dashboard",
+      title: "لوحة تحكم المدير",
+      label: "لوحة التحكم",
       icon: <FaHome className="icon" />,
     },
     {
       path: "/manage-workers",
-      title: "Manage Workers",
-      label: "Manage Workers",
+      title: "إدارة العاملين",
+      label: "إدارة العاملين",
       icon: <FaUserPlus className="icon" />,
     },
     {
       path: "/reports",
-      title: "Reports & Analytics",
-      label: "Reports",
+      title: "التقارير والإحصائيات",
+      label: "التقارير",
       icon: <FaChartBar className="icon" />,
     },
     {
       path: "/logout",
-      title: "Logout",
-      label: "Logout",
+      title: "تسجيل الخروج",
+      label: "تسجيل الخروج",
       icon: <FaSignOutAlt className="icon" />,
     },
   ];

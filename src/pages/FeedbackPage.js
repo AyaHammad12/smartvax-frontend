@@ -6,21 +6,22 @@ const FeedbackPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log("Submitted feedback:", feedback);
+    console.log("تم إرسال الملاحظات:", feedback);
     setFeedback("");
+    alert("تم إرسال ملاحظاتك بنجاح!");
   };
 
   return (
-    <div className="feedback-container">
-      <h2>Submit Your Feedback</h2>
+    <div className="feedback-container" dir="rtl">
+      <h2>إرسال ملاحظاتك</h2>
       <form onSubmit={handleSubmit} className="feedback-form">
         <textarea
-          placeholder="Write your feedback here..."
+          placeholder="اكتب ملاحظاتك هنا..."
           value={feedback}
           onChange={(e) => setFeedback(e.target.value)}
           required
         />
-        <button type="submit">Submit</button>
+        <button type="submit">إرسال</button>
       </form>
     </div>
   );

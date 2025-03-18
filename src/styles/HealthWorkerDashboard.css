@@ -2,6 +2,7 @@
   text-align: center;
   padding: 20px;
   background-color: #eef;
+  direction: rtl;
 }
 
 .dashboard-container ul {

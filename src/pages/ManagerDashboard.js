@@ -13,14 +13,14 @@ const ManagerDashboard = () => {
 
   return (
     <div className="dashboard-container">
-      <h1>Manager Dashboard</h1>
+      <h1>لوحة تحكم المدير</h1>
       <div className="dashboard-grid">
         <div
           className="dashboard-card"
           onClick={() => navigate("/manage-workers")}
         >
           <FaUsers className="dashboard-icon" />
-          <h3>Total Health Workers</h3>
+          <h3>إجمالي العاملين الصحيين</h3>
           <p>10</p>
         </div>
         <div
@@ -28,13 +28,13 @@ const ManagerDashboard = () => {
           onClick={() => navigate("/appointments")}
         >
           <FaCalendarCheck className="dashboard-icon" />
-          <h3>Appointments Scheduled</h3>
+          <h3>المواعيد المجدولة</h3>
           <p>200</p>
         </div>
         <div className="dashboard-card" onClick={() => navigate("/reports")}>
           <FaChartBar className="dashboard-icon" />
-          <h3>View Reports</h3>
-          <p>Click to see details</p>
+          <h3>عرض التقارير</h3>
+          <p>اضغط لرؤية التفاصيل</p>
         </div>
       </div>
     </div>

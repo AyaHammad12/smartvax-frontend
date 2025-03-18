@@ -7,7 +7,7 @@ import {
   useNavigate,
 } from "react-router-dom";
 
-import "./styles/Navbar.css"; /* تأكد أن المسار صحيح */
+import "./styles/Navbar.css"; /* تأكد من صحة المسار */
 import "./App.css";
 
 import LogoutPage from "./pages/LogoutPage";
@@ -24,7 +24,6 @@ import ReminderPage from "./pages/ReminderPage";
 import HelpPage from "./pages/HelpPage";
 import SearchPage from "./pages/SearchPage";
 import SearchChildByID from "./pages/SearchChildByID";
-
 import ManegmentRequestsAppointment from "./pages/ManegmentRequestsAppointment";
 import ManagerDashboard from "./pages/ManagerDashboard";
 import ManageWorkers from "./pages/ManageWorkers";
@@ -40,7 +39,7 @@ const AppContent = () => {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // قائمة بالمسارات التي لا يجب أن يظهر فيها الـ Navbar
+  // قائمة بالمسارات التي لا يجب أن يظهر فيها شريط التنقل
   const hideNavbarRoutes = ["/login", "/register", "/logout"];
 
   // حالة لتخزين الدور (role)
@@ -49,16 +48,16 @@ const AppContent = () => {
   const [appointments, setAppointments] = useState([
     {
       id: 1,
-      vaccine: "Polio",
+      vaccine: "شلل الأطفال",
       date: "2024-04-15",
-      status: "scheduled",
+      status: "مجدول",
       center: "",
     },
     {
       id: 2,
-      vaccine: "MMR",
+      vaccine: "الحصبة والنكاف والحصبة الألمانية",
       date: "2024-06-10",
-      status: "scheduled",
+      status: "مجدول",
       center: "",
     },
   ]);
@@ -86,7 +85,7 @@ const AppContent = () => {
     navigate("/login"); // إعادة التوجيه إلى صفحة تسجيل الدخول
   };
 
-  // التحقق مما إذا كان يجب عرض الـ Navbar أم لا
+  // التحقق مما إذا كان يجب عرض شريط التنقل أم لا
   const showNavbar = role && !hideNavbarRoutes.includes(location.pathname);
 
   return (
@@ -122,7 +121,6 @@ const AppContent = () => {
           <Route path="/help" element={<HelpPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/Search-Child-By-ID" element={<SearchChildByID />} />
-
           <Route
             path="/Manegment-Requests-Appointment"
             element={<ManegmentRequestsAppointment />}
@@ -148,18 +146,14 @@ const AppContent = () => {
               />
             }
           />
-
-          {/* <Route path="/appointments" element={<ParentAppointments />} /> */}
           <Route
             path="/vaccine-appointments"
             element={<VaccineAppointments />}
           />
-
           <Route
             path="/scheduled-vaccinations"
             element={<ScheduledVaccinationsPage />}
           />
-
           <Route path="/reviews/:vaccineName" element={<ReviewsPage />} />
         </Routes>
       </div>

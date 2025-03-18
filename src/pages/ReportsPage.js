@@ -3,34 +3,34 @@ import "../styles/ReportsPage.css";
 
 const ReportsPage = () => {
   return (
-    <div className="reports-container">
-      <h1>System Reports</h1>
+    <div className="reports-container" dir="rtl">
+      <h1>التقارير النظامية</h1>
       <table className="reports-table">
         <thead>
           <tr>
-            <th>Category</th>
-            <th>Count</th>
-            <th>Change (%)</th>
+            <th>الفئة</th>
+            <th>العدد</th>
+            <th>التغيير (%)</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Total Health Workers</td>
+            <td>إجمالي العاملين الصحيين</td>
             <td>10</td>
             <td>+5%</td>
           </tr>
           <tr>
-            <td>Total Appointments</td>
+            <td>إجمالي المواعيد</td>
             <td>200</td>
             <td>-2%</td>
           </tr>
           <tr>
-            <td>Cancelled Appointments</td>
+            <td>المواعيد الملغاة</td>
             <td>15</td>
             <td>+1%</td>
           </tr>
           <tr>
-            <td>Positive Feedback</td>
+            <td>التقييمات الإيجابية</td>
             <td>90%</td>
             <td>+3%</td>
           </tr>

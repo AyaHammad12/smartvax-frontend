@@ -12,14 +12,13 @@ import {
   FaChild,
   FaSignOutAlt,
   FaQuestionCircle,
-  FaHistory,
   FaComments,
 } from "react-icons/fa";
 import smartVaxLogo from "../../img/icon.png"; // تأكد من أن الصورة موجودة في المسار الصحيح
 import "../../styles/Navbar.css";
 import { MdMedicalInformation } from "react-icons/md";
 
-const Navbar = () => {
+const ParentNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   // دالة لتبديل حالة القائمة الجانبية
@@ -39,76 +38,74 @@ const Navbar = () => {
   const parentLinks = [
     {
       path: "/dashboard/parent",
-      title: "Parent Home",
-      label: "Home",
+      title: "الرئيسية",
+      label: "الرئيسية",
       icon: <FaHome className="icon" />,
     },
     {
       path: "/search",
-      title: "Search Vax",
-      label: "Search Vax",
+      title: "البحث عن لقاح",
+      label: "البحث عن لقاح",
       icon: <MdMedicalInformation className="icon" />,
     },
     {
       path: "/appointments",
-      title: "Parent Appointment",
-      label: "Parent Appointment",
+      title: "مواعيدي",
+      label: "مواعيدي",
       icon: <FaCalendarCheck className="icon" />,
     },
     {
-      path: "/scheduled-vaccinations", // ✅ إضافة رابط التطعيمات المجدولة
-      title: "Scheduled Vaccinations",
-      label: "Scheduled Vax",
-      // icon: <FaHistory className="icon" />,
+      path: "/scheduled-vaccinations",
+      title: "التطعيمات المجدولة",
+      label: "التطعيمات المجدولة",
       icon: <FaClipboardList className="icon" />,
     },
     {
       path: "/feedback",
-      title: "Feedback",
-      label: "Feedback",
-      // icon: <FaClipboardList  className="icon" />,
+      title: "التقييمات",
+      label: "التقييمات",
       icon: <FaComments className="icon" />,
     },
     {
       path: "/profile",
-      title: "Profile",
-      label: "Profile",
+      title: "الملف الشخصي",
+      label: "الملف الشخصي",
       icon: <FaChild className="icon" />,
     },
     {
       path: "/account",
-      title: "Account",
-      label: "Account",
+      title: "الحساب",
+      label: "الحساب",
       icon: <FaUser className="icon" />,
     },
     {
       path: "/reminder",
-      title: "Reminder",
-      label: "Reminder",
+      title: "التذكيرات",
+      label: "التذكيرات",
       icon: <FaBell className="icon" />,
     },
     {
       path: "/help",
-      title: "Help",
-      label: "Help",
+      title: "المساعدة",
+      label: "المساعدة",
       icon: <FaQuestionCircle className="icon" />,
     },
     {
       path: "/login",
-      title: "Login",
-      label: "Login",
+      title: "تسجيل الدخول",
+      label: "تسجيل الدخول",
       icon: <FaSignInAlt className="icon" />,
     },
     {
       path: "/logout",
-      title: "LogOut",
-      label: "Logout",
+      title: "تسجيل الخروج",
+      label: "تسجيل الخروج",
       icon: <FaSignOutAlt className="icon" />,
     },
     {
       path: "/register",
-      title: "Register",
-      label: "Register",
+      title: "إنشاء حساب",
+      label: "إنشاء حساب",
       icon: <FaUserPlus className="icon" />,
     },
   ];
@@ -132,4 +129,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default ParentNavbar;

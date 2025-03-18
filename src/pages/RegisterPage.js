@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../styles/AuthPage.css"; // تأكد من أن المسار صحيح
+import "../styles/AuthPage.css"; // تأكد من صحة المسار
 import registerImage from "../img/logo.png"; // استيراد الصورة
 import "font-awesome/css/font-awesome.min.css"; // استيراد Font Awesome
 
@@ -27,12 +27,12 @@ const RegisterPage = () => {
   const handleRegister = (e) => {
     e.preventDefault();
     if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
+      alert("كلمات المرور غير متطابقة!");
       return;
     }
 
     // عرض رسالة تأكيد قبل التوجيه
-    alert("Registration successful! Redirecting to Login Page...");
+    alert("تم التسجيل بنجاح! جارٍ إعادة التوجيه إلى صفحة تسجيل الدخول...");
 
     // إعادة توجيه المستخدم إلى صفحة تسجيل الدخول
     navigate("/login");
@@ -42,13 +42,13 @@ const RegisterPage = () => {
     <div className="auth-container">
       <div className="auth-card">
         <div className="auth-image">
-          <img src={registerImage} alt="Register" />
+          <img src={registerImage} alt="التسجيل" />
         </div>
         <div className="auth-form">
           <h1 className="bold">
-            Welcome to <span className="title">SmartVAX</span>
+            مرحبًا بك في <span className="title">SmartVAX</span>
           </h1>
-          <br></br>
+          <br />
           <form onSubmit={handleRegister}>
             <div className="input-group">
               <i className="fa fa-user input-icon"></i> {/* أيقونة المستخدم */}
@@ -57,7 +57,7 @@ const RegisterPage = () => {
                 type="text"
                 value={formData.username}
                 onChange={handleChange}
-                placeholder="Username"
+                placeholder="اسم المستخدم"
                 required
               />
             </div>
@@ -69,7 +69,7 @@ const RegisterPage = () => {
                 type="text"
                 value={formData.id}
                 onChange={handleChange}
-                placeholder="Childe ID"
+                placeholder="رقم الهوية"
                 required
               />
             </div>
@@ -93,7 +93,7 @@ const RegisterPage = () => {
                 type="text"
                 value={formData.phone}
                 onChange={handleChange}
-                placeholder="Phone Number"
+                placeholder="رقم الهاتف"
                 required
               />
             </div>
@@ -105,19 +105,20 @@ const RegisterPage = () => {
                 type="password"
                 value={formData.password}
                 onChange={handleChange}
-                placeholder="Password"
+                placeholder="كلمة المرور"
                 required
               />
             </div>
 
             <div className="input-group">
-              <i className="fa fa-lock input-icon"></i> {/* أيقونة كلمة السر */}
+              <i className="fa fa-lock input-icon"></i>{" "}
+              {/* أيقونة تأكيد كلمة السر */}
               <input
                 name="confirmPassword"
                 type="password"
                 value={formData.confirmPassword}
                 onChange={handleChange}
-                placeholder="Confirm Password"
+                placeholder="تأكيد كلمة المرور"
                 required
               />
             </div>
@@ -129,19 +130,19 @@ const RegisterPage = () => {
                 onChange={handleCheckboxChange}
               />
               <label>
-                I agree to the <span className="title">Terms</span> &{" "}
-                <span className="title">Conditions</span>
+                أوافق على <span className="title">الشروط</span> و{" "}
+                <span className="title">الأحكام</span>
               </label>
             </div>
 
             <button type="submit" className="login-btn">
-              Sign Up
+              إنشاء حساب
             </button>
           </form>
 
           <p className="login-link">
-            Already have an account?{" "}
-            <span onClick={() => navigate("/login")}>Login</span>
+            لديك حساب بالفعل؟{" "}
+            <span onClick={() => navigate("/login")}>تسجيل الدخول</span>
           </p>
         </div>
       </div>

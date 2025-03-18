@@ -11,66 +11,64 @@ const VaccineInfoPage = () => {
   const cleanVaccineName = vaccineName.split("/")[0];
 
   const vaccineData = {
-    HepB: {
-      name: "Hepatitis B Vaccine",
-      age: "At birth, 1 month, 6 months",
-      purpose: "Prevention of Hepatitis B infection.",
-      description:
-        "Protects against hepatitis B virus, which affects the liver.",
-      sideEffects: "Pain at injection site, mild fever.",
-      treatment: "Apply cold compress and use fever reducer if needed.",
+    "التهاب الكبد B": {
+      name: "لقاح التهاب الكبد B",
+      age: "عند الولادة، شهر واحد، 6 أشهر",
+      purpose: "الوقاية من التهاب الكبد B.",
+      description: "يحمي من فيروس التهاب الكبد B الذي يؤثر على الكبد.",
+      sideEffects: "ألم في موقع الحقن، حمى خفيفة.",
+      treatment: "وضع كمادات باردة واستخدام خافض للحرارة إذا لزم الأمر.",
     },
-    Polio: {
-      name: "Polio Vaccine",
-      age: "5 months",
-      purpose: "Prevention of polio disease.",
-      description: "A vaccine administered in 3 consecutive doses.",
-      sideEffects: "Mild fever, pain at the injection site.",
-      treatment: "Apply cold compress and use fever reducer if needed.",
+    "شلل الأطفال": {
+      name: "لقاح شلل الأطفال",
+      age: "5 أشهر",
+      purpose: "الوقاية من مرض شلل الأطفال.",
+      description: "لقاح يُعطى في 3 جرعات متتالية.",
+      sideEffects: "حمى خفيفة، ألم في موقع الحقن.",
+      treatment: "وضع كمادات باردة واستخدام خافض للحرارة إذا لزم الأمر.",
     },
-    MMR: {
-      name: "MMR Vaccine",
-      age: "12-15 months, booster at 4-6 years",
-      purpose: "Protection against measles, mumps, and rubella.",
-      description: "Protects against three serious diseases in one shot.",
-      sideEffects: "Mild rash, fever, joint pain.",
-      treatment: "Monitor for fever and apply cooling compress if needed.",
+    "جدري الماء": {
+      name: "لقاح جدري الماء",
+      age: "12-18 شهرًا",
+      purpose: "الحماية من فيروس جدري الماء.",
+      description: "يوفر حماية ضد العدوى التي تسبب طفحًا جلديًا وحكة.",
+      sideEffects: "ألم خفيف، انتفاخ في موقع الحقن، حمى طفيفة.",
+      treatment: "الراحة واستخدام كمادات باردة عند الحاجة.",
     },
   };
-
   const vaccine = vaccineData[cleanVaccineName] || null;
 
   return (
-    <div className="vaccine-info-container">
+    <div className="vaccine-info-container" dir="rtl">
       {vaccine ? (
         <>
-          <h1 className="vaccine-title">Vaccine Information</h1>
+          <h1 className="vaccine-title">معلومات اللقاح</h1>
           <div className="vaccine-card">
             <div className="vaccine-details">
               <div className="vaccine-row">
                 <FaCheckCircle className="vaccine-icon" />
-                <strong>Vaccine Name:</strong> <span>{vaccine.name}</span>
+                <strong>اسم اللقاح:</strong> <span>{vaccine.name}</span>
               </div>
               <div className="vaccine-row">
                 <FaCheckCircle className="vaccine-icon" />
-                <strong>Age:</strong> <span>{vaccine.age}</span>
+                <strong>العمر الموصى به:</strong> <span>{vaccine.age}</span>
               </div>
               <div className="vaccine-row">
                 <FaCheckCircle className="vaccine-icon" />
-                <strong>Purpose:</strong> <span>{vaccine.purpose}</span>
+                <strong>الغرض:</strong> <span>{vaccine.purpose}</span>
               </div>
               <div className="vaccine-row">
                 <FaCheckCircle className="vaccine-icon" />
-                <strong>Description:</strong> <span>{vaccine.description}</span>
+                <strong>الوصف:</strong> <span>{vaccine.description}</span>
               </div>
               <div className="vaccine-row">
                 <FaCheckCircle className="vaccine-icon" />
-                <strong>Side Effects:</strong>{" "}
+                <strong>الآثار الجانبية:</strong>{" "}
                 <span>{vaccine.sideEffects}</span>
               </div>
               <div className="vaccine-row">
                 <FaCheckCircle className="vaccine-icon" />
-                <strong>Treatments:</strong> <span>{vaccine.treatment}</span>
+                <strong>العلاج:</strong> <span>{vaccine.treatment}</span>
               </div>
             </div>
           </div>
@@ -81,36 +79,20 @@ const VaccineInfoPage = () => {
               navigate(`/vaccine-appointments?vaccine=${cleanVaccineName}`)
             }
           >
-            Book Appointment
+            حجز موعد
           </button>
           <button
             className="vaccine-button review"
             onClick={() => {
-              console.log(
-                "Navigating to reviews page for vaccine:",
-                cleanVaccineName
-              );
+              console.log("التنقل إلى صفحة المراجعات للقاح:", cleanVaccineName);
               navigate(`/reviews/${encodeURIComponent(cleanVaccineName)}`);
             }}
           >
-            View Reviews & Feedback
+            عرض التقييمات والملاحظات
           </button>
-
-          {/* <button
-            className="vaccine-button review"
-            onClick={() => {
-              console.log(
-                "Navigating to reviews page for vaccine:",
-                vaccine.name
-              );
-              navigate(`/reviews/${vaccine.name}`);
-            }}
-          >
-            View Reviews & Feedback
-          </button> */}
         </>
       ) : (
-        <h2>Vaccine information not available.</h2>
+        <h2>معلومات اللقاح غير متوفرة.</h2>
       )}
     </div>
   );

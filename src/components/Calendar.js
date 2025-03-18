@@ -8,7 +8,7 @@ const Calendar = ({ role }) => {
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear()); // السنة الحالية
 
   const currentDate = new Date(currentYear, currentMonth, 1);
-  const monthName = currentDate.toLocaleString("en-US", { month: "long" });
+  const monthName = currentDate.toLocaleString("ar-EG", { month: "long" }); // عرض اسم الشهر بالعربية
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDayOfWeek = new Date(currentYear, currentMonth, 1).getDay(); // اليوم الأول في الشهر
 
@@ -85,13 +85,13 @@ const Calendar = ({ role }) => {
         <button onClick={() => changeMonth(1)}>{">"}</button>
       </div>
       <div className="calendar-grid">
-        <div className="day-label">Sun</div>
-        <div className="day-label">Mon</div>
-        <div className="day-label">Tue</div>
-        <div className="day-label">Wed</div>
-        <div className="day-label">Thu</div>
-        <div className="day-label">Fri</div>
-        <div className="day-label">Sat</div>
+        <div className="day-label">الأحد</div>
+        <div className="day-label">الإثنين</div>
+        <div className="day-label">الثلاثاء</div>
+        <div className="day-label">الأربعاء</div>
+        <div className="day-label">الخميس</div>
+        <div className="day-label">الجمعة</div>
+        <div className="day-label">السبت</div>
         {generateDays()}
       </div>
     </div>

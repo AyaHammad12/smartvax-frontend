@@ -1,15 +1,15 @@
 import React, { useState } from "react";
 import "../styles/ManageWorkers.css"; // استيراد ملف التصميم
-// import "../styles/HomePage.css";
+
 const ManageWorkers = () => {
   const [workers, setWorkers] = useState([
-    { id: 1, name: "Dr. Ahmed", email: "ahmed@example.com" },
-    { id: 2, name: "Dr. Sara", email: "sara@example.com" },
+    { id: 1, name: "د. أحمد", email: "ahmed@example.com" },
+    { id: 2, name: "د. سارة", email: "sara@example.com" },
   ]);
 
   const addWorker = () => {
-    const name = prompt("Enter Health Worker Name:");
-    const email = prompt("Enter Health Worker Email:");
+    const name = prompt("أدخل اسم العامل الصحي:");
+    const email = prompt("أدخل البريد الإلكتروني للعامل الصحي:");
     if (name && email) {
       setWorkers([...workers, { id: workers.length + 1, name, email }]);
     }
@@ -20,10 +20,10 @@ const ManageWorkers = () => {
   };
 
   return (
-    <div className="manage-container">
-      <h1>Manage Health Workers</h1>
+    <div className="manage-container" dir="rtl">
+      <h1>إدارة العاملين الصحيين</h1>
       <button onClick={addWorker} className="btn-add">
-        + Add Health Worker
+        + إضافة عامل صحي
       </button>
       <div className="worker-list">
         {workers.map((worker) => (
@@ -34,7 +34,7 @@ const ManageWorkers = () => {
               onClick={() => removeWorker(worker.id)}
               className="btn-remove"
             >
-              Remove
+              إزالة
             </button>
           </div>
         ))}

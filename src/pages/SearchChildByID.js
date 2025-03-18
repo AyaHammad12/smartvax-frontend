@@ -5,28 +5,36 @@ import "../styles/SearchChildByID.css"; // تأكد من وجود ملف CSS م�
 const mockChildrenData = [
   {
     id: "123456",
-    name: "Ali Ahmed",
+    name: "علي أحمد",
     dob: "2020-05-15",
-    gender: "Male",
-    weight: "12 kg",
-    height: "90 cm",
+    gender: "ذكر",
+    weight: "12 كجم",
+    height: "90 سم",
     bloodType: "O+",
     vaccinations: [
-      { name: "Polio", date: "2024-04-15", status: "Completed" },
-      { name: "Hepatitis B", date: "2023-05-20", status: "Missed" },
+      { name: "شلل الأطفال", date: "2024-04-15", status: "مكتمل" },
+      { name: "التهاب الكبد B", date: "2023-05-20", status: "فائت" },
     ],
   },
   {
     id: "654321",
-    name: "Sara Mohammed",
+    name: "سارة محمد",
     dob: "2019-08-22",
-    gender: "Female",
-    weight: "14 kg",
-    height: "95 cm",
+    gender: "أنثى",
+    weight: "14 كجم",
+    height: "95 سم",
     bloodType: "A+",
     vaccinations: [
-      { name: "MMR", date: "2024-06-10", status: "Completed" },
-      { name: "DTP", date: "2024-05-05", status: "Upcoming" },
+      {
+        name: "الحصبة والنكاف والحصبة الألمانية",
+        date: "2024-06-10",
+        status: "مكتمل",
+      },
+      {
+        name: "الدفتيريا والتيتانوس والسعال الديكي",
+        date: "2024-05-05",
+        status: "قادم",
+      },
     ],
   },
 ];
@@ -46,49 +54,49 @@ const SearchChildByID = () => {
       setError("");
     } else {
       setChildData(null);
-      setError("Child not found. Please check the ID.");
+      setError("لم يتم العثور على الطفل. يرجى التحقق من رقم الهوية.");
     }
   };
 
   return (
-    <div className="search-child-container">
-      <h2>Search Child by ID</h2>
+    <div className="search-child-container" dir="rtl">
+      <h2>البحث عن طفل بواسطة رقم الهوية</h2>
       <input
         type="text"
-        placeholder="Enter Child ID..."
+        placeholder="أدخل رقم هوية الطفل..."
         value={searchID}
         onChange={(e) => setSearchID(e.target.value)}
         className="search-input"
       />
       <button onClick={handleSearch} className="search-btn">
-        Search
+        بحث
       </button>
 
       {error && <p className="error-message">{error}</p>}
 
       {childData && (
         <div className="child-info">
-          <h3>Child Information</h3>
+          <h3>معلومات الطفل</h3>
           <p>
-            <strong>Name:</strong> {childData.name}
+            <strong>الاسم:</strong> {childData.name}
           </p>
           <p>
-            <strong>Date of Birth:</strong> {childData.dob}
+            <strong>تاريخ الميلاد:</strong> {childData.dob}
           </p>
           <p>
-            <strong>Gender:</strong> {childData.gender}
+            <strong>الجنس:</strong> {childData.gender}
           </p>
           <p>
-            <strong>Weight:</strong> {childData.weight}
+            <strong>الوزن:</strong> {childData.weight}
           </p>
           <p>
-            <strong>Height:</strong> {childData.height}
+            <strong>الطول:</strong> {childData.height}
           </p>
           <p>
-            <strong>Blood Type:</strong> {childData.bloodType}
+            <strong>فصيلة الدم:</strong> {childData.bloodType}
           </p>
 
-          <h3>Vaccination History</h3>
+          <h3>سجل التطعيمات</h3>
           <div className="vaccination-list">
             {childData.vaccinations.map((vaccine, index) => (
               <div
@@ -98,9 +106,9 @@ const SearchChildByID = () => {
                 <p>
                   <strong>{vaccine.name}</strong>
                 </p>
-                <p>Date: {vaccine.date}</p>
+                <p>التاريخ: {vaccine.date}</p>
                 <p>
-                  Status: <span className="status">{vaccine.status}</span>
+                  الحالة: <span className="status">{vaccine.status}</span>
                 </p>
               </div>
             ))}

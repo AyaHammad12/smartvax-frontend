@@ -6,8 +6,8 @@ const AccountPage = () => {
     username: "john_doe",
     email: "john.doe@example.com",
     phone: "+123456789",
-    address: "123 Main Street, City",
-    role: "Parent", // ✅ لا يمكن تعديله لأنه محدد مسبقًا
+    address: "123 شارع رئيسي، المدينة",
+    role: "ولي أمر", // ✅ لا يمكن تعديله لأنه محدد مسبقًا
     password: "",
     confirmPassword: "",
   });
@@ -24,27 +24,27 @@ const AccountPage = () => {
       accountInfo.password &&
       accountInfo.password !== accountInfo.confirmPassword
     ) {
-      alert("Passwords do not match!");
+      alert("كلمات المرور غير متطابقة!");
       return;
     }
 
-    alert("Account details updated successfully!");
-    console.log("Updated Account Info:", accountInfo);
+    alert("تم تحديث بيانات الحساب بنجاح!");
+    console.log("بيانات الحساب المحدثة:", accountInfo);
   };
 
   return (
     <div className="account-container">
-      <h2>My Account</h2>
+      <h2>حسابي</h2>
       <form className="account-form" onSubmit={handleSaveChanges}>
-        <label>Username:</label>
+        <label>اسم المستخدم:</label>
         <input
           type="text"
           name="username"
           value={accountInfo.username}
           disabled
-        />{" "}
-        {/* غير قابل للتعديل */}
-        <label>Email:</label>
+        />
+
+        <label>البريد الإلكتروني:</label>
         <input
           type="email"
           name="email"
@@ -52,7 +52,8 @@ const AccountPage = () => {
           onChange={handleChange}
           required
         />
-        <label>Phone Number:</label>
+
+        <label>رقم الهاتف:</label>
         <input
           type="text"
           name="phone"
@@ -60,7 +61,8 @@ const AccountPage = () => {
           onChange={handleChange}
           required
         />
-        <label>Address:</label>
+
+        <label>العنوان:</label>
         <input
           type="text"
           name="address"
@@ -68,25 +70,28 @@ const AccountPage = () => {
           onChange={handleChange}
           required
         />
-        <label>Role:</label>
-        <input type="text" name="role" value={accountInfo.role} disabled />{" "}
-        {/* غير قابل للتعديل */}
-        <label>New Password (Optional):</label>
+
+        <label>الدور:</label>
+        <input type="text" name="role" value={accountInfo.role} disabled />
+
+        <label>كلمة مرور جديدة (اختياري):</label>
         <input
           type="password"
           name="password"
           value={accountInfo.password}
           onChange={handleChange}
         />
-        <label>Confirm Password:</label>
+
+        <label>تأكيد كلمة المرور:</label>
         <input
           type="password"
           name="confirmPassword"
           value={accountInfo.confirmPassword}
           onChange={handleChange}
         />
+
         <button type="submit" className="save-btn">
-          Save Changes
+          حفظ التعديلات
         </button>
       </form>
     </div>
