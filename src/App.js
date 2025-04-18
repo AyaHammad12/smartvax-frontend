@@ -102,7 +102,7 @@ const AppContent = () => {
           <Route path="/register" element={<RegisterPage />} />
 
           <Route
-            path="/vaccine-info/:vaccineName"
+            path="/vaccine-info/:id"
             element={<VaccineInfoPage />}
           />
           <Route path="/feedback" element={<FeedbackPage />} />
@@ -154,7 +154,7 @@ const AppContent = () => {
             path="/scheduled-vaccinations"
             element={<ScheduledVaccinationsPage />}
           />
-          <Route path="/reviews/:vaccineName" element={<ReviewsPage />} />
+          <Route path="/write-review/:id" element={<ReviewsPage />} />
         </Routes>
       </div>
     </div>

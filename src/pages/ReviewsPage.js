@@ -1,115 +1,126 @@
-import React from "react";
-import { useParams } from "react-router-dom";
-import "../styles/ReviewsPage.css"; // تأكد من وجود ملف CSS مناسب
-
-// ✅ تحديث البيانات التجريبية وضمان أن أسماء اللقاحات متطابقة مع `VaccineInfoPage`
-const feedbackData = {
-  "التهاب الكبد B": {
-    sideEffects: [
-      { effect: "حمى خفيفة", percentage: "70%" },
-      { effect: "ألم في موقع الحقن", percentage: "50%" },
-      { effect: "تورم في موقع الحقن", percentage: "30%" },
-    ],
-    treatments: [
-      { treatment: "كمادات باردة", percentage: "60%" },
-      { treatment: "خافض حرارة", percentage: "40%" },
-      { treatment: "الإكثار من السوائل", percentage: "20%" },
-    ],
-    reviews: [
-      {
-        name: "لينا م.",
-        comment:
-          "ابنتي أصيبت بحمى خفيفة ليومين، لكنها تعافت بسرعة. نصيحة الممرضة بالإكثار من السوائل ساعدت كثيرًا.",
-      },
-      {
-        name: "ياسمين هـ.",
-        comment:
-          "كنت متوترة في البداية، لكن بعد رؤية مدى سلاسة العملية شعرت بالاطمئنان. احتاج طفلي فقط إلى الراحة بعد التطعيم.",
-      },
-    ],
-  },
-};
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
 
 const ReviewsPage = () => {
-  const { vaccineName } = useParams(); // ✅ جلب اسم اللقاح من الـ URL
-  const formattedVaccineName = decodeURIComponent(vaccineName.trim()); // ✅ إزالة الترميز والمسافات
+  const { id } = useParams(); // vaccineId
+  const [symptoms, setSymptoms] = useState('');
+  const [vaccine, setVaccine] = useState(null);
+  const [diagnosis, setDiagnosis] = useState('');
+  const [suggestions, setSuggestions] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  console.log("البحث عن مراجعات للقاح:", formattedVaccineName);
+  useEffect(() => {
+    // تحميل معلومات اللقاح
+    const fetchVaccine = async () => {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`http://localhost:8080/api/vaccinations/${id}`, {
+          headers: {
+            'Authorization': `Bearer ${token}`,
+            'Accept': 'application/json'
+          }
+        });
+        const data = await response.json();
+        setVaccine(data);
+      } catch (error) {
+        console.error('❌ خطأ في تحميل معلومات اللقاح:', error);
+      }
+    };
 
-  const data = feedbackData[formattedVaccineName];
+    fetchVaccine();
+  }, [id]);
 
-  if (!data) {
-    return (
-      <h2 className="error-message">لا توجد مراجعات متاحة لهذا اللقاح.</h2>
-    );
-  }
+  const handleAnalyze = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      const token = localStorage.getItem('token');
+
+      const response = await fetch(`http://localhost:8080/api/feedbacks`, {
+        method: 'POST',
+        headers: {
+          'Authorization': `Bearer ${token}`,
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          sideEffects: symptoms,
+          vaccination: vaccine,
+          parent: { id: 1 } // 👈 عينة ثابتة، عدل حسب Parent الحقيقي
+        })
+      });
+
+      if (response.ok) {
+        const result = await response.json();
+        console.log("Received:", result);
+
+        setDiagnosis(result.diagnosis);
+        setSuggestions(result.suggestions);
+      } else {
+        console.error('❌ فشل إرسال البيانات:', response.status);
+      }
+    } catch (error) {
+      console.error('❌ خطأ أثناء تحليل الأعراض:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
-    <div className="reviews-container" dir="rtl">
-      <h2>تحليل التقييمات والملاحظات</h2>
+      <div className="max-w-2xl mx-auto p-6" dir="rtl">
+        <h1 className="text-2xl font-bold mb-4 text-center">تحليل الأعراض بالذكاء الاصطناعي</h1>
 
-      <div className="vaccine-info">
-        <span className="vaccine-label">اسم اللقاح:</span>
-        <span className="vaccine-name">{formattedVaccineName}</span>
-      </div>
+        {vaccine && (
+            <div className="bg-white shadow-md rounded p-4 mb-6">
+              <h2 className="text-xl font-semibold mb-2">معلومات اللقاح:</h2>
+              <p><strong>اسم اللقاح:</strong> {vaccine.name}</p>
+              <p><strong>النوع:</strong> {vaccine.type}</p>
+            </div>
+        )}
 
-      <p>
-        الجداول أدناه تعرض أكثر الأعراض الجانبية والعلاجات الموصى بها من قبل
-        الأهالي.
-      </p>
-
-      <div className="tables-container">
-        <div className="table-box">
-          <h3>الجدول 1: الأعراض الجانبية الأكثر شيوعًا</h3>
-          <table>
-            <tbody>
-              {data.sideEffects.map((item, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>
-                    <strong>{item.effect}</strong>
-                  </td>
-                  <td>{item.percentage}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        <div className="table-box">
-          <h3>الجدول 2: العلاجات الأكثر استخدامًا</h3>
-          <table>
-            <tbody>
-              {data.treatments.map((item, index) => (
-                <tr key={index}>
-                  <td>{index + 1}</td>
-                  <td>
-                    <strong>{item.treatment}</strong>
-                  </td>
-                  <td>{item.percentage}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div>
-
-      <h3>تقييمات الأهالي</h3>
-      <div className="reviews-box">
-        {data.reviews.map((review, index) => (
-          <div key={index} className="review">
-            <strong>{review.name}</strong>
-            <p>{review.comment}</p>
+        <form onSubmit={handleAnalyze} className="space-y-4">
+          <div>
+            <label>أدخل الأعراض التي ظهرت على الطفل:</label>
+            <textarea
+                className="w-full p-2 border rounded"
+                rows="6"
+                value={symptoms}
+                onChange={(e) => setSymptoms(e.target.value)}
+                placeholder="مثلاً: احمرار، انتفاخ، حرارة..."
+                required
+            />
           </div>
-        ))}
-      </div>
 
-      <div className="submit-feedback">
-        <p>شارك تجربتك معنا</p>
-        <textarea placeholder="اكتب ملاحظاتك هنا..." />
-        <button className="submit-btn">إرسال</button>
+          <button
+              type="submit"
+              disabled={loading}
+              className="w-full bg-blue-600 text-white py-2 rounded hover:bg-blue-700"
+          >
+            {loading ? '🔄 جاري التحليل...' : '🔍 تحليل الأعراض'}
+          </button>
+        </form>
+
+        {diagnosis && (
+            <div className="mt-6 p-4 bg-green-100 rounded text-center">
+              <h3 className="text-lg font-semibold mb-2">🔬 التشخيص:</h3>
+              <p>{diagnosis}</p>
+            </div>
+        )}
+
+        {suggestions && (
+            <div className="mt-6 p-4 bg-yellow-100 rounded">
+              <h3 className="text-lg font-semibold mb-4 text-center">💡 النصائح الطبية:</h3>
+              <ul className="list-disc list-inside space-y-2 text-right">
+                {suggestions
+                    .split('\n')
+                    .map((item, index) => {
+                      // تنظيف التنسيقات الخاصة بـ Markdown
+                      const cleanItem = item.replace(/\*\*/g, '').replace(/^\*\s*/, '').trim();
+                      return cleanItem && <li key={index}>{cleanItem}</li>;
+                    })}
+              </ul>
+            </div>
+        )}
       </div>
-    </div>
   );
 };
 

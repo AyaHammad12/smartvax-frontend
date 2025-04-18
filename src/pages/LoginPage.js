@@ -18,38 +18,108 @@ const LoginPage = () => {
     }
   }, []);
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("تسجيل الدخول باستخدام", username, password, rememberMe);
+    console.log("🔵 محاولة تسجيل الدخول باستخدام", username, password, rememberMe);
 
-    let userRole = null;
+    try {
+      // Step 1: Login and get token
+      const loginResponse = await fetch(`http://localhost:8080/api/authenticate`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          username: username,
+          password: password
+        })
+      });
 
-    if (username === "parent" && password === "parent123") {
-      userRole = "parent";
-    } else if (username === "healthworker" && password === "health123") {
-      userRole = "healthworker";
-    } else if (username === "manager" && password === "manager123") {
-      userRole = "manager";
-    } else {
-      alert("بيانات الاعتماد غير صحيحة ... حاول مرة أخرى");
-      return;
+      if (!loginResponse.ok) {
+        throw new Error('فشل تسجيل الدخول: بيانات الاعتماد غير صحيحة');
+      }
+
+      const loginData = await loginResponse.json();
+      const token = loginData.id_token;
+
+      // Save token
+      localStorage.setItem('token', token);
+      console.log('✅ تم حفظ التوكن');
+
+      // Step 2: Fetch user info (account details)
+      const accountResponse = await fetch(`http://localhost:8080/api/account`, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+
+      if (!accountResponse.ok) {
+        throw new Error('فشل تحميل بيانات الحساب');
+      }
+
+      const accountData = await accountResponse.json();
+      const role = accountData.authorities[0]; // e.g., "ROLE_PARENT", "ROLE_MANAGER", etc.
+
+      // Save role
+      const cleanRole = role.startsWith('ROLE_') ? role.substring(5).toLowerCase() : role.toLowerCase();
+      localStorage.setItem('role', cleanRole);
+
+      if (rememberMe) {
+        localStorage.setItem('username', username);
+        localStorage.setItem('password', password);
+      }
+
+      // Navigate based on role
+      if (role === "ROLE_MANAGER") {
+        navigate("/dashboard/manager");
+      } else if (role === "ROLE_PARENT") {
+        navigate("/dashboard/parent");
+      } else if (role === "ROLE_HEALTHWORKER") {
+        navigate("/dashboard/healthworker");
+      } else {
+        console.warn('⚠️ دور غير معروف:', role);
+        navigate("/dashboard");
+      }
+
+    } catch (error) {
+      console.error('❌ خطأ أثناء تسجيل الدخول:', error);
+      alert(error.message || 'حدث خطأ غير متوقع. حاول مرة أخرى.');
     }
-
-    localStorage.setItem("role", userRole);
-    console.log(
-      "✅ تم تخزين الدور في localStorage:",
-      localStorage.getItem("role")
-    );
-
-    if (rememberMe) {
-      localStorage.setItem("username", username);
-      localStorage.setItem("password", password);
-    }
-
-    navigate(
-      userRole === "manager" ? "/dashboard/manager" : `/dashboard/${userRole}`
-    );
   };
+
+  // const handleLogin = (e) => {
+  //   e.preventDefault();
+  //   console.log("تسجيل الدخول باستخدام", username, password, rememberMe);
+  //
+  //   let userRole = null;
+  //
+  //   if (username === "parent" && password === "parent123") {
+  //     userRole = "parent";
+  //   } else if (username === "healthworker" && password === "health123") {
+  //     userRole = "healthworker";
+  //   } else if (username === "manager" && password === "manager123") {
+  //     userRole = "manager";
+  //   } else {
+  //     alert("بيانات الاعتماد غير صحيحة ... حاول مرة أخرى");
+  //     return;
+  //   }
+  //
+  //   localStorage.setItem("role", userRole);
+  //   console.log(
+  //     "✅ تم تخزين الدور في localStorage:",
+  //     localStorage.getItem("role")
+  //   );
+  //
+  //   if (rememberMe) {
+  //     localStorage.setItem("username", username);
+  //     localStorage.setItem("password", password);
+  //   }
+  //
+  //   navigate(
+  //     userRole === "manager" ? "/dashboard/manager" : `/dashboard/${userRole}`
+  //   );
+  // };
 
   return (
     <div className="auth-container" dir="rtl">
