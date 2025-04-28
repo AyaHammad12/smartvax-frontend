@@ -33,7 +33,7 @@ const DayCell = ({ day, month, year, status, role, id }) => {
   return (
       <div
           className={`day-cell ${vaccinations_Status}`}
-          title={"اضغط لرؤية تفاصيل اليوم"}
+          title={" اضغط  هنا لرؤية تفاصيل اليوم"}
           onClick={handleClick}
           style={{ cursor: "pointer" }}
       >
