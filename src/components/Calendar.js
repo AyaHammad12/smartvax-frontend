@@ -2,7 +2,8 @@ import React, { useState, useEffect } from "react";
 import DayCell from "./DayCell";
 import "../styles/Calendar.css";
 
-const Calendar = ({ role }) => {
+const Calendar = () => {
+  const role = localStorage.getItem("role");
   const [currentMonth, setCurrentMonth] = useState(new Date().getMonth());
   const [currentYear, setCurrentYear] = useState(new Date().getFullYear());
   const [scheduleData, setScheduleData] = useState([]);
@@ -12,24 +13,27 @@ const Calendar = ({ role }) => {
   const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
   const firstDayOfWeek = new Date(currentYear, currentMonth, 1).getDay();
 
+  const normalizeDate = (dateStr) => {
+    if (!dateStr) return null;
+    if (typeof dateStr === "string") return dateStr.split("T")[0];
+    return null;
+  };
+
   const fetchScheduleData = async () => {
     try {
-      const token = localStorage.getItem('token');
       const response = await fetch("http://localhost:8080/api/schedule-vaccinations", {
-        headers: {
-          'Authorization': `Bearer ${token}`,
-          'Accept': 'application/json'
-        }
+        method: "GET",
+        credentials: "include",
+        headers: { Accept: "application/json" },
       });
 
-      if (!response.ok) {
-        throw new Error('فشل تحميل بيانات جدول التطعيمات');
-      }
+      if (!response.ok) throw new Error("فشل تحميل بيانات جدول التطعيمات");
 
       const data = await response.json();
+      console.log("Fetched scheduleData:", data);
       setScheduleData(data);
     } catch (error) {
-      console.error('❌ خطأ أثناء تحميل جدول التطعيمات:', error);
+      console.error("❌ خطأ أثناء تحميل جدول التطعيمات:", error);
     }
   };
 
@@ -40,7 +44,6 @@ const Calendar = ({ role }) => {
   const changeMonth = (offset) => {
     let newMonth = currentMonth + offset;
     let newYear = currentYear;
-
     if (newMonth < 0) {
       newMonth = 11;
       newYear -= 1;
@@ -48,12 +51,18 @@ const Calendar = ({ role }) => {
       newMonth = 0;
       newYear += 1;
     }
-
     setCurrentMonth(newMonth);
     setCurrentYear(newYear);
   };
 
+  const statusMapping = {
+    SCHEDULED: "قادم",
+    COMPLETED: "مكتمل",
+    MISSED: "فائت",
+  };
+
   const generateDays = () => {
+    const today = new Date().toISOString().split("T")[0];
     let days = [];
 
     for (let i = 0; i < firstDayOfWeek; i++) {
@@ -64,7 +73,19 @@ const Calendar = ({ role }) => {
       const month = String(currentMonth + 1).padStart(2, "0");
       const dateKey = `${currentYear}-${month}-${String(i).padStart(2, "0")}`;
 
-      const dayData = scheduleData.find((item) => item.scheduledDate === dateKey);
+      const dayData = scheduleData.find((item) => {
+        if (!item.scheduledDate) return false;
+        const normalized = normalizeDate(item.scheduledDate);
+        console.log(`Calendar Day: ${dateKey} Checking against: ${normalized}`);
+        return normalized === dateKey;
+      });
+
+      const dayStatus = (() => {
+        if (!dayData) return "default";
+        const scheduled = normalizeDate(dayData.scheduledDate);
+        if (scheduled < today) return "مكتمل";
+        return statusMapping[dayData.status] || "default";
+      })();
 
       days.push(
           <DayCell
@@ -72,13 +93,12 @@ const Calendar = ({ role }) => {
               day={i}
               month={month}
               year={currentYear}
-              status={role === "parent" ? (dayData?.status || "default") : "default"}
+              status={role === "parent" ? dayStatus : "default"}
               role={role}
-              id={dayData?.id}
+              id={dayData?.vaccination?.id}
+              vaccineName={dayData?.vaccination?.name}
           />
-
       );
-
     }
 
     return days;

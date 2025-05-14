@@ -2,19 +2,19 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/DayCell.css";
 
-const DayCell = ({ day, month, year, status, role, id }) => {
+const DayCell = ({ day, month, year, status, role, id, vaccineName }) => {
   const navigate = useNavigate();
 
   const vaccinations_Status = (() => {
-    switch (status) {
+    switch ((status || "").trim()) {
       case "فائت":
-        return "missed"; // 🔴 لون أحمر
+        return "missed";
       case "مكتمل":
-        return "completed"; // 🟢 لون أخضر
+        return "completed";
       case "قادم":
-        return "upcoming"; // 🟠 لون برتقالي
+        return "upcoming";
       default:
-        return ""; // بدون لون إضافي
+        return "";
     }
   })();
 
@@ -24,9 +24,7 @@ const DayCell = ({ day, month, year, status, role, id }) => {
       return;
     }
     if (role === "parent" && id) {
-      navigate(`/vaccine-info/${id}`);
-    } else if (role === "healthworker") {
-      // navigate(`/Manegment-Requests-Appointment?date=${dateString}`);
+      navigate(`/vaccine-info/${id}`);  // توجيه للصفحة مع معرف التطعيم
     }
   };
 
@@ -38,6 +36,13 @@ const DayCell = ({ day, month, year, status, role, id }) => {
           style={{ cursor: "pointer" }}
       >
         <span className="day-number">{day}</span>
+
+        {/* ✅ عرض اسم التطعيم */}
+        {vaccineName && (
+            <span className="vaccine-name">
+          {vaccineName.length > 18 ? vaccineName.slice(0, 15) + "..." : vaccineName}
+        </span>
+        )}
       </div>
   );
 };

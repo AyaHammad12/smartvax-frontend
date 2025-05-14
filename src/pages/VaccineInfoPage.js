@@ -11,16 +11,6 @@ const VaccineInfoPage = () => {
   const [error, setError] = useState(null);
 
   const fetchVaccineData = async () => {
-    const token = localStorage.getItem('token');
-    console.log("🛡️ التوكن المستخدم:", token);
-    console.log("🔵 ID المطلوب:", id);
-
-    if (!token) {
-      setError("⚠️ لم يتم العثور على رمز الدخول. يرجى تسجيل الدخول مجددًا.");
-      setLoading(false);
-      return;
-    }
-
     if (!id || isNaN(id)) {
       setError("⚠️ المعرف (ID) غير صالح أو مفقود.");
       setLoading(false);
@@ -29,8 +19,9 @@ const VaccineInfoPage = () => {
 
     try {
       const response = await fetch(`http://localhost:8080/api/vaccinations/${id}`, {
+        method: "GET",
+        credentials: "include", // ⬅️ مهم لإرسال الكوكي الخاصة بالجلسة
         headers: {
-          'Authorization': `Bearer ${token}`,
           'Accept': 'application/json'
         }
       });
@@ -39,11 +30,8 @@ const VaccineInfoPage = () => {
         if (response.status === 404) {
           throw new Error("❌ اللقاح غير موجود.");
         }
-        if (response.status === 400) {
-          throw new Error("⚠️ الطلب غير صحيح. تحقق من رقم المعرف.");
-        }
-        if (response.status === 401) {
-          throw new Error("⚠️ غير مصرح لك. يرجى تسجيل الدخول.");
+        if (response.status === 403 || response.status === 401) {
+          throw new Error("⚠️ غير مصرح لك بالوصول إلى هذا المورد.");
         }
         throw new Error(`❌ فشل التحميل: ${response.status} ${response.statusText}`);
       }
@@ -83,32 +71,26 @@ const VaccineInfoPage = () => {
               <FaCheckCircle className="vaccine-icon" />
               <strong>اسم اللقاح:</strong> <span>{vaccine.name || "غير متوفر"}</span>
             </div>
-
             <div className="vaccine-row">
               <FaCheckCircle className="vaccine-icon" />
               <strong>نوع اللقاح:</strong> <span>{vaccine.type || "غير متوفر"}</span>
             </div>
-
             <div className="vaccine-row">
               <FaCheckCircle className="vaccine-icon" />
               <strong>تاريخ الإعطاء:</strong> <span>{vaccine.dateGiven || "غير متوفر"}</span>
             </div>
-
             <div className="vaccine-row">
               <FaCheckCircle className="vaccine-icon" />
               <strong>العمر المستهدف (بالأشهر):</strong> <span>{vaccine.targetAge != null ? `${vaccine.targetAge} أشهر` : "غير متوفر"}</span>
             </div>
-
             <div className="vaccine-row">
               <FaCheckCircle className="vaccine-icon" />
               <strong>الآثار الجانبية:</strong> <span>{vaccine.sideEffects || "غير متوفر"}</span>
             </div>
-
             <div className="vaccine-row">
               <FaCheckCircle className="vaccine-icon" />
               <strong>الحالة:</strong> <span>{vaccine.status || "غير متوفر"}</span>
             </div>
-
             <div className="vaccine-row">
               <FaCheckCircle className="vaccine-icon" />
               <strong>العلاج:</strong> <span>{vaccine.treatment || "غير متوفر"}</span>
@@ -123,7 +105,6 @@ const VaccineInfoPage = () => {
           >
             حجز موعد
           </button>
-
           <button
               className="vaccine-button write-review"
               onClick={() => navigate(`/write-review/${id}`)}

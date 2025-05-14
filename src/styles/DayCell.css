@@ -8,8 +8,8 @@
   justify-content: center;
   font-size: 14px;
   position: relative;
-  background: #f9f9f9; /* القيمة الافتراضية */
-  transition: background-color 0.3s ease; /* تأثير الانتقال */
+  background: #f9f9f9;
+  transition: background-color 0.3s ease;
   text-align: center;
   direction: rtl;
 }
@@ -19,6 +19,7 @@
   margin-bottom: 5px;
 }
 
+
 .vaccine-name {
   font-size: 12px;
   padding: 4px 8px;
@@ -27,9 +28,17 @@
   text-align: center;
   font-weight: bold;
   width: 90%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
-/* تغيير الخلفية استنادًا إلى الـ status */
+.day-cell:hover {
+  box-shadow: 0 0 10px rgba(0,0,0,0.2);
+  cursor: pointer;
+}
+
+/* الحالة حسب اللون */
 .missed {
   background: #e57373; /* أحمر */
 }

@@ -1,40 +1,174 @@
-/* LOGINPAGR.CSS */
+
+/* ملف: LoginPage.css */
+html, body {
+  font-size: 20px; /* هذا يكبر كل الكتابة */
+  font-family: 'Tajawal', sans-serif; /* خط جميل لو أردت */
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* يمنع السكرول العرضي */
+}
+
+.login-btn {
+  all: unset;
+  background: #64b5f6;
+  color: white;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 16px;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+}
+
 .login-container {
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: #e3f2fd; /* خلفية أزرق فاتح جدا */
+  height: 100vh;
+  width: 100vw; /* إضافة */
+  overflow: hidden; /* منع أي سكرول */
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.login-card {
+  display: flex;
+  flex-direction: row; /* خليها سطرية */
+  background: white;
+  border-radius: 20px; /* تدوير الزوايا أكثر */
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  width: 100%;
+  max-width: 1100px; /* 🛑 زيدت العرض شوي */
+  height: 600px; /* 🛑 خليت ارتفاعه ثابت وكبير */
+}
+
+
+
+.login-image {
+  flex: 1;
+  background: linear-gradient(to bottom right, #bbdefb, #e3f2fd); /* سماوي فاتح */
+  display: flex;
   align-items: center;
   justify-content: center;
-  height: 100vh;
-  background-color: #f4f4f4;
-  direction: rtl;
+  padding: 20px;
+}
+
+.login-image img {
+  width: 80%;
+  max-width: 300px;
 }
 
 .login-form {
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.login-form input {
-  display: block;
-  width: 100%;
+.login-form h1 {
+  color: #1565c0; /* أزرق غامق */
   margin-bottom: 10px;
-  padding: 8px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  font-size: 30px;
+  font-weight: bold;
+}
+.subtitle {
+  color: #5c6bc0;
+  margin-bottom: 30px;
+  font-size: 20px; /* 🔥 بدل 14px كانت */
+  font-weight: bold; /* 🔥 أضفنا ثقل */
+}
+.input-group {
+  display: flex;
+  align-items: center;
+  background: #f8fbff;
+  margin-bottom: 30px; /* كان موجود، نخليه مثلا 25px */
+  border-radius: 8px;
+  padding: 10px;
+  border: 1px solid #d0e3f7;
 }
 
-.login-form button {
-  width: 100%;
-  padding: 10px;
-  background: #007bff;
-  color: white;
+
+.input-group input {
   border: none;
-  border-radius: 4px;
+  outline: none;
+  background: transparent;
+  margin-right: 10px;
+  flex: 1;
+}
+
+.input-icon {
+  color: #64b5f6;
+  font-size: 20px;
+}.remember-me {
+   display: flex;
+   align-items: center;
+   gap: 8px; /* هنا يتحكم بالمسافة بين التشيك بوكس والجملة */
+   margin-bottom: 0;
+   font-size: 16px; /* حجم خط مناسب */
+   color: #1565c0; /* اللون الأزرق الغامق */
+ }.login-btn {
+    background-color: #64b5f6 !important;
+    color: #0d47a1 !important; /* أزرق غامق */
+    font-size: 18px !important;
+    font-weight: bold;
+    padding: 12px;
+    border: none;
+    border-radius: 8px;
+    width: 100%;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+
+.login-btn:hover {
+  background-color: #42a5f5 !important; /* أزرق أغمق شوي عند hover */
+}
+
+
+.login-btn:hover {
+  background: #4285f4; /* أزرق أغمق لما تمر عليه بالماوس */
+}
+
+.login-links {
+  margin-top: 20px;
+  font-size: 14px;
+  text-align: center;
+}
+
+.login-links span {
+  color: #1565c0;
   cursor: pointer;
 }
-
-.login-form button:hover {
-  background: #0056b3;
+.login-links span:hover {
+  text-decoration: underline;
+  color: #0d47a1; /* 🔵 أزرق داكن */
+  font-weight: bold;
+  transform: scale(1.05); /* تكبير خفيف */
+  transition: all 0.3s ease;
 }
+.forgot-password-link {
+  color: #1565c0;
+  font-weight: bold;
+  font-size: 16px;
+  cursor: pointer;
+  text-decoration: none;
+  margin-right: 5px;
+}
+
+.forgot-password-link:hover {
+  text-decoration: underline;
+  color: #0d47a1;
+}
+
+
+/* Responsive */
+@media (max-width: 768px) {
+  .login-card {
+    flex-direction: column;
+  }
+}
+
