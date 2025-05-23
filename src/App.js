@@ -101,20 +101,19 @@ const AppContent = () => {
           />
           <Route path="/register" element={<RegisterPage />} />
 
-          <Route
-            path="/vaccine-info/:id"
-            element={<VaccineInfoPage />}
-          />
+          <Route path="/vaccine-info/:id" element={<VaccineInfoPage />} />
           <Route path="/feedback" element={<FeedbackPage />} />
           <Route path="/dashboard/parent" element={<ParentDashboard />} />
           <Route
             path="/dashboard/healthworker"
             element={<HealthWorkerDashboard />}
           />
+
           <Route
-            path="/appointment-scheduling/:day"
+            path="/hw-appointment-scheduling/:day"
             element={<HWAppointmentScheduling />}
           />
+
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/reminder" element={<ReminderPage />} />
