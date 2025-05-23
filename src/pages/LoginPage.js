@@ -6,6 +6,7 @@ import "../styles/LoginPage.css"; // ملف التنسيق
 
 const LoginPage = () => {
   const [username, setUsername] = useState("");
+ 
   const [password, setPassword] = useState("");
   const [rememberMe, setRememberMe] = useState(false);
   const navigate = useNavigate();
@@ -20,30 +21,43 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log("🔵 محاولة تسجيل الدخول باستخدام", username, password, rememberMe);
+    console.log(
+      "🔵 محاولة تسجيل الدخول باستخدام",
+      username,
+      password,
+      rememberMe
+    );
 
     try {
       const response = await fetch(`http://localhost:8080/api/login`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json'
+          "Content-Type": "application/json",
         },
-        credentials: 'include', // ⬅️ هذا السطر هو الأهم للجلسة
-        body: JSON.stringify({ username, password })
+        credentials: "include", // ⬅️ هذا السطر هو الأهم للجلسة
+        body: JSON.stringify({ username, password }),
       });
 
       if (!response.ok) {
-        throw new Error('فشل تسجيل الدخول: اسم المستخدم أو كلمة المرور غير صحيحة');
+        throw new Error(
+          "فشل تسجيل الدخول: اسم المستخدم أو كلمة المرور غير صحيحة"
+        );
       }
 
       const data = await response.json();
-      const { username: user, role } = data;
+      // const { username: user, role } = data;
 
-      localStorage.setItem('username', user);
-      localStorage.setItem('role', role.toLowerCase());
+
+      const { username: user, role, referenceId } = data;
+
+      localStorage.setItem("userId", referenceId); 
+
+      localStorage.setItem("username", user);
+      // localStorage.setItem('role', role.toLowerCase());
+      localStorage.setItem("role", mapRoleToFrontend(role));
 
       if (rememberMe) {
-        localStorage.setItem('password', password); // ⚠️ فقط للتجربة
+        localStorage.setItem("password", password); // ⚠️ فقط للتجربة
       }
 
       // التوجيه حسب الدور
@@ -54,78 +68,94 @@ const LoginPage = () => {
         case "parent":
           navigate("/dashboard/parent");
           break;
-        case "healthworker":
+
+        case "health_worker":
           navigate("/dashboard/healthworker");
           break;
         default:
           navigate("/dashboard");
       }
-
     } catch (error) {
-      console.error('❌ خطأ أثناء تسجيل الدخول:', error);
-      alert(error.message || 'حدث خطأ غير متوقع. حاول مرة أخرى.');
+      console.error("❌ خطأ أثناء تسجيل الدخول:", error);
+      alert(error.message || "حدث خطأ غير متوقع. حاول مرة أخرى.");
+    }
+  };
+
+  const mapRoleToFrontend = (role) => {
+    switch (role.toUpperCase()) {
+      case "PARENT":
+        return "parent";
+      case "ADMIN":
+        return "admin";
+      case "HEALTH_WORKER":
+        return "healthworker";
+      default:
+        return "user";
     }
   };
 
   return (
-      <div className="login-container" dir="rtl">
-        <div className="login-card">
-          <div className="login-image">
-            <img src={loginImage} alt="SmartVAX Logo" />
-          </div>
-          <div className="login-form">
-            <h1 style={{ color: "#1565c0" }}>مرحبًا بك!</h1>
-            <p className="subtitle" style={{ color: "#1565c0" }}>
-              ابدأ رحلة التطعيم من هنا
-            </p>
-            <form onSubmit={handleLogin}>
-              <div className="input-group">
-                <FaUser className="input-icon" />
-                <input
-                    type="text"
-                    placeholder="اسم المستخدم"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-              </div>
-              <div className="input-group">
-                <FaLock className="input-icon" />
-                <input
-                    type="password"
-                    placeholder="كلمة المرور"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-              </div>
-              <div className="remember-me">
-                <input
-                    type="checkbox"
-                    id="rememberMe"
-                    checked={rememberMe}
-                    onChange={() => setRememberMe(!rememberMe)}
-                />
-                <label htmlFor="rememberMe" style={{ color: "#1565c0" }}>
-                  حفظ بيانات الدخول
-                </label>
-              </div>
-              <button type="submit" className="login-btn">
-                تسجيل الدخول
-              </button>
-            </form>
-            <div className="login-links">
-            <span onClick={() => navigate("/register")} style={{ color: "#1565c0", cursor: "pointer" }}>
+    <div className="login-container" dir="rtl">
+      <div className="login-card">
+        <div className="login-image">
+          <img src={loginImage} alt="SmartVAX Logo" />
+        </div>
+        <div className="login-form">
+          <h1 style={{ color: "#1565c0" }}>مرحبًا بك!</h1>
+          <p className="subtitle" style={{ color: "#1565c0" }}>
+            ابدأ رحلة التطعيم من هنا
+          </p>
+          <form onSubmit={handleLogin}>
+            <div className="input-group">
+              <FaUser className="input-icon" />
+              <input
+                type="text"
+                placeholder="اسم المستخدم"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                required
+              />
+            </div>
+            <div className="input-group">
+              <FaLock className="input-icon" />
+              <input
+                type="password"
+                placeholder="كلمة المرور"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+              />
+            </div>
+            <div className="remember-me">
+              <input
+                type="checkbox"
+                id="rememberMe"
+                checked={rememberMe}
+                onChange={() => setRememberMe(!rememberMe)}
+              />
+              <label htmlFor="rememberMe" style={{ color: "#1565c0" }}>
+                حفظ بيانات الدخول
+              </label>
+            </div>
+            <button type="submit" className="login-btn">
+              تسجيل الدخول
+            </button>
+          </form>
+          <div className="login-links">
+            <span
+              onClick={() => navigate("/register")}
+              style={{ color: "#1565c0", cursor: "pointer" }}
+            >
               إنشاء حساب
             </span>
-              {" | "}
-              <span style={{ color: "#1565c0", cursor: "pointer" }}>
+            {" | "}
+            <span style={{ color: "#1565c0", cursor: "pointer" }}>
               نسيت كلمة المرور؟
             </span>
-            </div>
           </div>
         </div>
       </div>
+    </div>
   );
 };
 

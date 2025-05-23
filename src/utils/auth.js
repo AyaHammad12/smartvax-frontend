@@ -4,6 +4,7 @@ export const getUserRole = () => {
 };
 
 export const login = (role) => {
+  
   if (["parent", "healthworker", "manager"].includes(role)) {
     localStorage.setItem("role", role);
   }
