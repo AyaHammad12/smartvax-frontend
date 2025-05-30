@@ -5,24 +5,48 @@
   text-align: center;
   direction: rtl;
 }
-
+h1 {
+  display: block;
+  font-weight: 900;
+  font-size: 32px;
+  color: #333;
+  margin-bottom: 30px;
+}
 .filter-container {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-wrap: wrap;
+  gap: 20px;
+  align-items: center;
+  justify-content: space-between;
   margin-bottom: 20px;
 }
 
+.filter-container > * {
+  flex: 1 1 45%; /* يجعل كل عنصر يأخذ تقريبًا نصف العرض */
+  min-width: 250px; /* يمنع التصغير الزائد في الشاشات الصغيرة */
+}
+
+@media (max-width: 600px) {
+  .filter-container > * {
+    flex: 1 1 100%;
+  }
+}
+
 .filter-container label {
+  background-color: #ff3bab;
+  margin-right: 5px;
   font-weight: bold;
-  margin-right: 10px;
+  padding-right: 5px ;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+
 }
 
 .filter-container select,
-.filter-container input {
-  padding: 8px;
-  font-size: 16px;
-  border-radius: 5px;
+.filter-container input[type="date"],
+.filter-container input[type="text"] {
+  padding: 5px;
+  border-radius: 4px;
   border: 1px solid #ccc;
 }
 

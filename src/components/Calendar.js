@@ -15,8 +15,20 @@ const Calendar = () => {
 
   const normalizeDate = (dateStr) => {
     if (!dateStr) return null;
-    if (typeof dateStr === "string") return dateStr.split("T")[0];
-    return null;
+    return dateStr.split("T")[0];
+  };
+
+  const translateStatus = (status) => {
+    switch (status) {
+      case "PENDING":
+        return "قادم";
+      case "COMPLETED":
+        return "مكتمل";
+      case "MISSED":
+        return "فائت";
+      default:
+        return "غير معروف";
+    }
   };
 
   const fetchScheduleData = async () => {
@@ -30,7 +42,6 @@ const Calendar = () => {
       if (!response.ok) throw new Error("فشل تحميل بيانات جدول التطعيمات");
 
       const data = await response.json();
-      console.log("Fetched scheduleData:", data);
       setScheduleData(data);
     } catch (error) {
       console.error("❌ خطأ أثناء تحميل جدول التطعيمات:", error);
@@ -55,14 +66,7 @@ const Calendar = () => {
     setCurrentYear(newYear);
   };
 
-  const statusMapping = {
-    SCHEDULED: "قادم",
-    COMPLETED: "مكتمل",
-    MISSED: "فائت",
-  };
-
   const generateDays = () => {
-    const today = new Date().toISOString().split("T")[0];
     let days = [];
 
     for (let i = 0; i < firstDayOfWeek; i++) {
@@ -70,33 +74,27 @@ const Calendar = () => {
     }
 
     for (let i = 1; i <= daysInMonth; i++) {
+      const day = String(i).padStart(2, "0");
       const month = String(currentMonth + 1).padStart(2, "0");
-      const dateKey = `${currentYear}-${month}-${String(i).padStart(2, "0")}`;
+      const dateKey = `${currentYear}-${month}-${day}`;
 
-      const dayData = scheduleData.find((item) => {
-        if (!item.scheduledDate) return false;
-        const normalized = normalizeDate(item.scheduledDate);
-        console.log(`Calendar Day: ${dateKey} Checking against: ${normalized}`);
-        return normalized === dateKey;
-      });
-
-      const dayStatus = (() => {
-        if (!dayData) return "default";
-        const scheduled = normalizeDate(dayData.scheduledDate);
-        if (scheduled < today) return "مكتمل";
-        return statusMapping[dayData.status] || "default";
-      })();
+      const vaccines = scheduleData
+          .filter((item) => normalizeDate(item.scheduledDate) === dateKey)
+          .map((item) => ({
+            id: item.vaccination?.id,
+            name: item.vaccination?.name,
+            groupName: item.vaccination?.group?.name || "",
+            status: translateStatus(item.status),
+          }));
 
       days.push(
           <DayCell
-              key={i}
+              key={`day-${dateKey}`}
               day={i}
               month={month}
               year={currentYear}
-              status={role === "parent" ? dayStatus : "default"}
+              vaccines={vaccines}
               role={role}
-              id={dayData?.vaccination?.id}
-              vaccineName={dayData?.vaccination?.name}
           />
       );
     }

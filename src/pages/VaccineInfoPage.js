@@ -11,7 +11,7 @@ const VaccineInfoPage = () => {
   const [error, setError] = useState(null);
 
   const fetchVaccineData = async () => {
-    if (!id || isNaN(id)) {
+    if (!id) {
       setError("⚠️ المعرف (ID) غير صالح أو مفقود.");
       setLoading(false);
       return;
@@ -20,27 +20,24 @@ const VaccineInfoPage = () => {
     try {
       const response = await fetch(`http://localhost:8080/api/vaccinations/${id}`, {
         method: "GET",
-        credentials: "include", // ⬅️ مهم لإرسال الكوكي الخاصة بالجلسة
+        credentials: "include",
         headers: {
-          'Accept': 'application/json'
-        }
+          'Accept': 'application/json',
+        },
       });
 
       if (!response.ok) {
-        if (response.status === 404) {
-          throw new Error("❌ اللقاح غير موجود.");
-        }
-        if (response.status === 403 || response.status === 401) {
+        if (response.status === 404) throw new Error("❌ اللقاح غير موجود.");
+        if (response.status === 403 || response.status === 401)
           throw new Error("⚠️ غير مصرح لك بالوصول إلى هذا المورد.");
-        }
         throw new Error(`❌ فشل التحميل: ${response.status} ${response.statusText}`);
       }
 
       const data = await response.json();
       setVaccine(data);
     } catch (error) {
-      console.error('❌ خطأ أثناء تحميل اللقاح:', error);
-      setError(error.message || 'حدث خطأ غير متوقع أثناء التحميل.');
+      console.error("❌ خطأ أثناء تحميل اللقاح:", error);
+      setError(error.message || "حدث خطأ غير متوقع أثناء التحميل.");
     } finally {
       setLoading(false);
     }
@@ -50,51 +47,21 @@ const VaccineInfoPage = () => {
     fetchVaccineData();
   }, [id]);
 
-  if (loading) {
-    return <div className="vaccine-info-container" dir="rtl"><p>جاري تحميل البيانات...</p></div>;
-  }
-
-  if (error) {
-    return <div className="vaccine-info-container" dir="rtl"><p className="error-message">{error}</p></div>;
-  }
-
-  if (!vaccine) {
-    return <div className="vaccine-info-container" dir="rtl"><h2>معلومات اللقاح غير متوفرة.</h2></div>;
-  }
+  if (loading) return <div className="vaccine-info-container" dir="rtl"><p>جاري تحميل البيانات...</p></div>;
+  if (error) return <div className="vaccine-info-container" dir="rtl"><p className="error-message">{error}</p></div>;
+  if (!vaccine) return <div className="vaccine-info-container" dir="rtl"><h2>معلومات اللقاح غير متوفرة.</h2></div>;
 
   return (
       <div className="vaccine-info-container" dir="rtl">
         <h1 className="vaccine-title">معلومات اللقاح</h1>
         <div className="vaccine-card">
           <div className="vaccine-details">
-            <div className="vaccine-row">
-              <FaCheckCircle className="vaccine-icon" />
-              <strong>اسم اللقاح:</strong> <span>{vaccine.name || "غير متوفر"}</span>
-            </div>
-            <div className="vaccine-row">
-              <FaCheckCircle className="vaccine-icon" />
-              <strong>نوع اللقاح:</strong> <span>{vaccine.type || "غير متوفر"}</span>
-            </div>
-            <div className="vaccine-row">
-              <FaCheckCircle className="vaccine-icon" />
-              <strong>تاريخ الإعطاء:</strong> <span>{vaccine.dateGiven || "غير متوفر"}</span>
-            </div>
-            <div className="vaccine-row">
-              <FaCheckCircle className="vaccine-icon" />
-              <strong>العمر المستهدف (بالأشهر):</strong> <span>{vaccine.targetAge != null ? `${vaccine.targetAge} أشهر` : "غير متوفر"}</span>
-            </div>
-            <div className="vaccine-row">
-              <FaCheckCircle className="vaccine-icon" />
-              <strong>الآثار الجانبية:</strong> <span>{vaccine.sideEffects || "غير متوفر"}</span>
-            </div>
-            <div className="vaccine-row">
-              <FaCheckCircle className="vaccine-icon" />
-              <strong>الحالة:</strong> <span>{vaccine.status || "غير متوفر"}</span>
-            </div>
-            <div className="vaccine-row">
-              <FaCheckCircle className="vaccine-icon" />
-              <strong>العلاج:</strong> <span>{vaccine.treatment || "غير متوفر"}</span>
-            </div>
+            <InfoRow label="اسم اللقاح" value={vaccine.name} />
+            <InfoRow label="العمر المستهدف (بالأيام)" value={vaccine.targetAgeDays + " يومًا"} />
+            <InfoRow label="طريقة الإعطاء" value={vaccine.routeOfAdministration} />
+            <InfoRow label="الجرعة" value={vaccine.dose} />
+            <InfoRow label="مكان الإعطاء" value={vaccine.treatment} />
+            <InfoRow label="الآثار الجانبية" value={vaccine.sideEffects} />
           </div>
         </div>
 
@@ -115,5 +82,14 @@ const VaccineInfoPage = () => {
       </div>
   );
 };
+
+// ✅ مكون فرعي للتكرار
+const InfoRow = ({ label, value }) => (
+    <div className="vaccine-row">
+      <FaCheckCircle className="vaccine-icon" />
+      <strong>{label}:</strong>{" "}
+      <span>{value || "غير متوفر"}</span>
+    </div>
+);
 
 export default VaccineInfoPage;

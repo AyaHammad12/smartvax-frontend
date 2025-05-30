@@ -1,68 +1,108 @@
-import React, { useState } from "react";
-import "../styles/ScheduledVaccinationsPage.css"; // تأكد من أن ملف CSS موجود
+import React, { useState, useEffect } from "react";
+import "../styles/ScheduledVaccinationsPage.css";
 
-// خريطة ترجمة للحالات لضمان تطابقها مع الـ CSS
+// ✅ خريطة ترجمة الحالة إلى كلاس CSS
 const statusMapping = {
-  قادم: "upcoming",
-  مكتمل: "completed",
-  فائت: "missed",
-  "قيد التنفيذ": "in-progress",
+    قادم: "upcoming",
+    مكتمل: "completed",
+    فائت: "missed",
+    "قيد التنفيذ": "in-progress",
+    ملغاة: "canceled",
 };
 
-const scheduledVaccinations = [
-  { id: 1, name: "شلل الأطفال", date: "2024-04-15", status: "قادم" },
-  {
-    id: 2,
-    name: "الحصبة والنكاف والحصبة الألمانية",
-    date: "2024-06-10",
-    status: "مكتمل",
-  },
-  { id: 3, name: "التهاب الكبد B", date: "2023-05-20", status: "فائت" },
-  { id: 5, name: "فيروس الروتا", date: "2024-07-20", status: "قادم" },
-  {
-    id: 4,
-    name: "الدفتيريا والتيتانوس والسعال الديكي",
-    date: "2024-05-05",
-    status: "قيد التنفيذ",
-  },
-].filter((vaccine) => vaccine.name && vaccine.date && vaccine.status); // ✅ تصفية البيانات الفارغة
+// ✅ ترجمة الحالة من الإنجليزي إلى العربي
+const translateStatus = (status) => {
+    switch (status) {
+        case "PENDING":
+            return "قادم";
+        case "COMPLETED":
+            return "مكتمل";
+        case "MISSED":
+            return "فائت";
+        case "IN_PROGRESS":
+            return "قيد التنفيذ";
+        case "CANCELED":
+            return "ملغاة";
+        default:
+            return "غير معروف";
+    }
+};
 
 const ScheduledVaccinationsPage = () => {
-  const [vaccinations] = useState(scheduledVaccinations);
+    const [vaccinationsByDate, setVaccinationsByDate] = useState({});
 
-  return (
-    <div className="scheduled-vaccinations-container" dir="rtl">
-      <h2>التطعيمات المجدولة</h2>
+    useEffect(() => {
+        fetch("http://localhost:8080/api/schedule-vaccinations", {
+            credentials: "include",
+        })
+            .then((res) => {
+                if (!res.ok) throw new Error("فشل في جلب المواعيد");
+                return res.json();
+            })
+            .then((data) => {
+                const grouped = {};
 
-      {vaccinations.length === 0 ? (
-        <p className="no-vaccinations">لا توجد تطعيمات مجدولة.</p>
-      ) : (
-        <div className="vaccination-list">
-          {vaccinations.map((vaccination) => {
-            const englishStatus =
-              statusMapping[vaccination.status] || "default"; // ترجمة الحالة
+                data.forEach((v) => {
+                    if (
+                        v.vaccination?.group?.name &&
+                        v.scheduledDate &&
+                        v.status
+                    ) {
+                        const date = v.scheduledDate;
+                        const groupName = v.vaccination.group.name;
+                        const translatedStatus = translateStatus(v.status);
 
-            return (
-              <div
-                key={vaccination.id}
-                className={`vaccination-card ${englishStatus}`}
-                style={{ display: "block", visibility: "visible" }} // ✅ تأكد من أن العنصر مرئي
-              >
-                <h3>{vaccination.name}</h3>
-                <p>
-                  <strong>التاريخ المجدول:</strong> {vaccination.date}
-                </p>
-                <p>
-                  <strong>الحالة:</strong>{" "}
-                  <span className="status">{vaccination.status}</span>
-                </p>
-              </div>
-            );
-          })}
+                        if (!grouped[date]) {
+                            grouped[date] = {
+                                name: groupName,
+                                date,
+                                status: translatedStatus,
+                            };
+                        }
+                    }
+                });
+
+                setVaccinationsByDate(grouped);
+            })
+            .catch((err) => {
+                console.error(err);
+                alert("❌ حدث خطأ أثناء جلب التطعيمات المجدولة");
+            });
+    }, []);
+
+    const vaccinations = Object.values(vaccinationsByDate);
+
+    return (
+        <div className="scheduled-vaccinations-container" dir="rtl">
+            <h2>📅 التطعيمات المجدولة</h2>
+
+            {vaccinations.length === 0 ? (
+                <p className="no-vaccinations">لا توجد تطعيمات مجدولة.</p>
+            ) : (
+                <div className="vaccination-list">
+                    {vaccinations.map((vaccination) => {
+                        const cssClass = statusMapping[vaccination.status] || "default";
+
+                        return (
+                            <div
+                                key={vaccination.date}
+                                className={`vaccination-card ${cssClass}`}
+                            >
+                                <h3>{vaccination.name}</h3>
+                                <p>
+                                    <strong>📅 التاريخ:</strong> {vaccination.date}
+                                </p>
+                                <p>
+                                    <strong>الحالة:</strong>{" "}
+                                    <span className="status">{vaccination.status}</span>
+                                </p>
+                            </div>
+                        );
+                    })}
+                </div>
+            )}
         </div>
-      )}
-    </div>
-  );
+    );
 };
 
 export default ScheduledVaccinationsPage;
