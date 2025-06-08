@@ -52,8 +52,21 @@ h1 {
 
 .appointments-list {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  flex-wrap: wrap; /* تسمح بأن تلتف العناصر لو ما في مساحة */
+  gap: 20px; /* مسافة بين البطاقات */
+  justify-content: flex-start;
+}
+.manage-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.manage-btn:hover {
+  background-color: #0056b3;
 }
 
 .appointment-card {
@@ -62,7 +75,18 @@ h1 {
   border-radius: 8px;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   text-align: left;
+
+  /* تعديل العرض بحيث يظهر 3 بطاقات في صف */
+  flex: 1 1 calc(33.333% - 13.333px); /* 33.333% مع خصم جزء من المسافات */
+  box-sizing: border-box; /* لتشمل الحشو والحدود ضمن العرض */
+  min-width: 250px; /* حد أدنى للعرض */
 }
+@media (max-width: 768px) {
+  .appointment-card {
+    flex: 1 1 100%;
+  }
+}
+
 
 .appointment-card h3 {
   margin: 0 0 5px;
@@ -106,6 +130,26 @@ h1 {
 .reject-btn:hover {
   background-color: #c82333;
 }
+.completed {
+  background-color: #4caf50;
+  color: #000; /* ✅ خلي النص أسود أو غامق */
+}
+
+.complete-btn {
+  color: white;
+  background-color: #4caf50;
+  padding: 10px 15px;
+  margin-right: 10px;
+  border: none;
+  border-radius: 5px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.complete-btn:hover {
+  background-color: #388e3c;
+}
 
 /* ألوان حسب حالة الموعد */
 .appointment-card.pending {
@@ -118,4 +162,7 @@ h1 {
 
 .appointment-card.rejected {
   border-left: 5px solid red;
+}
+.appointment-card.completed {
+  background-color: #4caf50;
 }

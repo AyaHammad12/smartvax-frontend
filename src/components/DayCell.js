@@ -2,7 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/DayCell.css";
 
-const DayCell = ({ day, month, year, status, role, vaccines = [] }) => {
+const DayCell = ({ day, month, year, status, role, vaccines = [], appointments = [], onClick }) => {
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = React.useState(false);
 
@@ -15,13 +15,7 @@ const DayCell = ({ day, month, year, status, role, vaccines = [] }) => {
     return "";
   })();
 
-
   const handleClick = (vaccineId) => {
-    if (!vaccineId && role !== "healthworker") {
-      console.warn("لا يوجد تطعيم مسجل لهذا اليوم.");
-      return;
-    }
-
     const fullDate = `${year}-${month}-${String(day).padStart(2, "0")}`;
 
     if (role === "parent" && vaccineId) {
@@ -39,7 +33,14 @@ const DayCell = ({ day, month, year, status, role, vaccines = [] }) => {
           title={"اضغط لرؤية تفاصيل اليوم"}
           onMouseEnter={() => setShowPopup(true)}
           onMouseLeave={() => setShowPopup(false)}
-          style={{ cursor: vaccines.length > 0 || role === "healthworker" ? "pointer" : "default" }}
+          onClick={() => {
+            if (role === "healthworker") {
+              const fullDate = `${year}-${month}-${String(day).padStart(2, "0")}`;
+              navigate(`/hw-appointment-scheduling/${fullDate}`);
+              if (onClick) onClick();
+            }
+          }}
+          style={{ cursor: vaccines.length > 0 || appointments.length > 0 || role === "healthworker" ? "pointer" : "default" }}
       >
         <span className="day-number">{day}</span>
 
