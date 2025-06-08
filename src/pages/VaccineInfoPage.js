@@ -18,19 +18,24 @@ const VaccineInfoPage = () => {
     }
 
     try {
-      const response = await fetch(`http://localhost:8080/api/vaccinations/${id}`, {
-        method: "GET",
-        credentials: "include",
-        headers: {
-          'Accept': 'application/json',
-        },
-      });
+      const response = await fetch(
+        `http://localhost:8080/api/vaccinations/${id}`,
+        {
+          method: "GET",
+          credentials: "include",
+          headers: {
+            Accept: "application/json",
+          },
+        }
+      );
 
       if (!response.ok) {
         if (response.status === 404) throw new Error("❌ اللقاح غير موجود.");
         if (response.status === 403 || response.status === 401)
           throw new Error("⚠️ غير مصرح لك بالوصول إلى هذا المورد.");
-        throw new Error(`❌ فشل التحميل: ${response.status} ${response.statusText}`);
+        throw new Error(
+          `❌ فشل التحميل: ${response.status} ${response.statusText}`
+        );
       }
 
       const data = await response.json();
@@ -47,49 +52,69 @@ const VaccineInfoPage = () => {
     fetchVaccineData();
   }, [id]);
 
-  if (loading) return <div className="vaccine-info-container" dir="rtl"><p>جاري تحميل البيانات...</p></div>;
-  if (error) return <div className="vaccine-info-container" dir="rtl"><p className="error-message">{error}</p></div>;
-  if (!vaccine) return <div className="vaccine-info-container" dir="rtl"><h2>معلومات اللقاح غير متوفرة.</h2></div>;
+  if (loading)
+    return (
+      <div className="vaccine-info-container" dir="rtl">
+        <p>جاري تحميل البيانات...</p>
+      </div>
+    );
+  if (error)
+    return (
+      <div className="vaccine-info-container" dir="rtl">
+        <p className="error-message">{error}</p>
+      </div>
+    );
+  if (!vaccine)
+    return (
+      <div className="vaccine-info-container" dir="rtl">
+        <h2>معلومات اللقاح غير متوفرة.</h2>
+      </div>
+    );
 
   return (
-      <div className="vaccine-info-container" dir="rtl">
-        <h1 className="vaccine-title">معلومات اللقاح</h1>
-        <div className="vaccine-card">
-          <div className="vaccine-details">
-            <InfoRow label="اسم اللقاح" value={vaccine.name} />
-            <InfoRow label="العمر المستهدف (بالأيام)" value={vaccine.targetAgeDays + " يومًا"} />
-            <InfoRow label="طريقة الإعطاء" value={vaccine.routeOfAdministration} />
-            <InfoRow label="الجرعة" value={vaccine.dose} />
-            <InfoRow label="مكان الإعطاء" value={vaccine.treatment} />
-            <InfoRow label="الآثار الجانبية" value={vaccine.sideEffects} />
-          </div>
-        </div>
-
-        <div className="button-group">
-          <button
-              className="vaccine-button"
-              onClick={() => navigate(`/vaccine-appointments?vaccineId=${id}`)}
-          >
-            حجز موعد
-          </button>
-          <button
-              className="vaccine-button write-review"
-              onClick={() => navigate(`/write-review/${id}`)}
-          >
-            ✍️ اكتب تجربتك
-          </button>
+    <div className="vaccine-info-container" dir="rtl">
+      <h1 className="vaccine-title">معلومات اللقاح</h1>
+      <div className="vaccine-card">
+        <div className="vaccine-details">
+          <InfoRow label="اسم اللقاح" value={vaccine.name} />
+          <InfoRow
+            label="العمر المستهدف (بالأيام)"
+            value={vaccine.targetAgeDays + " يومًا"}
+          />
+          <InfoRow
+            label="طريقة الإعطاء"
+            value={vaccine.routeOfAdministration}
+          />
+          <InfoRow label="الجرعة" value={vaccine.dose} />
+          <InfoRow label="العلاج / الغرض الطبي" value={vaccine.treatment} />
+          <InfoRow label="الآثار الجانبية" value={vaccine.sideEffects} />
         </div>
       </div>
+
+      <div className="button-group">
+        <button
+          className="vaccine-button"
+          onClick={() => navigate(`/vaccine-appointments?vaccineId=${id}`)}
+        >
+          حجز موعد
+        </button>
+        <button
+          className="vaccine-button write-review"
+          onClick={() => navigate(`/write-review/${id}`)}
+        >
+          ✍️ اكتب تجربتك
+        </button>
+      </div>
+    </div>
   );
 };
 
 // ✅ مكون فرعي للتكرار
 const InfoRow = ({ label, value }) => (
-    <div className="vaccine-row">
-      <FaCheckCircle className="vaccine-icon" />
-      <strong>{label}:</strong>{" "}
-      <span>{value || "غير متوفر"}</span>
-    </div>
+  <div className="vaccine-row">
+    <FaCheckCircle className="vaccine-icon" />
+    <strong>{label}:</strong> <span>{value || "غير متوفر"}</span>
+  </div>
 );
 
 export default VaccineInfoPage;
