@@ -7,7 +7,9 @@ const statusLabels = {
     reshdualing: "طلب تأجيل",
     trlocation: "طلب تغيير موقع",
     completed: "تم التطعيم",
+    missed: "فائت", // ✅ أضف هذا السطر
 };
+
 
 const HWAppointmentScheduling = () => {
     const { day } = useParams(); // اليوم المأخوذ من الرابط

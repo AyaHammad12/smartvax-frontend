@@ -8,8 +8,10 @@ const allowedStatuses = {
   reshdualing: "طلب تأجيل",
   trlocation: "طلب تغيير موقع",
   completed: "تم التطعيم",
+  missed: "فائت", // ✅ أضف هذا السطر
   cancelled: "تم الإلغاء",
 };
+
 
 const ManegmentRequestsAppointment = () => {
   const [appointments, setAppointments] = useState([]);

@@ -44,21 +44,22 @@ const LoginPage = () => {
       }
 
       const data = await response.json();
+      const { id, username: user, role, referenceId } = data; // ✅
 
-      const { id, username: user, role } = data;
       localStorage.setItem("userId", id);
-
-
-      console.log("userId:", id);
-
       localStorage.setItem("username", user);
       localStorage.setItem("role", mapRoleToFrontend(role));
 
+      if (role.toUpperCase() === "PARENT") {
+        localStorage.setItem("parentId", referenceId); // ✅ هنا يتم الحل
+      }
+
       if (rememberMe) {
-        localStorage.setItem("password", password); // ⚠️ فقط للتجربة وليس للبيئة الحقيقية
+        localStorage.setItem("password", password);
       } else {
         localStorage.removeItem("password");
       }
+
 
       // التوجيه حسب الدور
       switch (role.toLowerCase()) {
