@@ -60,6 +60,17 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
   cursor: pointer;
 }
+.day-cell.missed {
+  background-color: #e57373;; /* أحمر */
+}
+
+.day-cell.completed {
+  background-color: #4caf50; /* أخضر */
+}
+
+.day-cell.upcoming {
+  background-color: #ffe6b3; /* برتقالي */
+}
 
 /* الحالة حسب اللون */
 .missed {

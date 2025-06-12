@@ -7,13 +7,23 @@ const DayCell = ({ day, month, year, status, role, vaccines = [], appointments =
   const [showPopup, setShowPopup] = React.useState(false);
 
   const vaccinations_Status = (() => {
-    const statuses = vaccines.map((v) => v.status);
+    const statuses = vaccines.map((v) => v.rawStatus?.toLowerCase());
 
-    if (statuses.includes("فائت")) return "missed";
-    if (statuses.includes("قادم")) return "upcoming";
-    if (statuses.includes("مكتمل")) return "completed";
+    if (statuses.includes("missed")) return "missed";
+    if (statuses.includes("completed")) return "completed";
+    if (
+        statuses.includes("pending") ||
+        statuses.includes("reshdualing") ||
+        statuses.includes("trlocation")
+    ) {
+      return "upcoming";
+    }
+
     return "";
   })();
+
+
+
 
   const handleClick = (vaccineId) => {
     const fullDate = `${year}-${month}-${String(day).padStart(2, "0")}`;
