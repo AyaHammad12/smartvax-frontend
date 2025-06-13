@@ -1,47 +1,40 @@
 import React, { useEffect, useState } from "react";
-import "../styles/AccountPage.css";
+import "../styles/AccountPage.css"; // إعادة استخدام نفس CSS
 
-const AccountPage = () => {
+const HealthWorkerAccountPage = () => {
   const [accountInfo, setAccountInfo] = useState({
     username: "",
     phone: "",
     role: "",
-    vaccinationCenterId: "",
+    vaccinationCenterName: "",
     password: "",
     confirmPassword: "",
   });
 
-  const [centers, setCenters] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // 📌 تحميل بيانات الحساب والمراكز الصحية
+  // 📌 تحميل بيانات حساب العامل الصحي
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [accountRes, centersRes] = await Promise.all([
-          fetch("http://localhost:8080/api/parent-account", {
+        const res = await fetch(
+          "http://localhost:8080/api/health-worker-account",
+          {
             credentials: "include",
-          }),
-          fetch("http://localhost:8080/api/vaccination-centers", {
-            credentials: "include",
-          }),
-        ]);
-
-        const accountData = await accountRes.json();
-        const centersData = await centersRes.json();
+          }
+        );
+        const data = await res.json();
 
         setAccountInfo((prev) => ({
           ...prev,
-          username: accountData.username,
-          phone: accountData.phone || "",
-          role: accountData.role,
-          vaccinationCenterId: accountData.vaccinationCenterId || "",
+          username: data.username,
+          phone: data.phone || "",
+          role: data.role,
+          vaccinationCenterName: data.vaccinationCenterName || "غير محدد",
         }));
-
-        setCenters(centersData);
         setLoading(false);
       } catch (err) {
-        console.error("فشل تحميل البيانات:", err);
+        console.error("فشل تحميل بيانات الحساب:", err);
       }
     };
 
@@ -63,10 +56,8 @@ const AccountPage = () => {
       return;
     }
 
-    // إعداد البيانات للإرسال: فقط الحقول التي يمكن تعديلها
     const payload = {
       phone: accountInfo.phone,
-      vaccinationCenterId: accountInfo.vaccinationCenterId,
     };
 
     if (accountInfo.password) {
@@ -74,14 +65,17 @@ const AccountPage = () => {
     }
 
     try {
-      const response = await fetch("http://localhost:8080/api/parent-account", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify(payload),
-      });
+      const response = await fetch(
+        "http://localhost:8080/api/health-worker-account",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          credentials: "include",
+          body: JSON.stringify(payload),
+        }
+      );
 
       if (response.ok) {
         alert("✅ تم حفظ التعديلات بنجاح");
@@ -121,6 +115,14 @@ const AccountPage = () => {
           onChange={handleChange}
         />
 
+        <label>المركز الصحي:</label>
+        <input
+          type="text"
+          name="vaccinationCenterName"
+          value={accountInfo.vaccinationCenterName}
+          disabled
+        />
+
         <label>الدور:</label>
         <input type="text" name="role" value={accountInfo.role} disabled />
 
@@ -148,4 +150,4 @@ const AccountPage = () => {
   );
 };
 
-export default AccountPage;
+export default HealthWorkerAccountPage;

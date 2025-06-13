@@ -61,7 +61,7 @@ const HealthWorkerNavbar = () => {
       icon: <FaClipboardList className="icon" />,
     },
     {
-      path: "/account",
+      path: "/health-worker-account",
       title: "الحساب",
       label: "الحساب",
       icon: <FaUser className="icon" />,
