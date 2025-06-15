@@ -35,7 +35,8 @@ import RegisterPage from "./pages/RegisterPage";
 import ScheduledVaccinationsPage from "./pages/ScheduledVaccinationsPage";
 import ReviewsPage from "./pages/ReviewsPage";
 import AppointmentManagementPage from "./pages/AppointmentManagementPage";
-
+import HealthWorkerAccountPage from "./pages/HealthWorkerAccountPage";
+import SearchVaccineInfoPage from "./pages/SearchVaccineInfoPage;"
 
 const AppContent = () => {
   const location = useLocation();
@@ -102,7 +103,10 @@ const AppContent = () => {
             element={<LogoutPage handleLogout={handleLogout} />}
           />
           <Route path="/register" element={<RegisterPage />} />
-          <Route path="/appointment-management/:appointmentId" element={<AppointmentManagementPage />} />
+          <Route
+            path="/appointment-management/:appointmentId"
+            element={<AppointmentManagementPage />}
+          />
 
           <Route path="/vaccine-info/:id" element={<VaccineInfoPage />} />
           <Route path="/feedback" element={<FeedbackPage />} />
@@ -157,6 +161,11 @@ const AppContent = () => {
             element={<ScheduledVaccinationsPage />}
           />
           <Route path="/write-review/:id" element={<ReviewsPage />} />
+          <Route
+            path="/health-worker-account"
+            element={<HealthWorkerAccountPage />}
+          />
+          <Route path="/search-vaccine-info/:id" element={<SearchVaccineInfoPage />} />
         </Routes>
       </div>
     </div>
