@@ -21,10 +21,12 @@ import HWAppointmentScheduling from "./pages/HWAppointmentScheduling";
 import ProfilePage from "./pages/ProfilePage";
 import AccountPage from "./pages/AccountPage";
 import ReminderPage from "./pages/ReminderPage";
+import AdditionalVaccineCertificate from "./pages/AdditionalVaccineCertificate";
 import HelpPage from "./pages/HelpPage";
 import SearchPage from "./pages/SearchPage";
 import SearchChildByID from "./pages/SearchChildByID";
 import ManegmentRequestsAppointment from "./pages/ManegmentRequestsAppointment";
+import SearchAdditionalVaccines from "./pages/SearchAdditionalVaccines";
 import ManagerDashboard from "./pages/ManagerDashboard";
 import ManageWorkers from "./pages/ManageWorkers";
 import ReportsPage from "./pages/ReportsPage";
@@ -36,7 +38,8 @@ import ScheduledVaccinationsPage from "./pages/ScheduledVaccinationsPage";
 import ReviewsPage from "./pages/ReviewsPage";
 import AppointmentManagementPage from "./pages/AppointmentManagementPage";
 import HealthWorkerAccountPage from "./pages/HealthWorkerAccountPage";
-import SearchVaccineInfoPage from "./pages/SearchVaccineInfoPage;"
+import SearchVaccineInfoPage from "./pages/SearchVaccineInfoPage";
+import VaccinationCertificate from "./pages/VaccinationCertificate";
 
 const AppContent = () => {
   const location = useLocation();
@@ -107,9 +110,11 @@ const AppContent = () => {
             path="/appointment-management/:appointmentId"
             element={<AppointmentManagementPage />}
           />
-
+          <Route path="/additional-vaccines/search" element={<SearchAdditionalVaccines />} />
           <Route path="/vaccine-info/:id" element={<VaccineInfoPage />} />
           <Route path="/feedback" element={<FeedbackPage />} />
+          <Route path="/certificate/:childId" element={<VaccinationCertificate />} />
+          <Route path="/additional-certificate/:childId" element={<AdditionalVaccineCertificate />} />
           <Route path="/dashboard/parent" element={<ParentDashboard />} />
           <Route
             path="/dashboard/healthworker"
@@ -134,6 +139,11 @@ const AppContent = () => {
           <Route path="/dashboard/manager" element={<ManagerDashboard />} />
           <Route path="/manage-workers" element={<ManageWorkers />} />
           <Route path="/reports" element={<ReportsPage />} />
+          <Route
+              path="/additional-vaccines/certificate/:childId"
+              element={<AdditionalVaccineCertificate />}
+          />
+
           <Route
             path="/appointments"
             element={

@@ -162,13 +162,50 @@ const Calendar = ({ role: propRole }) => {
             />
         );
       } else {
+        const today = new Date();
         const vaccines = scheduleData
             .filter((item) => normalizeDate(item.scheduledDate) === dateKey)
+
             .map((item) => {
-              const appointment = parentAppointments.find(appt =>
-                  appt.schedules?.some(sv => sv.id === item.id)
+              /** @type {import('./types').AppointmentDTO | undefined} */
+              const appointment = parentAppointments.find((appt) =>
+                  appt.scheduleVaccinations?.some((sv) => {
+
+                    return (
+                        sv &&
+                        sv.vaccination &&
+                        sv.vaccination.group &&
+                        sv.child &&
+                        item.vaccination &&
+                        item.vaccination.group &&
+                        item.child &&
+                        sv.child.id === item.child.id &&
+                        sv.vaccination.group.id === item.vaccination.group.id &&
+                        normalizeDate(sv.scheduledDate) === normalizeDate(item.scheduledDate)
+                    );
+                  })
               );
-              const finalStatus = appointment ? appointment.status : item.status;
+
+
+
+
+              const vaccineDate = new Date(item.scheduledDate);
+              let finalStatus;
+
+              if (appointment) {
+                finalStatus = appointment.status;
+              } else {
+                finalStatus = item.status;
+                if (finalStatus === "PENDING" && vaccineDate < today) {
+                  finalStatus = "MISSED";
+                }
+              }
+
+              console.log("🧪 Final status for vaccine", item.vaccination?.name, "is", finalStatus);
+              console.log("🧠 item.vaccination?.name:", item.vaccination?.name);
+              console.log("📌 item.child?.id:", item.child?.id); // ← هل هذا موجود؟
+              console.log("📆 item.scheduledDate:", item.scheduledDate);
+
               return {
                 id: item.vaccination?.id,
                 name: item.vaccination?.name,
@@ -177,6 +214,7 @@ const Calendar = ({ role: propRole }) => {
                 rawStatus: finalStatus,
               };
             });
+
 
         days.push(
             <DayCell
@@ -193,6 +231,7 @@ const Calendar = ({ role: propRole }) => {
     }
     return days;
   };
+
 
   return (
       <div className="calendar-container">

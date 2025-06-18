@@ -10,6 +10,7 @@ const translateStatus = (status) => {
         trlocation: "طلب تغيير موقع",
         completed: "تم التطعيم",
         cancelled: "تم الإلغاء",
+        missed: "فائت",
     };
     return map[status?.toLowerCase()] || "غير معروف";
 };
@@ -127,6 +128,7 @@ const AppointmentManagementPage = () => {
         healthWorker,
     } = appointment;
 
+
     return (
         <div className="appointment-management-container" dir="rtl">
             <h2>تفاصيل إدارة الموعد</h2>
@@ -143,20 +145,19 @@ const AppointmentManagementPage = () => {
                 <p><strong>تاريخ الموعد:</strong> {new Date(appointmentDate).toLocaleString("ar-EG")}</p>
                 <p><strong>الحالة:</strong> {translateStatus(status)}</p>
 
-                {status.toLowerCase() === "completed" && healthWorker?.name && (
+                {status?.toLowerCase() === "completed" && healthWorker?.name && (
                     <p><strong>تم التطعيم بواسطة:</strong> {healthWorker.name}</p>
                 )}
 
-                {status.toLowerCase() === "trlocation" && requestedNewCenter && (
+                {status?.toLowerCase() === "trlocation" && requestedNewCenter && (
                     <p><strong>موقع التطعيم الجديد المطلوب:</strong> {requestedNewCenter.name}</p>
                 )}
 
-                {status.toLowerCase() === "reshdualing" && rescheduleReason && (
+                {status?.toLowerCase() === "reshdualing" && rescheduleReason && (
                     <p><strong>سبب طلب التأجيل:</strong> {rescheduleReason}</p>
                 )}
 
-                {/* ✅ التقويم إذا الموعد طلب تأجيل */}
-                {status.toLowerCase() === "reshdualing" && (
+                {status?.toLowerCase() === "reshdualing" && (
                     <div className="date-picker">
                         <label><strong>اختر التاريخ الجديد:</strong></label>
                         <input
@@ -168,20 +169,27 @@ const AppointmentManagementPage = () => {
                 )}
             </div>
 
+
             <div className="actions">
-                {(status.toLowerCase() === "trlocation" || status.toLowerCase() === "reshdualing") && (
+                {status.toLowerCase() === "completed" ? (
+                    <p>تم إكمال هذا الموعد ولا يمكن إجراء تغييرات إضافية.</p>
+                ) : (
                     <>
-                        <button className="confirm-btn" onClick={acceptRequest}>تأكيد الطلب</button>
-                        <button className="reject-btn" onClick={rejectRequest}>رفض الطلب</button>
+                        {(status.toLowerCase() === "trlocation" || status.toLowerCase() === "reshdualing") && (
+                            <>
+                                <button className="confirm-btn" onClick={acceptRequest}>تأكيد الطلب</button>
+                                <button className="reject-btn" onClick={rejectRequest}>رفض الطلب</button>
+                            </>
+                        )}
+                        {status.toLowerCase() !== "completed" && (
+                            <button className="complete-btn" onClick={markAsCompleted}>تم التطعيم</button>
+                        )}
                     </>
                 )}
-
-                {status.toLowerCase() !== "completed" && (
-                    <button className="complete-btn" onClick={markAsCompleted}>تم التطعيم</button>
-                )}
-
                 <button className="back-btn" onClick={() => navigate(-1)}>رجوع</button>
             </div>
+
+
         </div>
     );
 };

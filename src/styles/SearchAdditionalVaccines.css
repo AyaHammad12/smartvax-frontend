@@ -1,0 +1,67 @@
+/* SearchAdditionalVaccines.css */
+.search-additional-container {
+    max-width: 700px;
+    margin: auto;
+    padding: 40px;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-top: 50px;
+    font-family: 'Cairo', sans-serif;
+}
+
+.search-additional-container h1 {
+    color: #4a148c;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.search-form-row {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    gap: 10px; /* مسافة بين العناصر */
+    flex-wrap: wrap; /* حتى لا ينكسر على الشاشات الصغيرة */
+    margin-top: 20px;
+}
+
+.search-form-row label {
+    background-color: #5368e3;
+    color: white;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 6px;
+    max-width: none;
+    white-space: nowrap;
+}
+
+.search-form-row input {
+    padding: 12px;
+    font-size: 16px;
+    border: 1px solid #090909;
+    border-radius: 6px;
+    text-align: right;
+    width: 200px;
+}
+
+.search-form-row button {
+    background-color: #14289f;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.search-form-row button:hover {
+    background-color: #0d1d85;
+}
+
+
+.search-additional-container img.logo {
+    width: 70px;
+    margin-bottom: 20px;
+}

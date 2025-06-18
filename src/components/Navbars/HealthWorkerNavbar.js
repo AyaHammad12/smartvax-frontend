@@ -67,6 +67,13 @@ const HealthWorkerNavbar = () => {
       icon: <FaUser className="icon" />,
     },
     {
+      path: "/additional-vaccines/search",
+      title: "البحث عن تطعيم إضافي",
+      label: "تطعيم إضافي",
+      icon: <MdMedicalInformation className="icon" />,
+    },
+
+    {
       path: "/reminder",
       title: "التذكيرات",
       label: "التذكيرات",

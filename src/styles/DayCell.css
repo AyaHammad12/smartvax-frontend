@@ -60,27 +60,20 @@
   box-shadow: 0 0 10px rgba(0,0,0,0.2);
   cursor: pointer;
 }
-.day-cell.missed {
-  background-color: #e57373;; /* أحمر */
-}
 
 .day-cell.completed {
-  background-color: #4caf50; /* أخضر */
+  background-color: #4CAF50; /* أخضر */
+  color: white;
+}
+
+.day-cell.missed {
+  background-color: #F44336; /* أحمر */
+  color: white;
 }
 
 .day-cell.upcoming {
-  background-color: #ffe6b3; /* برتقالي */
+  background-color: #FF9800; /* برتقالي */
+  color: white;
 }
 
-/* الحالة حسب اللون */
-.missed {
-  background: #e57373; /* أحمر */
-}
 
-.completed {
-  background: #4caf50; /* أخضر */
-}
-
-.upcoming {
-  background: #ffcc80; /* برتقالي */
-}

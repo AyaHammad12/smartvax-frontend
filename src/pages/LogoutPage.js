@@ -12,6 +12,10 @@ const LogoutPage = () => {
     localStorage.removeItem("role");
     localStorage.removeItem("username");
     localStorage.removeItem("password");
+    // عند تسجيل الخروج
+    localStorage.removeItem("childId");
+    localStorage.removeItem("parentId");
+
 
     // إعادة التوجيه إلى صفحة تسجيل الدخول
     navigate("/login");

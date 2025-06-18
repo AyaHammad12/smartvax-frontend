@@ -86,7 +86,7 @@ const VaccineInfoPage = () => {
             value={vaccine.routeOfAdministration}
           />
           <InfoRow label="الجرعة" value={vaccine.dose} />
-          <InfoRow label="العلاج / الغرض الطبي" value={vaccine.treatment} />
+          <InfoRow label="طرق علاج مقترحة" value={vaccine.treatment} />
           <InfoRow label="الآثار الجانبية" value={vaccine.sideEffects} />
         </div>
       </div>
@@ -96,7 +96,7 @@ const VaccineInfoPage = () => {
           className="vaccine-button"
           onClick={() => navigate(`/vaccine-appointments?vaccineId=${id}`)}
         >
-          حجز موعد
+          المواعيد الخاصة باللقاح
         </button>
         <button
           className="vaccine-button write-review"

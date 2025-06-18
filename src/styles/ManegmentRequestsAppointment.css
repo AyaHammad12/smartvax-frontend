@@ -87,6 +87,12 @@ h1 {
   }
 }
 
+.appointment-card.missed {
+  border-left: 5px solid #d02645;
+  background-color: #d05a6f; /* خلفية صفراء فاتحة */
+  color: #ffffff; /* لون نص برتقالي غامق */
+}
+
 
 .appointment-card h3 {
   margin: 0 0 5px;
@@ -131,7 +137,7 @@ h1 {
   background-color: #c82333;
 }
 .completed {
-  background-color: #4caf50;
+  background-color: #93ea96;
   color: #000; /* ✅ خلي النص أسود أو غامق */
 }
 
@@ -153,16 +159,26 @@ h1 {
 
 /* ألوان حسب حالة الموعد */
 .appointment-card.pending {
-  border-left: 5px solid blue;
-}
+  border-left: 5px solid orange;
+  background-color: #de8d4b; /* خلفية صفراء فاتحة */
+  color: #856404; /* لون نص برتقالي غامق */}
 
 .appointment-card.accepted {
   border-left: 5px solid green;
 }
 
-.appointment-card.rejected {
-  border-left: 5px solid red;
+.appointment-card.trlocation {
+  border-left: 5px solid #14289f;
+  background-color: #7587ef; /* خلفية صفراء فاتحة */
+
+}
+.appointment-card.reshdualing {
+  border-left: 5px solid #d50e7f;
+  background-color: #e575b4; /* خلفية صفراء فاتحة */
+
 }
 .appointment-card.completed {
-  background-color: #4caf50;
+  border-left: 5px solid #1cc515;
+
+  background-color: #93ea96;
 }
