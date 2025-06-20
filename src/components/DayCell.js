@@ -6,14 +6,30 @@ const DayCell = ({ day, month, year, status, role, vaccines = [], appointments =
   const navigate = useNavigate();
   const [showPopup, setShowPopup] = React.useState(false);
 
-  const vaccinations_Status = (() => {
-    const statuses = vaccines.map((v) => v.status);
+  vaccines.forEach((v) => {
+    console.log(`Vaccine "${v.name}" rawStatus:`, v.rawStatus);
+  });
 
-    if (statuses.includes("فائت")) return "missed";
-    if (statuses.includes("قادم")) return "upcoming";
-    if (statuses.includes("مكتمل")) return "completed";
-    return "";
+  const vaccinations_Status = (() => {
+    const statuses = vaccines
+        .map((v) => v.rawStatus?.trim().toLowerCase());
+
+    console.log(`Statuses array for day ${day}:`, statuses);
+
+    // الأولوية: completed أولاً ثم missed ثم upcoming
+    if (statuses.includes("completed")) return "completed";
+    if (statuses.includes("missed")) return "missed";
+    if (
+        statuses.includes("pending") ||
+        statuses.includes("reshdualing") ||
+        statuses.includes("trlocation")
+    ) {
+      return "upcoming";
+    }
+    return "other"; // الحالة الافتراضية لو ما في شي
   })();
+
+  console.log("Vaccinations status for day", day, "is", vaccinations_Status);
 
   const handleClick = (vaccineId) => {
     const fullDate = `${year}-${month}-${String(day).padStart(2, "0")}`;
@@ -44,7 +60,6 @@ const DayCell = ({ day, month, year, status, role, vaccines = [], appointments =
       >
         <span className="day-number">{day}</span>
 
-        {/* ✅ عرض اسم المجموعة الأولى فقط كبداية */}
         {vaccines.length > 0 && (
             <span className="vaccine-name">
           {vaccines[0].groupName?.length > 18
@@ -53,7 +68,6 @@ const DayCell = ({ day, month, year, status, role, vaccines = [], appointments =
         </span>
         )}
 
-        {/* ✅ عرض القائمة عند التحويم */}
         {showPopup && vaccines.length > 0 && (
             <div className="vaccine-popup">
               {vaccines.map((v, index) => (

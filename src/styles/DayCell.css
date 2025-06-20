@@ -61,15 +61,19 @@
   cursor: pointer;
 }
 
-/* الحالة حسب اللون */
-.missed {
-  background: #e57373; /* أحمر */
+.day-cell.completed {
+  background-color: #4CAF50; /* أخضر */
+  color: white;
 }
 
-.completed {
-  background: #4caf50; /* أخضر */
+.day-cell.missed {
+  background-color: #F44336; /* أحمر */
+  color: white;
 }
 
-.upcoming {
-  background: #ffcc80; /* برتقالي */
+.day-cell.upcoming {
+  background-color: #FF9800; /* برتقالي */
+  color: white;
 }
+
+

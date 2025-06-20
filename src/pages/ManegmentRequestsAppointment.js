@@ -8,8 +8,10 @@ const allowedStatuses = {
   reshdualing: "طلب تأجيل",
   trlocation: "طلب تغيير موقع",
   completed: "تم التطعيم",
+  missed: "فائت", // ✅ أضف هذا السطر
   cancelled: "تم الإلغاء",
 };
+
 
 const ManegmentRequestsAppointment = () => {
   const [appointments, setAppointments] = useState([]);
@@ -62,7 +64,15 @@ const ManegmentRequestsAppointment = () => {
         .catch((err) => console.error("❌ Failed to load vaccine types:", err));
   }, []);
 
-  const translateStatus = (status) => allowedStatuses[status?.toLowerCase()] || "غير معروف";
+  const translateStatus = (status) => {
+    console.log(`translateStatus input: [${status}]`);
+    if (!status) return "غير معروف";
+    const key = status.trim().toLowerCase();
+    console.log(`key after trim and toLowerCase: [${key}]`);
+    return allowedStatuses[key] || "غير معروف";
+  };
+
+
 
   const markAsCompleted = (appointmentId) => {
     const userId = localStorage.getItem("userId");

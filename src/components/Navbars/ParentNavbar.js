@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import {
   FaBars,
@@ -13,6 +13,7 @@ import {
   FaSignOutAlt,
   FaQuestionCircle,
   FaComments,
+  FaFileAlt,
 } from "react-icons/fa";
 import smartVaxLogo from "../../img/icon.png"; // تأكد من أن الصورة موجودة في المسار الصحيح
 import "../../styles/Navbar.css";
@@ -20,18 +21,50 @@ import { MdMedicalInformation } from "react-icons/md";
 
 const ParentNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [childId, setChildId] = useState(localStorage.getItem("childId") || "unknown");
 
-  // دالة لتبديل حالة القائمة الجانبية
+  useEffect(() => {
+    const fetchChildId = async () => {
+      const parentId = localStorage.getItem("parentId");
+
+      if (!parentId) {
+        console.error("❌ لا يوجد parentId في localStorage");
+        return;
+      }
+
+      if (!childId || childId === "unknown") {
+        try {
+          const res = await fetch(`http://localhost:8080/api/children/by-parent/${parentId}`);
+          if (!res.ok) {
+            throw new Error(`HTTP error ${res.status}`);
+          }
+
+          const data = await res.json();
+          if (data?.length > 0) {
+            localStorage.setItem("childId", data[0].id);
+            setChildId(data[0].id);
+          } else {
+            console.warn("⚠️ لم يتم العثور على أي طفل لهذا الأب.");
+          }
+        } catch (error) {
+          console.error("❌ فشل تحميل معرف الطفل:", error);
+        }
+      }
+    };
+
+    fetchChildId();
+  }, [childId]);
+
   const toggleSidebar = () => setIsOpen(!isOpen);
 
   const renderLinks = (links) => {
     return links.map((link, index) => (
-      <li key={index}>
-        <Link to={link.path} title={link.title}>
-          {link.icon}
-          <span className={isOpen ? "show" : "hide"}>{link.label}</span>
-        </Link>
-      </li>
+        <li key={index}>
+          <Link to={link.path} title={link.title}>
+            {link.icon}
+            <span className={isOpen ? "show" : "hide"}>{link.label}</span>
+          </Link>
+        </li>
     ));
   };
 
@@ -66,6 +99,19 @@ const ParentNavbar = () => {
       label: "التقييمات",
       icon: <FaComments className="icon" />,
     },
+    {
+      path: `/certificate/${childId}`,
+      title: "شهادة التطعيم",
+      label: "شهادة التطعيم",
+      icon: <FaFileAlt className="icon" />,
+    },
+    {
+      path: `/additional-certificate/${childId}`,
+      title: "شهادة التطعيمات الإضافية",
+      label: "شهادة إضافية",
+      icon: <MdMedicalInformation className="icon" />,
+    },
+
     {
       path: "/profile",
       title: "الملف الشخصي",
@@ -111,21 +157,18 @@ const ParentNavbar = () => {
   ];
 
   return (
-    <div className={`sidebar ${isOpen ? "open" : ""}`}>
-      {/* أيقونة القائمة */}
-      <div className="menu-icon" onClick={toggleSidebar}>
-        <FaBars />
-      </div>
+      <div className={`sidebar ${isOpen ? "open" : ""}`}>
+        <div className="menu-icon" onClick={toggleSidebar}>
+          <FaBars />
+        </div>
 
-      {/* شعار SmartVax */}
-      <div className="logo-container">
-        <img src={smartVaxLogo} alt="SmartVax Logo" className="logo" />
-        <span className={isOpen ? "nav-title" : "hide"}>SmartVax</span>
-      </div>
+        <div className="logo-container">
+          <img src={smartVaxLogo} alt="SmartVax Logo" className="logo" />
+          <span className={isOpen ? "nav-title" : "hide"}>SmartVax</span>
+        </div>
 
-      {/* الروابط */}
-      <ul className="nav-links">{renderLinks(parentLinks)}</ul>
-    </div>
+        <ul className="nav-links">{renderLinks(parentLinks)}</ul>
+      </div>
   );
 };
 
