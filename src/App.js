@@ -21,6 +21,7 @@ import HWAppointmentScheduling from "./pages/HWAppointmentScheduling";
 import ProfilePage from "./pages/ProfilePage";
 import AccountPage from "./pages/AccountPage";
 import ReminderPage from "./pages/ReminderPage";
+import HealthWorkerReminders from "./pages/HealthWorkerReminders";
 import HelpPage from "./pages/HelpPage";
 import SearchPage from "./pages/SearchPage";
 import SearchChildByID from "./pages/SearchChildByID";
@@ -36,7 +37,7 @@ import ScheduledVaccinationsPage from "./pages/ScheduledVaccinationsPage";
 import ReviewsPage from "./pages/ReviewsPage";
 import AppointmentManagementPage from "./pages/AppointmentManagementPage";
 import HealthWorkerAccountPage from "./pages/HealthWorkerAccountPage";
-import SearchVaccineInfoPage from "./pages/SearchVaccineInfoPage;"
+import SearchVaccineInfoPage from "./pages/SearchVaccineInfoPage";
 
 const AppContent = () => {
   const location = useLocation();
@@ -47,8 +48,7 @@ const AppContent = () => {
 
   // حالة لتخزين الدور (role)
   const [role, setRole] = useState(null);
-
-  const [appointments, setAppointments] = useState([
+ const [appointments, setAppointments] = useState([
     {
       id: 1,
       vaccine: "شلل الأطفال",
@@ -64,6 +64,7 @@ const AppContent = () => {
       center: "",
     },
   ]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const updateRole = () => {
@@ -93,8 +94,16 @@ const AppContent = () => {
 
   return (
     <div>
-      {showNavbar && <Navbar role={role} />}
-      <div className="main-content">
+      {/* {showNavbar && <Navbar role={role} />} */}
+      {showNavbar && (
+        <Navbar
+          role={role}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
+      )}
+
+      <div className={`main-content ${isSidebarOpen ? "sidebar-open" : ""}`}>
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -124,6 +133,10 @@ const AppContent = () => {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/reminder" element={<ReminderPage />} />
+          <Route
+            path="/heal_thworker_reminder"
+            element={<HealthWorkerReminders />}
+          />
           <Route path="/help" element={<HelpPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/Search-Child-By-ID" element={<SearchChildByID />} />
@@ -165,7 +178,10 @@ const AppContent = () => {
             path="/health-worker-account"
             element={<HealthWorkerAccountPage />}
           />
-          <Route path="/search-vaccine-info/:id" element={<SearchVaccineInfoPage />} />
+          <Route
+            path="/search-vaccine-info/:id"
+            element={<SearchVaccineInfoPage />}
+          />
         </Routes>
       </div>
     </div>
