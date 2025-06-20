@@ -67,7 +67,7 @@ const HealthWorkerNavbar = () => {
       icon: <FaUser className="icon" />,
     },
     {
- {
+ 
         path: "/heal_thworker_reminder",
         title: "تذكيرات العامل الصحي",
         label: "تذكيرات العامل",
