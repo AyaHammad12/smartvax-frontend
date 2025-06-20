@@ -1,13 +1,14 @@
 .dashboard-container {
-  max-width: 1000px;
+  /* max-width: 1000px; */
   margin: auto;
-  padding: 20px;
+  /* padding: 20px; */
   text-align: center;
   direction: rtl;
+  padding-bottom: 0;
 }
 
 h1 {
-  color: #6c3483;
+  color: #4877b1;
   margin-bottom: 20px;
 }
 
@@ -18,7 +19,7 @@ h1 {
 }
 
 .dashboard-card {
-  background: #f8f9fa;
+  /* background: #f8f9fa; */
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

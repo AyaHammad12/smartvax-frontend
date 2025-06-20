@@ -21,7 +21,7 @@
 
 .vaccine-name {
   font-weight: bold;
-  color: #6a0dad;
+  color: #2989c5;
 }
 
 .tables-container {
@@ -78,7 +78,7 @@ table td {
 }
 
 .submit-btn {
-  background: #6a0dad;
+  background: #2989c5;
   color: white;
   padding: 10px;
   border: none;

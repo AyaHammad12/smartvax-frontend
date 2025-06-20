@@ -5,21 +5,21 @@ import { FaBell } from "react-icons/fa";
 
 const ParentDashboard = () => {
   return (
-    <div className="home-container">
-      <h1>مرحبًا بك في لوحة تحكم الوالدين</h1>
-      <br />
+    <div className="dashboard-container">
+      <h1 className="dashboard-title">مرحبًا بك في لوحة تحكم الوالدين</h1>
 
-      {/* قسم التذكير بالتطعيم */}
-      <div className="reminder-container">
-        <FaBell className="icon" />
-        <p>التطعيم القادم: 23 يناير</p>
+      {/* ✅ قسم التذكير بالتطعيم */}
+      <div className="reminder-box">
+        <FaBell className="reminder-icon" />
+        <p className="reminder-text">التطعيم القادم: 23 يناير</p>
       </div>
-      <br />
 
-      {/* جدول التطعيمات */}
-      <Calendar role="parent" />
+      {/* ✅ جدول التطعيمات */}
+      <div className="calendar-section">
+        <Calendar role="parent" />
+      </div>
 
-      {/* مفتاح الألوان (Legend) */}
+      {/* ✅ مفتاح الألوان */}
       <div className="legend">
         <div className="legend-item">
           <span className="legend-box upcoming"></span> قادم
