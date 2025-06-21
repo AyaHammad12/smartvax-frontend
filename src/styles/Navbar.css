@@ -1,24 +1,24 @@
-/* ✅ الشريط الجانبي */
+/* ✅ الشريط الجانبي باللون الأزرق الموحد */
 .sidebar {
   position: fixed;
-  right: 0; /* ✅ الشريط الجانبي على اليمين */
+  right: 0;
   top: 0;
-  height: 100vh; /* ✅ اجعل الشريط الجانبي يأخذ طول الشاشة بالكامل */
-  width: 65px; /* ✅ الحجم الافتراضي */
-  background-color: #a660c5; /* ✅ اللون النهدي البارد */
+  height: 100%;
+  width: 65px;
+  background: linear-gradient(to bottom, #2980b9, #6dd5fa);
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-top: 15px;
   transition: width 0.3s ease-in-out;
   overflow: hidden;
+  z-index: 1000;
 }
 
 .sidebar.open {
-  width: 200px; /* ✅ توسيع عند الفتح */
+  width: 200px;
 }
 
-/* ✅ الشريط الجانبي في الشاشات الصغيرة */
 @media screen and (max-width: 768px) {
   .sidebar {
     width: 55px;
@@ -38,20 +38,34 @@
   }
 }
 
-/* ✅ تحسين الـ Navbar */
+/* ✅ Navbar بدرجات الأزرق */
 .navbar {
-  background-color: #8e44ad;
+  background: linear-gradient(to right, #3498db, #6dd5fa);
   color: white !important;
   padding: 12px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 55px;
+  /* height: 55px; */
   font-size: 16px;
   width: 100%;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  font-family: 'Cairo', sans-serif;
 }
 
-/* ✅ الروابط */
+.nav-title {
+  font-size: 18px;
+  color: white !important;
+  font-family: "Arial", sans-serif;
+  font-weight: bold;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.sidebar:not(.open) .nav-title {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
 .nav-links {
   list-style: none;
   padding: 0;
@@ -74,29 +88,25 @@
 }
 
 .nav-links a:hover {
-  background-color: #6c3483;
+  background-color: rgba(255, 255, 255, 0.1);
   padding-right: 18px;
 }
 
-/* ✅ تحسين الأيقونات */
 .icon {
   font-size: 24px;
-  margin-left: 10px; /* ✅ لتناسب الاتجاه من اليمين */
+  margin-left: 10px;
   transition: transform 0.3s ease-in-out;
 }
 
-/* ✅ توسيع الأيقونات عند فتح الشريط الجانبي */
 .sidebar.open .icon {
   transform: scale(1.2);
 }
 
-/* ✅ إظهار النص بجانب الأيقونة عند توسيع الشريط الجانبي */
 .show {
   display: inline;
   transition: opacity 0.3s ease-in-out;
 }
 
-/* ✅ إخفاء النص عند إغلاق الشريط الجانبي */
 .sidebar .hide {
   display: none;
 }
@@ -106,7 +116,6 @@
   opacity: 1;
 }
 
-/* ✅ تحسين الشعار */
 .logo-container {
   display: flex;
   align-items: center;
@@ -116,35 +125,27 @@
   padding-top: inherit;
 }
 
-/* ✅ ضبط حجم الشعار الأساسي */
 .logo {
-  width: 40px; /* ✅ تقليل حجم الشعار */
+  width: 40px;
   height: 40px;
-  margin-left: 12px; /* ✅ ضبط المسافة */
-  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out,
-    height 0.3s ease-in-out;
+  margin-left: 12px;
+  transition: transform 0.3s ease-in-out, width 0.3s ease-in-out, height 0.3s ease-in-out;
 }
 
-/* ✅ تصغير الشعار عند فتح الشريط الجانبي */
 .sidebar.open .logo {
-  width: 50px; /* ✅ تكبير طفيف عند الفتح */
+  width: 50px;
   height: 50px;
   transform: scale(1.1);
 }
 
-/* ✅ تحسين لون اسم التطبيق */
-.nav-title {
-  font-size: 18px;
-  color: white !important; /* ✅ جعل اللون أبيض دائمًا */
-  font-family: "Arial", sans-serif;
-  font-weight: bold;
-  transition: opacity 0.3s ease-in-out;
+.menu-icon {
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease-in-out;
 }
 
-/* ✅ جعل اسم التطبيق غير مرئي عند تصغير الشريط الجانبي */
-.sidebar:not(.open) .nav-title {
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out;
+.menu-icon:hover {
+  transform: rotate(90deg);
 }
-
-

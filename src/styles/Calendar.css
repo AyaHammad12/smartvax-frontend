@@ -1,7 +1,13 @@
 .calendar-container {
   width: 90%;
   max-width: 800px;
-  background: #f3e8ff;
+  /* background: #43ceda; */
+
+  /* background: #5cc0eaa1; */
+  /* background: linear-gradient(to bottom, #50b0de, #6dd5fa); */
+
+  background: #b0e6fe;
+
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);

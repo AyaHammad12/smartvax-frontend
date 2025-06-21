@@ -21,6 +21,7 @@ import HWAppointmentScheduling from "./pages/HWAppointmentScheduling";
 import ProfilePage from "./pages/ProfilePage";
 import AccountPage from "./pages/AccountPage";
 import ReminderPage from "./pages/ReminderPage";
+import HealthWorkerReminders from "./pages/HealthWorkerReminders";
 import AdditionalVaccineCertificate from "./pages/AdditionalVaccineCertificate";
 import HelpPage from "./pages/HelpPage";
 import SearchPage from "./pages/SearchPage";
@@ -43,6 +44,7 @@ import VaccinationCertificate from "./pages/VaccinationCertificate";
 import ChildGrowthHistory from "./pages/ChildGrowthHistory";
 import ChildGrowthForm from "./pages/ChildGrowthForm";
 
+
 const AppContent = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -52,8 +54,7 @@ const AppContent = () => {
 
   // حالة لتخزين الدور (role)
   const [role, setRole] = useState(null);
-
-  const [appointments, setAppointments] = useState([
+ const [appointments, setAppointments] = useState([
     {
       id: 1,
       vaccine: "شلل الأطفال",
@@ -69,6 +70,7 @@ const AppContent = () => {
       center: "",
     },
   ]);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
     const updateRole = () => {
@@ -98,8 +100,16 @@ const AppContent = () => {
 
   return (
     <div>
-      {showNavbar && <Navbar role={role} />}
-      <div className="main-content">
+      {/* {showNavbar && <Navbar role={role} />} */}
+      {showNavbar && (
+        <Navbar
+          role={role}
+          isSidebarOpen={isSidebarOpen}
+          setIsSidebarOpen={setIsSidebarOpen}
+        />
+      )}
+
+      <div className={`main-content ${isSidebarOpen ? "sidebar-open" : ""}`}>
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/login" element={<LoginPage />} />
@@ -131,6 +141,10 @@ const AppContent = () => {
           <Route path="/profile" element={<ProfilePage />} />
           <Route path="/account" element={<AccountPage />} />
           <Route path="/reminder" element={<ReminderPage />} />
+          <Route
+            path="/heal_thworker_reminder"
+            element={<HealthWorkerReminders />}
+          />
           <Route path="/help" element={<HelpPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/Search-Child-By-ID" element={<SearchChildByID />} />
@@ -179,7 +193,10 @@ const AppContent = () => {
             path="/health-worker-account"
             element={<HealthWorkerAccountPage />}
           />
-          <Route path="/search-vaccine-info/:id" element={<SearchVaccineInfoPage />} />
+          <Route
+            path="/search-vaccine-info/:id"
+            element={<SearchVaccineInfoPage />}
+          />
         </Routes>
       </div>
     </div>
