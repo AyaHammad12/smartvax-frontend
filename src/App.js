@@ -159,6 +159,7 @@ const AppContent = () => {
               path="/additional-vaccines/certificate/:childId"
               element={<AdditionalVaccineCertificate />}
           />
+
           <Route path="/growth/history/:childId" element={<ChildGrowthHistory />} />
           <Route path="/growth/form/:childId" element={<ChildGrowthForm />} />
 
