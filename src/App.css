@@ -49,6 +49,7 @@
 .main-content {
   /* margin-right: 60px; */
   transition: margin-right 0.3s ease-in-out;
+  
 }
 
 .sidebar.open + .main-content {

@@ -7,6 +7,10 @@ import {
   useNavigate,
 } from "react-router-dom";
 
+// import { requestPermission, listenToMessages } from "./utils/pushNotifications";
+
+// import { messaging, getToken, onMessage } from "./firebase-config";
+// import { messaging, getToken, vapidKey } from "./firebase-config";
 import "./styles/Navbar.css"; /* تأكد من صحة المسار */
 import "./App.css";
 
@@ -44,7 +48,6 @@ import VaccinationCertificate from "./pages/VaccinationCertificate";
 import ChildGrowthHistory from "./pages/ChildGrowthHistory";
 import ChildGrowthForm from "./pages/ChildGrowthForm";
 
-
 const AppContent = () => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -54,7 +57,7 @@ const AppContent = () => {
 
   // حالة لتخزين الدور (role)
   const [role, setRole] = useState(null);
- const [appointments, setAppointments] = useState([
+  const [appointments, setAppointments] = useState([
     {
       id: 1,
       vaccine: "شلل الأطفال",
@@ -89,6 +92,38 @@ const AppContent = () => {
     };
   }, [location.pathname]);
 
+  // useEffect(() => {
+  //   requestPermission();
+  //   listenToMessages();
+  // }, []);
+
+  // useEffect(() => {
+  //   Notification.requestPermission().then((permission) => {
+  //     if (permission === "granted") {
+  //       navigator.serviceWorker
+  //         .register("/firebase-messaging-sw.js")
+  //         .then((registration) => {
+  //           console.log("✅ Service worker registered:", registration);
+
+  //           return getToken(messaging, {
+  //             vapidKey: vapidKey,
+  //             serviceWorkerRegistration: registration,
+  //           });
+  //         })
+  //         .then((currentToken) => {
+  //           if (currentToken) {
+  //             console.log("🔥 FCM Token:", currentToken);
+  //           } else {
+  //             console.log("⚠️ No token available. Request permission to generate one.");
+  //           }
+  //         })
+  //         .catch((err) => {
+  //           console.error("❌ An error occurred while retrieving token.", err);
+  //         });
+  //     }
+  //   });
+  // }, []);
+
   const handleLogout = () => {
     localStorage.removeItem("role"); // مسح الدور عند تسجيل الخروج
     setRole(null); // تحديث الحالة
@@ -122,11 +157,20 @@ const AppContent = () => {
             path="/appointment-management/:appointmentId"
             element={<AppointmentManagementPage />}
           />
-          <Route path="/additional-vaccines/search" element={<SearchAdditionalVaccines />} />
+          <Route
+            path="/additional-vaccines/search"
+            element={<SearchAdditionalVaccines />}
+          />
           <Route path="/vaccine-info/:id" element={<VaccineInfoPage />} />
           <Route path="/feedback" element={<FeedbackPage />} />
-          <Route path="/certificate/:childId" element={<VaccinationCertificate />} />
-          <Route path="/additional-certificate/:childId" element={<AdditionalVaccineCertificate />} />
+          <Route
+            path="/certificate/:childId"
+            element={<VaccinationCertificate />}
+          />
+          <Route
+            path="/additional-certificate/:childId"
+            element={<AdditionalVaccineCertificate />}
+          />
           <Route path="/dashboard/parent" element={<ParentDashboard />} />
           <Route
             path="/dashboard/healthworker"
@@ -156,8 +200,8 @@ const AppContent = () => {
           <Route path="/manage-workers" element={<ManageWorkers />} />
           <Route path="/reports" element={<ReportsPage />} />
           <Route
-              path="/additional-vaccines/certificate/:childId"
-              element={<AdditionalVaccineCertificate />}
+            path="/additional-vaccines/certificate/:childId"
+            element={<AdditionalVaccineCertificate />}
           />
 
           <Route path="/growth/history/:childId" element={<ChildGrowthHistory />} />

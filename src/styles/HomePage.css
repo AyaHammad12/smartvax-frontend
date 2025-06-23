@@ -1,5 +1,5 @@
 /* لضبط العنوان والتذكير */
-.reminder-container {
+/* .reminder-container {
   display: flex;
   align-items: center;
   gap: 8px;
@@ -10,7 +10,7 @@
 .reminder-container .icon {
   font-size: 18px;
   color: #ff9800;
-}
+} */
 
 /* لون الخلية يغطي البوكس بالكامل */
 .day-cell {
