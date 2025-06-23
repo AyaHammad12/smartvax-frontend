@@ -1,16 +1,23 @@
 .reminder-container {
-  max-width: 700px;
+  max-width: 1000px;
   margin: auto;
-  background: #f9f9f9;
-  padding: 25px;
-  border-radius: 16px;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+  padding: 16px;
 }
 
 .title {
   text-align: center;
+  font-size: 1.6rem;
+  font-weight: bold;
   margin-bottom: 20px;
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
   color: #4a148c;
+}
+
+.title-icon {
+  font-size: 1.5rem;
 }
 
 .no-reminder {
@@ -22,32 +29,60 @@
 .reminder-list {
   list-style: none;
   padding: 0;
+  margin: 0;
 }
 
-.reminder-item {
-  background-color: #fff;
-  padding: 15px 20px;
-  margin-bottom: 15px;
-  border-right: 6px solid #4a148c;
+.reminder-summary {
+  background: #fff;
   border-radius: 10px;
-  transition: all 0.3s ease;
+  border: 1px solid #ddd;
+  padding: 14px 18px;
+  margin-bottom: 12px;
+  font-size: 0.95rem;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+  transition: background-color 0.3s;
+  cursor: pointer;
+  color: #333;
 }
 
-.reminder-item.sent {
-  border-right-color: #4caf50;
+.reminder-summary.unread {
+  background-color: #fef3f8;
+  border-right: 4px solid #e91e63;
 }
 
-.reminder-item.pending {
-  border-right-color: #ffc107;
+.reminder-summary.read {
+  background-color: #f6f6f6;
+  color: #444;
 }
 
-.reminder-item.upcoming {
-  background-color: #e6f4ff;
-  border-right-color: #2196f3;
+.reminder-header {
+  /* display: flex; */
+  justify-content: space-between;
+  align-items: center;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+.unread-badge {
+  background-color: #e91e63;
+  color: white;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: bold;
+}
+
+.reminder-details {
+  border-top: 1px dashed #ccc;
+  margin-top: 8px;
+  padding-top: 8px;
+  color: #333;
+  font-size: 0.9rem;
 }
 
 .status {
-  margin-top: 8px;
+  margin-top: 6px;
+  font-weight: 500;
 }
 
 .sent-status {
@@ -56,6 +91,50 @@
 }
 
 .pending-status {
-  color: #ff9800;
+  color: #ffa000;
   font-weight: bold;
+}
+
+.ai-button {
+  background: #1976d2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  margin-top: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.ai-button:hover {
+  background: #125ea7;
+}
+
+.upcoming {
+  border-right: 4px solid #2196f3;
+}
+
+.missed {
+  border-right: 4px solid #e53935;
+}
+
+.completed {
+  border-right: 4px solid #43a047;
+}
+
+@media (max-width: 768px) {
+  .reminder-summary {
+    padding: 12px 14px;
+  }
+
+  .reminder-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .title {
+    font-size: 1.3rem;
+  }
 }

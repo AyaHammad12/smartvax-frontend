@@ -79,3 +79,24 @@
     text-align: right;
   }
 }
+.handle-btn {
+  background-color: #4caf50;
+  color: white;
+  padding: 6px 12px;
+  border: none;
+  border-radius: 6px;
+  margin-top: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.handle-btn:hover {
+  background-color: #388e3c;
+}
+
+.handled-info {
+  color: green;
+  margin-top: 10px;
+  font-weight: bold;
+}
+
