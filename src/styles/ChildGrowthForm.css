@@ -1,0 +1,149 @@
+/* 📄 ChildGrowthForm.css */
+
+.growth-container {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 20px;
+    direction: rtl;
+}
+
+.growth-form, .growth-visuals {
+    flex: 1;
+    background-color: #fff;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.growth-form {
+    max-width: 40%;
+}
+
+.growth-visuals {
+    max-width: 60%;
+    margin-left: -200px; /* ← إزاحة أقوى */
+    margin-top: 10px;
+    padding-right: 20px; /* تحريك المحتوى للداخل قليلاً */
+}
+
+
+
+.section-title {
+    color: #2c3e50;
+    margin-bottom: 25px;
+    font-size: 26px;
+    text-align: center;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.section-title::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 50%;
+    transform: translateX(50%);
+    width: 60px;
+    height: 3px;
+    background-color: #2a8dd2;
+    border-radius: 2px;
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    color: #4a4a4a;
+    font-weight: bold;
+    font-size: 17px;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 20px;
+    border: 1px solid #dcdcdc;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus {
+    border-color: #2a8dd2;
+    box-shadow: 0 0 0 3px rgba(42, 141, 210, 0.2);
+    outline: none;
+}
+
+button {
+    background-color: #2a8dd2;
+    color: white;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    width: 100%;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+}
+
+button:hover {
+    background-color: #1f78b4;
+    transform: translateY(-2px);
+}
+
+button:active {
+    background-color: #1b6aa8;
+    transform: translateY(0);
+}
+
+.result-box {
+    margin-top: 25px;
+    padding: 18px;
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    border: 1px solid #d6d8db;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.result-line {
+    font-weight: 600;
+    font-size: 16px;
+    margin: 10px 0;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 12px;
+    border-radius: 8px;
+}
+
+.result-line.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.result-line.warning {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.growth-table {
+    width: 100%;
+    margin-top: 20px;
+    border-collapse: collapse;
+}
+
+.growth-table th, .growth-table td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+.result-line.warning {
+    background-color: #f8d7da !important;
+    color: #721c24 !important;
+    border: 1px solid #f5c6cb !important;
+}

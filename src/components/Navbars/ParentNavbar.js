@@ -13,7 +13,7 @@ import {
   FaSignOutAlt,
   FaQuestionCircle,
   FaComments,
-  FaFileAlt,
+  FaFileAlt, FaRulerCombined,
 } from "react-icons/fa";
 import smartVaxLogo from "../../img/icon.png"; // تأكد من أن الصورة موجودة في المسار الصحيح
 import "../../styles/Navbar.css";
@@ -118,6 +118,13 @@ const ParentNavbar = () => {
       label: "الملف الشخصي",
       icon: <FaChild className="icon" />,
     },
+    {
+      path: `/growth/form/${childId}`,
+      title: "تحليل الطول والوزن",
+      label: "الطول والوزن",
+      icon: <FaRulerCombined className="icon" />,
+    },
+
     {
       path: "/account",
       title: "الحساب",

@@ -1,0 +1,47 @@
+.container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fefefe;
+    border-radius: 12px;
+    box-shadow: 0 0 10px rgba(0, 90, 150, 0.1);
+    direction: rtl;
+    text-align: right;
+}
+
+.container h2 {
+    color: #2a5d85;
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px 15px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+th {
+    background-color: #e1eef7;
+    color: #333;
+}
+
+td {
+    background-color: #f9fbfd;
+    font-size: 15px;
+}
+.error-message {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 20px;
+    text-align: center;
+    font-weight: 500;
+}

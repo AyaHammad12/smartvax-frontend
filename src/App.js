@@ -45,6 +45,8 @@ import AppointmentManagementPage from "./pages/AppointmentManagementPage";
 import HealthWorkerAccountPage from "./pages/HealthWorkerAccountPage";
 import SearchVaccineInfoPage from "./pages/SearchVaccineInfoPage";
 import VaccinationCertificate from "./pages/VaccinationCertificate";
+import ChildGrowthHistory from "./pages/ChildGrowthHistory";
+import ChildGrowthForm from "./pages/ChildGrowthForm";
 
 const AppContent = () => {
   const location = useLocation();
@@ -201,6 +203,9 @@ const AppContent = () => {
             path="/additional-vaccines/certificate/:childId"
             element={<AdditionalVaccineCertificate />}
           />
+
+          <Route path="/growth/history/:childId" element={<ChildGrowthHistory />} />
+          <Route path="/growth/form/:childId" element={<ChildGrowthForm />} />
 
           <Route
             path="/appointments"

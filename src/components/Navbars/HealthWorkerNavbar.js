@@ -68,10 +68,10 @@ const HealthWorkerNavbar = () => {
     },
 
     {
-      path: "/heal_thworker_reminder",
-      title: "تذكيرات العامل الصحي",
-      label: "تذكيرات العامل",
-      icon: <FaBell className="icon" />,
+        path: "/heal_thworker_reminder",
+        title: "تذكيرات العامل الصحي",
+        label: "تذكيرات العامل",
+        icon: <FaBell className="icon" />
     },
     {
       path: "/help",
