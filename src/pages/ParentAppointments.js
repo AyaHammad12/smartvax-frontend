@@ -138,62 +138,77 @@ const ParentAppointments = () => {
                 const vaccinesList = appt.scheduleVaccinations
                     ?.map((sv) => sv.vaccination?.name)
                     .join("، ");
-                const formattedDate = new Date(
-                    appt.appointmentDate
-                ).toLocaleDateString();
+                const formattedDate = new Date(appt.appointmentDate).toLocaleDateString();
 
                 return (
                     <div key={appt.id} className="appointment-card">
-                      {/* أزرار الإجراءات */}
-                      {/* أزرار الإجراءات */}
-                      {appt.status !== "completed" && appt.status !== "missed" && (
+                      {/* ✅ معلومات الموعد */}
+                      <div className="card-header">
+                        <strong>اسم التطعيم:</strong> {vaccinesList || "تطعيم غير معروف"}
+                        <p><strong>التاريخ:</strong> {formattedDate}</p>
+                        <p><strong>المركز:</strong> {appt.vaccinationCenter?.name || "غير محدد"}</p>
+                        <p><strong>الحالة:</strong> {statusLabels[appt.status?.toLowerCase()] || "غير معروف"}</p>
+                      </div>
+
+                      {/* ✅ الأزرار حسب الحالة */}
+                      {appt.status === "missed" ? (
                           <div className="actions">
-                            <button
-                                className="confirm-btn"
-                                onClick={() => handleAction(appt.id, "confirm")}
-                            >
-                              تأكيد الموعد
-                            </button>
                             <button
                                 className="reschedule-btn"
                                 onClick={() => handleAction(appt.id, "reschedule")}
                             >
-                              طلب تأجيل
-                            </button>
-                            <button
-                                className="location-btn"
-                                onClick={() => handleAction(appt.id, "change-location")}
-                            >
-                              طلب تغيير موقع
+                              طلب إعادة جدولة
                             </button>
                           </div>
+                      ) : (
+                          <>
+                            {(appt.status === "reshdualing" || appt.status === "trlocation") &&
+                            new Date(appt.appointmentDate) > new Date() ? (
+                                <div className="actions">
+                                  <button
+                                      className="confirm-btn"
+                                      onClick={() => handleAction(appt.id, "confirm")}
+                                  >
+                                    تأكيد الموعد
+                                  </button>
+                                </div>
+                            ) : null}
+
+                            {appt.status !== "completed" &&
+                                appt.status !== "missed" &&
+                                appt.status !== "reshdualing" &&
+                                appt.status !== "trlocation" && (
+                                    <div className="actions">
+                                      <button
+                                          className="confirm-btn"
+                                          onClick={() => handleAction(appt.id, "confirm")}
+                                      >
+                                        تأكيد الموعد
+                                      </button>
+                                      <button
+                                          className="reschedule-btn"
+                                          onClick={() => handleAction(appt.id, "reschedule")}
+                                      >
+                                        طلب تأجيل
+                                      </button>
+                                      <button
+                                          className="location-btn"
+                                          onClick={() => handleAction(appt.id, "change-location")}
+                                      >
+                                        طلب تغيير موقع
+                                      </button>
+                                    </div>
+                                )}
+                          </>
                       )}
 
-
-                      <br></br>
-                      <div className="card-header">
-                        <strong>اسم التطعيم:</strong>{" "}
-                        {vaccinesList || "تطعيم غير معروف"}
-                        <p>
-                          <strong>التاريخ:</strong> {formattedDate}
-                        </p>
-                        <p>
-                          <strong>المركز:</strong>{" "}
-                          {appt.vaccinationCenter?.name || "غير محدد"}
-                        </p>
-                        <p>
-                          <strong>الحالة:</strong>{" "}
-                          {statusLabels[appt.status?.toLowerCase()] || "غير معروف"}
-                        </p>
-                      </div>
+                      {/* ✅ واجهة اختيار مركز جديد */}
                       {actionType[appt.id] === "change-location" && (
                           <div className="action-input">
                             <label>اختر مركزًا صحيًا جديدًا:</label>
                             <select
                                 value={selectedCenter[appt.id] || ""}
-                                onChange={(e) =>
-                                    handleCenterSelection(appt.id, e.target.value)
-                                }
+                                onChange={(e) => handleCenterSelection(appt.id, e.target.value)}
                             >
                               <option value="">اختر مركزًا صحيًا</option>
                               {availableCenters.map((center) => (
@@ -204,6 +219,8 @@ const ParentAppointments = () => {
                             </select>
                           </div>
                       )}
+
+                      {/* ✅ سبب التأجيل */}
                       {actionType[appt.id] === "reschedule" && (
                           <div className="action-input">
                             <label>سبب طلب التأجيل:</label>
@@ -211,12 +228,12 @@ const ParentAppointments = () => {
                                 className="reschedule-textarea"
                                 placeholder="يرجى كتابة السبب"
                                 value={rescheduleReasons[appt.id] || ""}
-                                onChange={(e) =>
-                                    handleReasonChange(appt.id, e.target.value)
-                                }
+                                onChange={(e) => handleReasonChange(appt.id, e.target.value)}
                             ></textarea>
                           </div>
                       )}
+
+                      {/* ✅ زر إرسال الطلب */}
                       {actionType[appt.id] && (
                           <div className="submit-section">
                             <button
@@ -230,6 +247,7 @@ const ParentAppointments = () => {
                     </div>
                 );
               })}
+
             </div>
         )}
       </div>

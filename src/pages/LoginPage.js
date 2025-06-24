@@ -20,38 +20,45 @@ const LoginPage = () => {
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    console.log(
-        "🔵 محاولة تسجيل الدخول باستخدام",
-        username,
-        password,
-        rememberMe
-    );
+    console.log("🔵 محاولة تسجيل الدخول باستخدام", username, password, rememberMe);
 
     try {
       const response = await fetch("http://localhost:8080/api/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include", // يحفظ الجلسة
+        headers: { "Content-Type": "application/json" },
+        credentials: "include", // لحفظ الجلسة
         body: JSON.stringify({ username, password }),
       });
 
       if (!response.ok) {
-        throw new Error(
-            "فشل تسجيل الدخول: اسم المستخدم أو كلمة المرور غير صحيحة"
-        );
+        throw new Error("فشل تسجيل الدخول: اسم المستخدم أو كلمة المرور غير صحيحة");
       }
 
       const data = await response.json();
-      const { id, username: user, role, referenceId } = data; // ✅
+      const { id, username: user, role, referenceId } = data;
 
+      // 🧹 حذف بيانات قديمة (مهم جدًا)
+      localStorage.removeItem("childId");
+      localStorage.removeItem("parentId");
+
+      // ✅ حفظ بيانات جديدة
       localStorage.setItem("userId", id);
       localStorage.setItem("username", user);
       localStorage.setItem("role", mapRoleToFrontend(role));
 
+      // ✅ حفظ parentId إن كان PARENT
       if (role.toUpperCase() === "PARENT") {
-        localStorage.setItem("parentId", referenceId); // ✅ هنا يتم الحل
+        localStorage.setItem("parentId", referenceId);
+
+        // ✅ جلب childId مباشرة بعد تسجيل الدخول
+        const childRes = await fetch(`http://localhost:8080/api/children/by-parent/${referenceId}`);
+        const children = await childRes.json();
+
+        if (children.length > 0) {
+          localStorage.setItem("childId", children[0].id);
+        } else {
+          console.warn("⚠️ لم يتم العثور على أطفال لهذا الأب.");
+        }
       }
 
       if (rememberMe) {
@@ -60,8 +67,7 @@ const LoginPage = () => {
         localStorage.removeItem("password");
       }
 
-
-      // التوجيه حسب الدور
+      // ⏩ التوجيه حسب الدور
       switch (role.toLowerCase()) {
         case "admin":
           navigate("/dashboard/manager");
@@ -80,6 +86,7 @@ const LoginPage = () => {
       alert(error.message || "حدث خطأ غير متوقع. حاول مرة أخرى.");
     }
   };
+
 
   const mapRoleToFrontend = (role) => {
     switch (role.toUpperCase()) {
