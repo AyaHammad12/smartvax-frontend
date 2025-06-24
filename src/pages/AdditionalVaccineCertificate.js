@@ -1,35 +1,40 @@
 // 📄 src/pages/AdditionalVaccineCertificate.jsx
 import React, { useEffect, useState } from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import "../styles/AdditionalVaccineCertificate.css";
 
 const AdditionalVaccineCertificate = () => {
-    const { childId } = useParams();
     const { state } = useLocation();
     const role = (state?.role || "PARENT").toUpperCase();
-    console.log("🚩 ROLE:", role);
     const [child, setChild] = useState(null);
     const [vaccines, setVaccines] = useState([]);
     const [loading, setLoading] = useState(true);
     const [statuses, setStatuses] = useState({});
-
     const today = new Date().toLocaleDateString("ar-EG");
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const childRes = await fetch(`http://localhost:8080/api/children/${childId}`);
+                // ✅ جلب بيانات الطفل المرتبط بالمستخدم الحالي
+                const childRes = await fetch("http://localhost:8080/api/child-profile", {
+                    credentials: "include",
+                });
                 const childData = await childRes.json();
                 setChild(childData);
 
+                const childId = childData.id;
+
+                // ✅ جلب قائمة جميع التطعيمات الإضافية
                 const availableRes = await fetch("http://localhost:8080/api/additional-vaccines");
                 const availableVaccines = await availableRes.json();
 
+                // ✅ جلب التطعيمات التي تم أخذها للطفل الحالي
                 const takenRes = await fetch(`http://localhost:8080/api/additional-vaccine-child/by-child/${childId}`);
                 const takenVaccines = await takenRes.json();
 
-                const merged = availableVaccines.map(v => {
-                    const taken = takenVaccines.find(t => t.additionalVaccine?.id === v.id);
+                // ✅ دمج القوائم
+                const merged = availableVaccines.map((v) => {
+                    const taken = takenVaccines.find((t) => t.additionalVaccine?.id === v.id);
                     return {
                         id: v.id,
                         name: v.name,
@@ -37,7 +42,7 @@ const AdditionalVaccineCertificate = () => {
                         doseCount: v.doseCount,
                         notes: v.notes,
                         status: taken?.status || "PENDING",
-                        date: taken?.dateOfAdministration || null
+                        date: taken?.dateOfAdministration || null,
                     };
                 });
 
@@ -50,7 +55,7 @@ const AdditionalVaccineCertificate = () => {
         };
 
         fetchData();
-    }, [childId]);
+    }, []);
 
     const handleConfirm = async (vaccineId) => {
         const today = new Date().toISOString().split("T")[0];
@@ -59,18 +64,17 @@ const AdditionalVaccineCertificate = () => {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
-                    child: { id: childId }, // ✅ مهم جدًا
-                    additionalVaccine: { id: vaccineId }, // ✅ مهم جدًا
+                    child: { id: child.id },
+                    additionalVaccine: { id: vaccineId },
                     status: "COMPLETED",
                     dateOfAdministration: today,
                 }),
             });
 
-
             alert("✅ تم تأكيد التطعيم بنجاح");
 
-            setVaccines(prev =>
-                prev.map(v =>
+            setVaccines((prev) =>
+                prev.map((v) =>
                     v.id === vaccineId ? { ...v, status: "COMPLETED", date: today } : v
                 )
             );
@@ -87,7 +91,7 @@ const AdditionalVaccineCertificate = () => {
         <div className="additional-certificate-wrapper">
             <div className="certificate-page" dir="rtl">
                 <div className="certificate-header">
-                    <img src="/moh.png" alt="شعار وزارة الصحة" className="logo"/>
+                    <img src="/moh.png" alt="شعار وزارة الصحة" className="logo" />
                     <h1>التطعيمات الإضافية</h1>
                 </div>
 
@@ -110,7 +114,7 @@ const AdditionalVaccineCertificate = () => {
                     <tbody>
                     {vaccines.length === 0 ? (
                         <tr>
-                            <td colSpan="6" style={{textAlign: "center"}}>
+                            <td colSpan="6" style={{ textAlign: "center" }}>
                                 لا توجد تطعيمات إضافية حتى الآن
                             </td>
                         </tr>
@@ -130,7 +134,7 @@ const AdditionalVaccineCertificate = () => {
                                                 value={statuses[v.id] || "PENDING"}
                                                 onChange={(e) => {
                                                     const value = e.target.value;
-                                                    setStatuses(prev => ({...prev, [v.id]: value}));
+                                                    setStatuses((prev) => ({ ...prev, [v.id]: value }));
                                                     if (value === "COMPLETED") {
                                                         handleConfirm(v.id);
                                                     }
@@ -140,9 +144,7 @@ const AdditionalVaccineCertificate = () => {
                                                 <option value="COMPLETED">تم التطعيم</option>
                                             </select>
                                         )
-                                    ) : (
-                                        v.status === "COMPLETED" ? "تم التطعيم" : "قيد الانتظار"
-                                    )}
+                                    ) : v.status === "COMPLETED" ? "تم التطعيم" : "قيد الانتظار"}
                                 </td>
                                 <td>{v?.notes || "-"}</td>
                                 <td>{v?.date ? v.date.split("T")[0] : "-"}</td>
