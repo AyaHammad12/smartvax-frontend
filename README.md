@@ -16,6 +16,14 @@ This project is part of the **COMP4382 Graduation Project** at Birzeit Universit
 - `index.js` – App entry point
 
 ---
+## 📥 How to Download the Project
+
+You can download or clone the project from GitHub:
+
+```bash
+git clone https://github.com/AyaHammad12/smartvax-frontend.git
+cd smartvax-frontend
+```
 
 ## ▶️ How to Run the Project
 
