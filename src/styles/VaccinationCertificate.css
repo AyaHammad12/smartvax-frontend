@@ -1,104 +1,217 @@
-/* VaccinationCertificate.css */
-
-.certificate-wrapper {
-    background: #fff;
-    padding: 40px;
-    font-family: 'Arial', sans-serif;
-    direction: rtl;
-    color: #000;
-}
-
-.certificate-page {
-    max-width: 800px;
-    margin: auto;
-    border: 1px solid #ccc;
-    padding: 30px;
-    background-color: white;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.certificate-header {
+.certificate-bg {
+    min-height: 100vh;
+    background-image: url("../img/back1.jpg"); /* نفس الموجود في index.css */
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     display: flex;
     align-items: flex-start;
+    justify-content: center;
+    padding: 40px 0 60px 0;
+}
+
+/* الشهادة وسط الصفحة، بيضاء فقط */
+.certificate-page {
+    background: #fff;
+    border-radius: 18px;
+    border: 1.5px solid #e1e1e1;
+    box-shadow: 0 4px 24px #0002;
+    padding: 44px 35px 40px 35px;
+    max-width: 820px;
+    width: 100%;
+
+    margin: 36px -1000px 0 0;
+    font-family: 'Tajawal', Arial, sans-serif;
+}
+.certificate-header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;        /* ← هذا السطر يعطيك فراغ صغير فقط */
+    margin-bottom: 12px;
     justify-content: flex-start;
-    margin-bottom: 30px;
-    gap: 20px;
+    direction: rtl;
+    padding: 0;
 }
 
 .logo {
-    height: 80px;
-    width: 80px;
+    height: 76px;
+    width: 76px;
+    border-radius: 11px;
+    border: 1.5px solid #d8d8d8;
+    background: #fff;
+    object-fit: contain;
+    margin: 0 !important;     /* شيل كل المارجن */
+    padding: 0 !important;    /* شيل كل البادينغ */
+    display: block;
 }
+
+.header-texts {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 0 !important;     /* شيل كل المارجن */
+    padding: 0 !important;    /* شيل كل البادينغ */
+}
+
 
 .certificate-title {
-    font-size: 24px;
+    font-size: 2.2em;
     font-weight: bold;
-    margin: 0;
+    color: #222;
+    margin-bottom: 2px;
+    line-height: 1.18;
 }
-
+.certificate-subtitle {
+    color: #444;
+    font-size: 1.17em;
+}
+.header-hr {
+    border: none;
+    border-top: 2px solid #aaa;
+    margin: 12px 0 28px 0;
+}
 .info-section {
-    margin-bottom: 30px;
+    margin-bottom: 29px;
+    font-size: 1.18em;
 }
-
-.info-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px 40px;
-    font-size: 16px;
+.info-row {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 10px;
+    font-size: 1.01em;
 }
-
+.info-row span:first-child {
+    color: #222;
+    min-width: 120px;
+    font-weight: 600;
+}
+.info-row span:last-child {
+    color: #222;
+    font-weight: 400;
+}
 .certificate-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 30px;
-    font-size: 15px;
+    margin-bottom: 36px;
+    font-size: 1.09em;
+    background: #fff;
+    border-radius: 11px;
+    overflow: hidden;
 }
-
 .certificate-table th,
 .certificate-table td {
-    border: 1px solid #333;
-    padding: 10px;
+    border: 1px solid #cccccc;
+    padding: 12px 9px;
     text-align: center;
+    background: #fff !important;
+    color: #333;
+    letter-spacing: normal;
+    font-weight: normal;
 }
-
+.certificate-table th {
+    color: #111;
+    font-size: 1.05em;
+    font-weight: bold;
+    letter-spacing: normal;
+}
+.certificate-table td {
+    color: #222;
+    font-size: 1em;
+}
 .issue-date {
     font-weight: bold;
     text-align: right;
-    font-size: 16px;
-    margin-bottom: 200px;
+    color: #222;
+    font-size: 1.08em;
+    margin-bottom: 35px;
 }
-
+.btns-row {
+    display: flex;
+    gap: 18px;
+    justify-content: flex-end;
+    margin-top: 18px;
+}
 .print-btn {
     display: inline-block;
-    background-color: #007bff;
+    background: #198ccf;
     color: white;
     font-weight: bold;
     border: none;
-    padding: 10px 18px;
-    font-size: 15px;
-    border-radius: 5px;
+    padding: 12px 30px;
+    font-size: 1.09em;
+    border-radius: 8px;
     cursor: pointer;
+    margin-top: 0;
+    transition: background 0.13s, box-shadow 0.13s, transform 0.12s;
 }
-
+.print-btn:hover {
+    background: #155891;
+    transform: translateY(-2px) scale(1.02);
+}
+.loading {
+    margin: 120px auto;
+    font-size: 1.24em;
+    color: #198ccf;
+    text-align: center;
+    font-family: 'Tajawal', Arial, sans-serif;
+    background: #e4f5ff;
+    width: fit-content;
+    padding: 28px 48px;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px #8be5fd28;
+}
+@media (max-width: 900px) {
+    .certificate-page {
+        padding: 26px 4vw 25px 4vw;
+    }
+    .certificate-title {
+        font-size: 1.5em;
+    }
+}
+@media (max-width: 600px) {
+    .certificate-page {
+        padding: 7px 1vw 7px 1vw;
+        margin: 14px 0 0 0;
+    }
+    .certificate-header {
+        flex-direction: column;
+        gap: 6px;
+        align-items: flex-start;
+    }
+    .logo {
+        height: 60px;
+        width: 60px;
+        margin-bottom: 7px;
+    }
+    .info-section {
+        font-size: 1em;
+    }
+    .info-row {
+        gap: 8px;
+    }
+    .certificate-table th,
+    .certificate-table td {
+        padding: 7px 4px;
+    }
+}
 @media print {
+    .certificate-bg, .certificate-page {
+        background: #fff !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
     .print-btn,
     .sidebar,
-    .menu-icon {
+    .menu-icon,
+    .btns-row {
         display: none !important;
     }
-
-    .certificate-wrapper {
-        padding: 0;
-    }
-
-    .certificate-page {
-        box-shadow: none;
-        border: none;
-        margin: 0;
-        padding: 0;
-    }
-
     body {
         margin: 0;
+        background: #fff !important;
     }
 }

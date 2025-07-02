@@ -1,50 +1,251 @@
-.account-container {
-  max-width: 500px;
-  margin: auto;
-  padding: 20px;
-  text-align: center;
-  direction: rtl;
+body {
+  font-family: 'Cairo', 'Tajawal', Arial, sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+  direction: rtl; /* النص من اليمين لليسار */
 }
 
-.account-form {
-  background: #f9f9f9;
+/* ⭐ استخدم هذا الغلاف فقط في صفحة الحساب أو الصفحات اللي تريدها سنتر */
+.account-page-wrapper {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  box-sizing: border-box;
+  background-color: #f0f2f5;
+}
+
+/* --- Account Container Styling --- */
+.account-container {
+  max-width: 1000px;
+  width: 98%;
+  background-color: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  padding: 30px;
+  text-align: center;
+  direction: rtl;
+  margin-right: 40px; /*⬅️ يعطي فراغ 30 بكسل عن اليمين*/
+
+  animation: fadeIn 0.8s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Header Styling --- */
+.account-header {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e0e0e0;
+  padding-bottom: 15px;
+}
+
+.account-header h2 {
+  font-size: 2em;
+  color: #007bff;
+  margin-bottom: 8px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.account-header p {
+  font-size: 0.95em;
+  color: #627d98;
+  line-height: 1.6;
+}
+
+/* --- Form Styling --- */
+.account-form {
+  background: #fdfdfd;
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.03), 0 5px 15px rgba(0, 0, 0, 0.05);
+  text-align: right;
+  border: 1px solid #e9eff5;
+}
+
+.form-group {
+  margin-bottom: 15px;
   text-align: right;
 }
 
-.account-form label {
-  display: block;
-  font-weight: bold;
-  margin-top: 10px;
-}
-
-.account-form input {
+.form-group label {
+  display: flex;
+  flex-direction: row; /* ✅ أيقونة بعد النص (مثل الكتابة العربية) */
+  align-items: center;
+  gap: 8px;
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #334e68;
   width: 100%;
-  padding: 8px;
-  margin-top: 5px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
+  text-align: right;
+  direction: rtl;
 }
 
-.account-form input:disabled {
-  background-color: #e9ecef;
-  color: #6c757d;
+.form-group label svg {
+  color: #007bff;
+  font-size: 1em;
 }
 
-.save-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 10px 15px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
+.form-group input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #e0e7ee;
+  border-radius: 8px;
+  font-size: 0.95em;
+  color: #334e68;
+  box-sizing: border-box;
+  text-align: right;
+  direction: rtl;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+  outline: none;
+}
+
+.form-group input:disabled {
+  background-color: #e9ecef !important;
+  color: #6c757d !important;
+  cursor: not-allowed;
+  opacity: 0.9;
+  box-shadow: none;
+}
+
+/* --- Select Styling --- */
+.form-group select {
+  width: 100%;
+  padding: 9px 12px;
+  border: 1px solid #e0e7ee;
+  border-radius: 8px;
+  font-size: 0.95em;
+  color: #334e68;
+  background-color: #f8fbfd;
+  box-sizing: border-box;
+  direction: rtl;
+  text-align: right;
+  appearance: none;
+  background-image: url('data:image/svg+xml;charset=UTF-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2020%2020%22%20fill%3D%22%23007bff%22%3E%3Cpath%20fill-rule%3D%22evenodd%22%20d%3D%22M5.293%207.293a1%201%200%20011.414%200L10%2010.586l3.293-3.293a1%201%200%20111.414%201.414l-4%204a1%201%200%2001-1.414%200l-4-4a1%201%200%20010-1.414z%22%20clip-rule%3D%22evenodd%22%3E%3C%2Fpath%3E%3C%2Fsvg%3E');
+  background-repeat: no-repeat;
+  background-position: left 8px center;
+  background-size: 0.65em;
   cursor: pointer;
-  margin-top: 15px;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.form-group select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.15);
+  outline: none;
+}
+
+/* --- Save Button Styling --- */
+.save-btn {
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0, 123, 255, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+  width: auto;
+  min-width: 160px;
 }
 
 .save-btn:hover {
-  background-color: #0056b3;
+  background: linear-gradient(135deg, #0056b3 0%, #003f80 100%);
+  box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+  transform: translateY(-2px);
+}
+
+/* --- Alert Messages --- */
+.alert-message {
+  padding: 8px 12px;
+  margin-bottom: 12px;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-weight: 500;
+  text-align: center;
+  animation: slideIn 0.5s ease-out;
+}
+
+.alert-message.success {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.alert-message.error {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Loading State --- */
+.loading-message {
+  font-size: 1em;
+  color: #007bff;
+  text-align: center;
+  padding: 30px;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 768px) {
+  .account-container {
+    max-width: 98vw;
+    padding: 18px 7vw;
+    border-radius: 10px;
+  }
+
+  .account-header h2 {
+    font-size: 1.6em;
+  }
+
+  .account-header p {
+    font-size: 0.9em;
+  }
+
+  .account-form {
+    padding: 15px;
+  }
+
+  .form-group input,
+  .form-group select {
+    padding: 7px 10px;
+    font-size: 0.9em;
+  }
+
+  .save-btn {
+    padding: 9px 18px;
+    font-size: 0.9em;
+    min-width: unset;
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .account-container {
+    padding: 15px 10px;
+  }
 }

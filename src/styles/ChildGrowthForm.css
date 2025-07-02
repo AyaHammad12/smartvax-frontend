@@ -1,43 +1,78 @@
-/* 📄 ChildGrowthForm.css */
+body {
+    background: linear-gradient(to right, #eef7ff, #deefff);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: #333;
+}
+
+.growth-page-container {
+    padding: 40px;
+    max-width: 1500px;
+    margin: 40px auto;
+    direction: rtl;
+}
+
+.page-description {
+    text-align: center;
+    font-size: 1.15em;
+    color: #555;
+    margin-bottom: 50px;
+    padding: 15px 30px;
+    background-color: #f0f8ff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    line-height: 1.8;
+    border: 1px solid #e0f2ff;
+}
 
 .growth-container {
     display: flex;
     gap: 40px;
     align-items: flex-start;
-    justify-content: space-between;
-    padding: 20px;
+    justify-content: center;
     direction: rtl;
-    margin-right: 55px;
+    width: 100%;
 }
 
 .growth-form, .growth-visuals {
-    flex: 1;
-    background-color: #fff;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    background-color: #ffffff;
+    padding: 35px;
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e8f4fb;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.growth-form:hover, .growth-visuals:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
 }
 
 .growth-form {
-    max-width: 40%;
+    flex: 0 0 700px;
+    margin-right: -200px!important;
 }
 
 .growth-visuals {
-    max-width: 60%;
-    margin-top: 10px;
-    margin-left: 10px;
-    padding-right: 20px; /* تحريك المحتوى للداخل قليلاً */
+    flex: 1;
+    min-width: 700px;
+    padding-right: 35px;
 }
 
-
-
 .section-title {
-    color: #2c3e50;
-    margin-bottom: 25px;
-    font-size: 26px;
-    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    font-size: 32px;
+    color: #1a2a3a;
+    margin-bottom: 35px;
     position: relative;
-    padding-bottom: 10px;
+    padding-bottom: 18px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
 .section-title::after {
@@ -46,137 +81,128 @@
     bottom: 0;
     right: 50%;
     transform: translateX(50%);
-    width: 60px;
-    height: 3px;
-    background-color: #2a8dd2;
-    border-radius: 2px;
+    width: 90px;
+    height: 5px;
+    background: linear-gradient(to right, #3a95c9, #2a8dd2);
+    border-radius: 3px;
+}
+
+.section-icon {
+    font-size: 36px;
+    color: #2a8dd2;
+}
+
+/* هذا هو التعديل الثابت: */
+.sub-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;   /* تجعل الأيقونة والعنوان بمحاذاة اليمين دائما */
+    gap: 12px;
+    font-size: 24px;
+    color: #34495e;
+    margin-top: 40px;
+    margin-bottom: 25px;
+    font-weight: 600;
+}
+
+.sub-section-icon {
+    font-size: 26px;
+    color: #3498db;
+}
+.result-title {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;   /* هذا هو التغيير المطلوب */
+    gap: 10px;
+    font-size: 22px;
+    color: #2c3e50;
+    margin-bottom: 20px;
+    font-weight: 600;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding-bottom: 10px;
+}
+
+
+.result-icon {
+    font-size: 24px;
+    color: #2a8dd2;
 }
 
 label {
     display: block;
-    margin-bottom: 8px;
+    margin-bottom: 12px;
     color: #4a4a4a;
-    font-weight: bold;
-    font-size: 17px;
-}
-/* ✅ رؤوس الجداول بلون الـ Navbar */
-.growth-table thead th {
-    background-color: #3a95c9; /* نفس لون الزر والـ navbar */
-    color: white;
-    font-weight: bold;
-    font-size: 16px;
-    padding: 12px;
+    font-weight: 600;
+    font-size: 18px;
 }
 
 input {
-    width: 100%;
-    padding: 12px;
-    margin-bottom: 20px;
-    border: 1px solid #dcdcdc;
-    border-radius: 8px;
-    font-size: 16px;
-    transition: border-color 0.3s ease, box-shadow 0.3s ease;
-}
-.growth-table tbody tr:nth-child(odd) {
-    background-color: #ece6e6; /* لون فاتح للصفوف الفردية */
-}
-
-.growth-table tbody tr:nth-child(even) {
-    background-color: #ffffff; /* أبيض للزوجية */
-}
-.growth-table-wrapper {
-    max-height: 400px; /* أو أي قيمة تناسب التصميم */
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-}
-
-.custom-tooltip {
-    background-color: #ffffff;
-    border: 1px solid #ccc;
-    padding: 10px 12px;
-    border-radius: 8px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    font-size: 14px;
-    direction: rtl;
-}
-
-.tooltip-label {
-    font-weight: bold;
-    color: #2a8dd2;
-    margin-bottom: 5px;
-}
-
-.tooltip-value {
-    margin: 0;
+    width: calc(100% - 28px);
+    padding: 16px 14px;
+    margin-bottom: 28px;
+    border: 1px solid #cfd8dc;
+    border-radius: 12px;
+    font-size: 18px;
     color: #333;
+    background-color: #fcfdff;
+    transition: all 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05);
 }
 
 input:focus {
     border-color: #2a8dd2;
-    box-shadow: 0 0 0 3px rgba(42, 141, 210, 0.2);
+    box-shadow: 0 0 0 5px rgba(42, 141, 210, 0.2), inset 0 1px 3px rgba(0, 0, 0, 0.08);
+    background-color: #ffffff;
     outline: none;
-}
-.section-title {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    font-size: 26px;
-    color: #2c3e50;
-    margin-bottom: 25px;
-    position: relative;
-    padding-bottom: 10px;
-}
-
-.section-icon {
-    width: 30px;
-    height: 30px;
-    margin-top: -2px;
 }
 
 button {
-    background-color: #2a8dd2;
+    background: linear-gradient(to right, #3a95c9, #2a8dd2);
     color: white;
-    padding: 12px 16px;
+    padding: 16px 25px;
     border: none;
-    border-radius: 8px;
+    border-radius: 12px;
     cursor: pointer;
-    font-size: 18px;
+    font-size: 20px;
     width: 100%;
-    transition: background-color 0.3s ease, transform 0.2s ease;
+    transition: all 0.3s ease;
     font-weight: bold;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.7px;
+    box-shadow: 0 6px 15px rgba(42, 141, 210, 0.3);
+    text-transform: uppercase;
 }
 
 button:hover {
-    background-color: #1f78b4;
-    transform: translateY(-2px);
+    background: linear-gradient(to right, #2a8dd2, #1f78b4);
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px rgba(42, 141, 210, 0.4);
 }
 
 button:active {
-    background-color: #1b6aa8;
+    background: linear-gradient(to right, #1f78b4, #1b6aa8);
     transform: translateY(0);
+    box-shadow: 0 2px 5px rgba(42, 141, 210, 0.2);
 }
 
 .result-box {
-    margin-top: 25px;
-    padding: 18px;
-    border-radius: 10px;
-    background-color: #f8f9fa;
-    border: 1px solid #d6d8db;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    margin-top: 35px;
+    padding: 25px;
+    border-radius: 15px;
+    background-color: #eaf6ff;
+    border: 1px solid #cce7ff;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
 }
 
 .result-line {
     font-weight: 600;
-    font-size: 16px;
-    margin: 10px 0;
+    font-size: 17px;
+    margin: 15px 0;
     display: flex;
     align-items: center;
-    gap: 8px;
-    padding: 10px 12px;
-    border-radius: 8px;
+    gap: 12px;
+    padding: 15px 18px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
 }
 
 .result-line.success {
@@ -186,24 +212,235 @@ button:active {
 }
 
 .result-line.warning {
-    background-color: #fff3cd;
-    color: #856404;
-    border: 1px solid #ffeeba;
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
 }
 
 .growth-table {
     width: 100%;
-    margin-top: 20px;
-    border-collapse: collapse;
+    margin-top: 25px;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
 }
 
-.growth-table th, .growth-table td {
-    padding: 10px;
-    border: 1px solid #ccc;
+.growth-table thead th {
+    background: linear-gradient(to bottom, #3a95c9, #2a8dd2);
+    color: white;
+    font-weight: bold;
+    font-size: 17px;
+    padding: 16px;
     text-align: center;
+    border: none;
 }
-.result-line.warning {
-    background-color: #f8d7da !important;
-    color: #721c24 !important;
-    border: 1px solid #f5c6cb !important;
+
+.growth-table tbody td {
+    padding: 14px;
+    border: 1px solid #eef2f7;
+    text-align: center;
+    color: #444;
+    transition: background-color 0.2s ease;
+}
+
+.growth-table tbody tr:nth-child(odd) {
+    background-color: #f7fbff;
+}
+
+.growth-table tbody tr:nth-child(even) {
+    background-color: #ffffff;
+}
+
+.growth-table tbody tr:hover {
+    background-color: #e0f2ff;
+}
+
+.growth-table.minimal-table {
+    margin-top: 15px;
+    box-shadow: none;
+    border: 1px solid #e0e0e0;
+}
+
+.growth-table.minimal-table thead th {
+    background: #e3f2fd;
+    color: #333;
+    border-bottom: 2px solid #bbdefb;
+}
+
+.growth-table.minimal-table tbody td {
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+}
+.growth-table.minimal-table tbody tr:last-child td {
+    border-bottom: none;
+}
+.growth-table.minimal-table tbody tr:hover {
+    background-color: #f5faff;
+}
+
+.growth-table-wrapper {
+    max-height: 280px;
+    overflow-y: auto;
+    border: 1px solid #e8f4fb;
+    border-radius: 12px;
+    box-shadow: inset 0 2px 8px rgba(0,0,0,0.05);
+    background-color: #ffffff;
+}
+
+.recharts-wrapper {
+    margin-top: 25px;
+    margin-bottom: 25px;
+}
+
+.recharts-cartesian-grid-horizontal line,
+.recharts-cartesian-grid-vertical line {
+    stroke: #e0eaf2 !important;
+}
+
+.recharts-xaxis .recharts-label,
+.recharts-yaxis .recharts-label {
+    fill: #555;
+    font-weight: 600;
+}
+
+.recharts-xAxis .tick text,
+.recharts-yAxis .tick text {
+    fill: #555;
+}
+
+.recharts-xaxis-tick-line,
+.recharts-yaxis-tick-line {
+    stroke: transparent !important;
+}
+
+.recharts-xAxis .recharts-axis-line,
+.recharts-yAxis .recharts-axis-line {
+    stroke: #888 !important;
+    stroke-width: 1px;
+}
+
+.recharts-line-dot {
+    stroke-width: 2px;
+    fill: #ffffff;
+}
+
+.custom-tooltip {
+    background-color: rgba(255, 255, 255, 0.95);
+    border: 1px solid #a7d9f7;
+    padding: 15px 18px;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    font-size: 15px;
+    direction: rtl;
+    backdrop-filter: blur(5px);
+}
+
+.tooltip-label {
+    font-weight: bold;
+    color: #2a8dd2;
+    margin-bottom: 8px;
+    font-size: 16px;
+    border-bottom: 1px dashed #e0eaf2;
+    padding-bottom: 8px;
+}
+
+.tooltip-value {
+    margin: 6px 0;
+    color: #333;
+}
+.tooltip-value strong {
+    font-weight: 700;
+}
+
+/* Media Queries */
+@media (max-width: 1200px) {
+    .growth-page-container {
+        padding: 30px;
+    }
+    .growth-container {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
+    .growth-form, .growth-visuals {
+        max-width: 95%;
+        min-width: unset;
+        width: 100%;
+        margin: 0 auto;
+    }
+    .growth-form {
+        flex: 1;
+    }
+    .growth-visuals {
+        margin-top: 0;
+        min-width: unset;
+    }
+}
+
+@media (max-width: 768px) {
+    .growth-page-container {
+        padding: 20px;
+    }
+    .page-description {
+        font-size: 1em;
+        margin-bottom: 30px;
+        padding: 10px 20px;
+    }
+    .section-title {
+        font-size: 24px;
+        gap: 10px;
+        margin-bottom: 25px;
+        padding-bottom: 15px;
+    }
+    .section-icon {
+        font-size: 28px;
+    }
+    .sub-section-title {
+        font-size: 1.15em;
+        color: #1665c1;
+        gap: 8px;
+    }
+    .sub-section-icon {
+        font-size: 1.3em;
+        color: #0d99a6;
+    }
+    label {
+        font-size: 16px;
+    }
+    input, button {
+        font-size: 16px;
+        padding: 12px;
+    }
+    .growth-table th, .growth-table td {
+        font-size: 14px;
+        padding: 12px;
+    }
+    .growth-form, .growth-visuals {
+        padding: 25px;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-title {
+        font-size: 22px;
+    }
+    .section-icon {
+        font-size: 26px;
+    }
+    .sub-section-title {
+        font-size: 18px;
+    }
+    .sub-section-icon {
+        font-size: 20px;
+    }
+    input, button {
+        font-size: 15px;
+        padding: 10px;
+    }
+    .result-line {
+        font-size: 15px;
+        padding: 12px;
+    }
 }

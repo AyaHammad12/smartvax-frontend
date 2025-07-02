@@ -2,87 +2,103 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/DayCell.css";
 
-const DayCell = ({ day, month, year, status, role, vaccines = [], appointments = [], onClick }) => {
-  const navigate = useNavigate();
-  const [showPopup, setShowPopup] = React.useState(false);
+const DayCell = ({
+                     day,
+                     month,
+                     year,
+                     status,
+                     role,
+                     vaccines = [],
+                     appointments = [],
+                     onClick,
+                     isSelected = false,
+                     hasVaccination = false,
+                     isToday = false,
+                     isYesterday = false,
+                     isTomorrow = false,
+                 }) => {
+    const navigate = useNavigate();
+    const [showPopup, setShowPopup] = React.useState(false);
 
-  vaccines.forEach((v) => {
-    console.log(`Vaccine "${v.name}" rawStatus:`, v.rawStatus);
-  });
+    // تحديد حالة اليوم (لون الخلية بناء على حالة التطعيم)
+    const vaccinations_Status = (() => {
+        const statuses = vaccines.map((v) => v.rawStatus?.trim().toLowerCase());
+        if (statuses.includes("completed")) return "completed";
+        if (statuses.includes("missed")) return "missed";
+        if (
+            statuses.includes("pending") ||
+            statuses.includes("reshdualing") ||
+            statuses.includes("trlocation")
+        ) {
+            return "upcoming";
+        }
+        return "other";
+    })();
 
-  const vaccinations_Status = (() => {
-    const statuses = vaccines
-        .map((v) => v.rawStatus?.trim().toLowerCase());
+    // بناء الكلاسات للخلية
+    let cellClass = `day-cell ${vaccinations_Status} ${isSelected ? "selected" : ""}`;
+    if (role === "healthworker" && hasVaccination) cellClass += " has-vaccination";
+    if (role === "healthworker" && isToday) cellClass += " today-cell";
+    if (role === "healthworker" && isYesterday) cellClass += " yesterday-cell";
+    if (role === "healthworker" && isTomorrow) cellClass += " tomorrow-cell";
 
-    console.log(`Statuses array for day ${day}:`, statuses);
-
-    // الأولوية: completed أولاً ثم missed ثم upcoming
-    if (statuses.includes("completed")) return "completed";
-    if (statuses.includes("missed")) return "missed";
-    if (
-        statuses.includes("pending") ||
-        statuses.includes("reshdualing") ||
-        statuses.includes("trlocation")
-    ) {
-      return "upcoming";
-    }
-    return "other"; // الحالة الافتراضية لو ما في شي
-  })();
-
-  console.log("Vaccinations status for day", day, "is", vaccinations_Status);
-
-  const handleClick = (vaccineId) => {
-    const fullDate = `${year}-${month}-${String(day).padStart(2, "0")}`;
-
-    if (role === "parent" && vaccineId) {
-      navigate(`/vaccine-info/${vaccineId}`);
-    }
-
-    if (role === "healthworker") {
-      navigate(`/hw-appointment-scheduling/${fullDate}`);
-    }
-  };
-
-  return (
-      <div
-          className={`day-cell ${vaccinations_Status}`}
-          title={"اضغط لرؤية تفاصيل اليوم"}
-          onMouseEnter={() => setShowPopup(true)}
-          onMouseLeave={() => setShowPopup(false)}
-          onClick={() => {
-            if (role === "healthworker") {
-              const fullDate = `${year}-${month}-${String(day).padStart(2, "0")}`;
-              navigate(`/hw-appointment-scheduling/${fullDate}`);
-              if (onClick) onClick();
+    const handleCellClick = (e) => {
+        if (role === "healthworker") {
+            if (onClick) onClick();
+            return;
+        }
+        if (role === "parent") {
+            if (vaccines.length > 0) {
+                setShowPopup(true);
+            } else {
+                setShowPopup(false);
             }
-          }}
-          style={{ cursor: vaccines.length > 0 || appointments.length > 0 || role === "healthworker" ? "pointer" : "default" }}
-      >
-        <span className="day-number">{day}</span>
+        }
+    };
 
-        {vaccines.length > 0 && (
-            <span className="vaccine-name">
-          {vaccines[0].groupName?.length > 18
-              ? vaccines[0].groupName.slice(0, 15) + "..."
-              : vaccines[0].groupName}
-        </span>
-        )}
+    const handleMouseLeave = () => {
+        setShowPopup(false);
+    };
 
-        {showPopup && vaccines.length > 0 && (
-            <div className="vaccine-popup">
-              {vaccines.map((v, index) => (
-                  <div
-                      key={index}
-                      className="vaccine-popup-item"
-                      onClick={() => handleClick(v.id)}
-                  >
-                    💉 {v.name}
-                  </div>
-              ))}
-            </div>
-        )}
-      </div>
-  );
+    const handleVaccineClick = (e, vaccineId) => {
+        e.stopPropagation();
+        if (role === "parent" && vaccineId) {
+            navigate(`/vaccine-info/${vaccineId}`);
+            setShowPopup(false);
+        }
+    };
+
+    return (
+        <div
+            className={cellClass}
+            title={vaccines.length > 0 ? "اضغط لرؤية تفاصيل التطعيمات" : ""}
+            onClick={handleCellClick}
+            onMouseLeave={handleMouseLeave}
+            style={{
+                cursor:
+                    (role === "parent" && vaccines.length > 0) ||
+                    (role === "healthworker" && onClick)
+                        ? "pointer"
+                        : "default",
+            }}
+        >
+            <span className="day-number">{day}</span>
+            {/* فقط لو parent وبدك تظهر البوب أب */}
+            {role === "parent" && showPopup && vaccines.length > 0 && (
+                <div className="vaccine-popup">
+                    {vaccines.map((v, index) => (
+                        <div
+                            key={index}
+                            className="vaccine-popup-item"
+                            onClick={(e) => handleVaccineClick(e, v.id)}
+                        >
+                            💉 {v.name}
+                        </div>
+                    ))}
+                </div>
+            )}
+        </div>
+    );
 };
 
 export default DayCell;

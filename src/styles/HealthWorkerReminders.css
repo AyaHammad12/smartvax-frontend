@@ -1,102 +1,204 @@
-/* تغليف الصفحة */
-.reminders-wrapper {
-  padding: 24px;
-  font-family: 'Cairo', sans-serif;
-  max-width: 900px;
-  margin: 30px auto 40px auto;
+body {
+  background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
+}
+
+/* بوكس الكارد الأبيض الكبير */
+.reminders-page-box {
+  max-width: 950px;
+  background: #fff;
+  border-radius: 24px 0 0 24px;
+  box-shadow: 0 10px 38px #b3e7fd60, 0 1.5px 6px #bbdbeb33;
+  margin: 48px 0 48px 0;
+  margin-right: 0;    /* لاصق باليمين */
+  padding: 0;
   direction: rtl;
-  box-sizing: border-box;
+  min-height: 72vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
 }
 
-/* عنوان الصفحة */
-.reminders-wrapper h2 {
-  color: #333;
-  margin-bottom: 24px;
-  font-size: 24px;
-  text-align: right;
-}
-
-/* كرت التذكير */
-.reminder-card {
-  background-color: #fff8dc;
-  border: 1px solid #ffdf7e;
-  border-radius: 10px;
-  padding: 16px;
-  margin-bottom: 18px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
-  color: #444;
-  word-wrap: break-word;
+.reminders-wrapper {
   width: 100%;
+  padding: 38px 38px 32px 25px;
   box-sizing: border-box;
+  direction: rtl;
 }
 
-/* نص التذكير */
-.reminder-text {
-  font-size: 16px;
-  line-height: 1.6;
-  margin-bottom: 8px;
+/* عنوان التذكيرات */
+.reminders-title-row {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 32px;
+  margin-right: 18px;
 }
 
-/* أيقونة داخل النص */
-.reminder-text .icon {
-  margin-left: 8px;
-  font-size: 18px;
+.reminders-main-icon {
+  font-size: 2.2em;
+  color: #2d60ad;
+  background: #eaf3fc;
+  border-radius: 50%;
+  padding: 10px;
+  box-shadow: 0 2px 10px #8ec9fa33;
 }
 
-/* التاريخ */
+.reminders-title-row h2 {
+  font-size: 2em;
+  color: #2d60ad;
+  font-weight: 800;
+  margin: 0;
+  letter-spacing: .5px;
+}
+
+/* قائمة البطاقات */
+.reminders-list {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 25px;
+}
+
+@media (max-width: 950px) {
+  .reminders-list { grid-template-columns: 1fr; }
+}
+
+.reminder-card {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 6px 32px #b3e7fd44, 0 1.5px 6px #bbdbeb24;
+  padding: 28px 28px 22px 22px;
+  border-right: 6px solid #2471a3;
+  min-height: 155px;
+  position: relative;
+  transition: box-shadow 0.17s, transform 0.15s;
+  display: flex;
+  flex-direction: column;
+  gap: 11px;
+  justify-content: space-between;
+}
+
+.reminder-card.handled {
+  background: #e4ffeb;
+  border-right-color: #30b959;
+  opacity: 0.87;
+}
+
+.reminder-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 4px;
+}
+
+.reminder-type-icon {
+  font-size: 1.35em;
+  opacity: 0.95;
+  margin-left: 6px;
+}
+
+.reminder-type-label {
+  font-weight: bold;
+  font-size: 1.05em;
+  letter-spacing: .2px;
+  margin-bottom: 1px;
+}
+
+.reminder-card-body {
+  font-size: 1.11em;
+  color: #1c4372;
+  font-weight: 500;
+  line-height: 1.75;
+  padding-right: 4px;
+  margin-bottom: 4px;
+}
+
+.reminder-footer-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 8px;
+}
+
 .reminder-date {
-  font-size: 14px;
-  color: #666;
-  text-align: left;
+  color: #777;
+  font-size: 0.98em;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 600;
 }
 
-/* في حال لا توجد تذكيرات */
-.no-reminders {
-  font-weight: bold;
-  color: #888;
-  text-align: center;
-  margin-top: 30px;
+.date-icon {
+  margin-left: 3px;
+  color: #2386e5;
+  font-size: 1.1em;
+  opacity: 0.95;
 }
 
-/* ✅ استجابة على الشاشات الصغيرة */
-@media screen and (max-width: 768px) {
-  .reminders-wrapper {
-    padding: 16px;
-    margin: 20px 10px;
-  }
-
-  .reminder-card {
-    padding: 14px;
-    font-size: 14px;
-  }
-
-  .reminder-text {
-    font-size: 14px;
-  }
-
-  .reminder-date {
-    font-size: 12px;
-    text-align: right;
-  }
-}
+/* زر التعامل مع التذكير */
 .handle-btn {
-  background-color: #4caf50;
+  background: linear-gradient(to left, #42d28a, #2bcb7a);
   color: white;
-  padding: 6px 12px;
-  border: none;
-  border-radius: 6px;
-  margin-top: 10px;
-  cursor: pointer;
   font-weight: bold;
+  padding: 10px 23px;
+  border: none;
+  border-radius: 8px;
+  font-size: 1em;
+  cursor: pointer;
+  box-shadow: 0 2px 7px #a9f3c840;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  transition: background 0.17s, transform 0.12s, box-shadow 0.18s;
 }
 
 .handle-btn:hover {
-  background-color: #388e3c;
+  background: linear-gradient(to left, #21b365, #00994c);
+  transform: translateY(-1.5px) scale(1.03);
+  box-shadow: 0 4px 15px #89eba566;
 }
 
 .handled-info {
-  color: green;
-  margin-top: 10px;
+  color: #209e48;
+  background: #f5fff5;
+  border-radius: 7px;
+  font-size: 1em;
   font-weight: bold;
+  padding: 6px 14px 6px 7px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 
+.handled-date {
+  color: #2d7d36;
+  font-size: 0.93em;
+  font-weight: 600;
+}
+
+.no-reminders {
+  color: #666;
+  background: #f8f8f8;
+  font-weight: 700;
+  font-size: 1.25em;
+  border-radius: 13px;
+  box-shadow: 0 1.5px 9px #e3e3e366;
+  padding: 28px 14px;
+  margin-top: 44px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .reminders-page-box { border-radius: 0 0 18px 18px; margin: 25px 0; }
+  .reminders-wrapper { padding: 18px 6px 16px 6px; }
+  .reminders-title-row { margin-bottom: 18px; }
+  .reminders-title-row h2 { font-size: 1.3em; }
+  .reminder-card { padding: 13px 5px 10px 5px; min-height: 120px; border-radius: 11px;}
+  .reminder-type-icon { font-size: 1em;}
+  .reminder-type-label, .reminder-card-body { font-size: 0.98em;}
+  .reminders-list { gap: 11px; }
+}

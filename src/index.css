@@ -16,11 +16,13 @@ body,
   background-repeat: no-repeat;
 }
 
+/* احذف display: flex من body, #root! */
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+  sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   direction: rtl; /* تأكيد الاتجاه من اليمين لليسار */
@@ -29,60 +31,48 @@ body {
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  monospace;
 }
 
-/* ✅ تحسين استجابة التخطيط */
+/* الباقي كما هو */
 .app-container {
   display: flex;
-  flex-direction: row-reverse; /* جعل الاتجاه من اليمين لليسار */
+  flex-direction: row-reverse;
   width: 100%;
   height: 100%;
 }
 
-/* ✅ تحديث المساحة الجانبية بناءً على حالة الشريط الجانبي */
-
-
-
 .main-content {
   transition: margin-right 0.3s ease-in-out;
-  /* margin-right: 65px;  */
-  /* المساحة لما يكون الشريط مغلق */
-  /* padding: 20px; */
   width: 100%;
-   padding-bottom: 0;
+  padding-bottom: 0;
 }
 
 .main-content.sidebar-open {
-  margin-right: 200px; /* المساحة لما يكون الشريط مفتوح */
+  margin-right: 200px;
 }
 
 .sidebar.open + .main-content {
-  margin-right: 200px; /* تعديل المساحة عند فتح الشريط */
+  margin-right: -200px;
 }
 
-/* ✅ جعل الصفحة تعمل بدون هامش عند تسجيل الدخول */
 .no-margin .main-content {
   margin-right: 0;
 }
 
-/* ✅ تحسين استجابة الشاشات الصغيرة */
 @media screen and (max-width: 768px) {
   .app-container {
     flex-direction: column;
   }
-
   .sidebar {
     width: 100%;
     height: auto;
   }
-
   .main-content {
     width: 100%;
     margin-right: 0;
   }
 }
 
-/* استيراد الأنماط بعد جميع القواعد الأخرى */
 @import "./styles/Navbar.css";
 @import "./styles/VaccineInfoPage.css";

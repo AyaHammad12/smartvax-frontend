@@ -1,31 +1,55 @@
+import React, { useEffect, useState } from "react";
 import "../styles/HealthWorkerDashboard.css";
 import Calendar from "../components/Calendar";
-import { FaBell } from "react-icons/fa";
-
-import React, { useEffect, useState } from "react";
 
 const HealthWorkerDashboard = () => {
-  const [role, setRole] = useState(null);
+    const [workerProfile, setWorkerProfile] = useState({
+        name: "",
+        center: "",
+    });
 
-  useEffect(() => {
-    const storedRole = localStorage.getItem("role"); // جلب الدور من localStorage
-    setRole(storedRole);
-  }, []);
+    useEffect(() => {
+        // جلب بيانات العامل الصحي (ممكن تعدل الرابط حسب API عندك)
+        fetch("http://localhost:8080/api/worker-profile", {
+            method: "GET",
+            credentials: "include",
+        })
+            .then((res) => res.json())
+            .then((data) => setWorkerProfile(data))
+            .catch(() =>
+                setWorkerProfile({ name: "العامل الصحي", center: "المركز" })
+            );
+    }, []);
 
-  console.log("الدور في لوحة تحكم العامل الصحي:", role);
+    return (
+        <div className="dashboard-container" dir="rtl">
+            <h1
+                className="dashboard-title"
+                style={{ display: "flex", alignItems: "center", gap: "10px", flexWrap: "wrap" }}
+            >
+                مرحبًا {workerProfile.name} 👨‍⚕️ |
 
-  return (
-    <div className="home-container" dir="rtl">
-      <h1>مرحبًا بك في لوحة تحكم العامل الصحي</h1>
-      <br />
-      <div className="reminder-container">
-        <FaBell className="icon" />
-        <p>التطعيم القادم: 23 يناير</p>
-      </div>
-      <br />
-      <Calendar role={role} /> {/* تمرير الدور هنا */}
-    </div>
-  );
+            </h1>
+            <p
+                style={{
+                    color: "#2c3e50",
+                    fontWeight: "500",
+                    fontSize: "1em",
+                    margin: "6px 0 18px 0"
+                }}
+            >
+                عند النقر على أي يوم في الكاليندر، ستنتقل مباشرة لرؤية جميع تطعيمات الأطفال المجدولة في ذلك اليوم.
+            </p>
+
+
+
+
+            {/* الكاليندر فقط */}
+            <div className="calendar-section">
+                <Calendar role="health_worker" />
+            </div>
+        </div>
+    );
 };
 
 export default HealthWorkerDashboard;

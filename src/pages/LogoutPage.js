@@ -15,7 +15,7 @@ const LogoutPage = () => {
     // عند تسجيل الخروج
     localStorage.removeItem("childId");
     localStorage.removeItem("parentId");
-    localStorage.removeItem("userId");
+
 
     // إعادة التوجيه إلى صفحة تسجيل الدخول
     navigate("/login");
