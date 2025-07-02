@@ -1,29 +1,45 @@
+body {
+  background-color: #f0f2f5; /* لون خلفية أفتح قليلاً للصفحة بالكامل */
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  color: #333;
+}
+
 .reminder-container {
-  max-width: 1000px;
-  margin: auto;
-  padding: 16px;
+  max-width: 900px; /* تضييق عرض المحتوى قليلاً لتركيز أفضل */
+  margin: 30px 60px; /* زيادة الهامش العلوي والسفلي */
+  padding: 25px;
+  background-color: #ffffff;
+  border-radius: 15px; /* زوايا دائرية أكثر للكونتينر الرئيسي */
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1); /* ظل أكبر وأكثر وضوحاً */
 }
 
 .title {
   text-align: center;
-  font-size: 1.6rem;
+  font-size: 2rem; /* تكبير حجم العنوان */
   font-weight: bold;
-  margin-bottom: 20px;
-  /* display: flex; */
+  margin-bottom: 30px; /* زيادة المسافة تحت العنوان */
+  display: flex; /* تفعيل الفليكس بوكس لتوسيط الأيقونة والنص */
   justify-content: center;
   align-items: center;
-  gap: 10px;
-  color: #4a148c;
+  gap: 12px; /* مسافة أكبر بين الأيقونة والنص */
+  color: #007bff; /* اللون الأزرق الجديد للعنون */
+  letter-spacing: 0.5px; /* مسافة بين الحروف */
 }
 
 .title-icon {
-  font-size: 1.5rem;
+  font-size: 2.2rem; /* تكبير أيقونة العنوان */
+  color: #007bff; /* جعل لون الأيقونة مطابقاً للعنوان */
 }
 
 .no-reminder {
   text-align: center;
-  color: #777;
+  color: #888; /* لون أغمق قليلاً للنص */
   font-style: italic;
+  padding: 20px;
+  background-color: #e9ecef; /* خلفية خفيفة لرسالة "لا يوجد تذكيرات" */
+  border-radius: 10px;
+  margin-top: 20px;
+  font-size: 1.1rem;
 }
 
 .reminder-list {
@@ -33,108 +49,186 @@
 }
 
 .reminder-summary {
-  background: #fff;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-  padding: 14px 18px;
-  margin-bottom: 12px;
-  font-size: 0.95rem;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
-  transition: background-color 0.3s;
+  background: #ffffff;
+  border-radius: 12px; /* زوايا دائرية أكثر لبطاقات التذكير */
+  border: 1px solid #e0e0e0; /* حد أفتح قليلاً */
+  padding: 18px 22px; /* زيادة المساحة الداخلية */
+  margin-bottom: 15px; /* زيادة المسافة بين البطاقات */
+  font-size: 1rem;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* ظل أكثر بروزاً لكن ناعم */
+  transition: all 0.3s ease-in-out; /* انتقال سلس لكل الخصائص */
   cursor: pointer;
-  color: #333;
-}
-
-.reminder-summary.unread {
-  background-color: #fef3f8;
-  border-right: 4px solid #e91e63;
-}
-
-.reminder-summary.read {
-  background-color: #f6f6f6;
   color: #444;
 }
 
+.reminder-summary:hover {
+  transform: translateY(-3px); /* رفع البطاقة قليلاً عند التحويم */
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12); /* ظل أكبر عند التحويم */
+}
+
+.reminder-summary.unread {
+  background-color: #fff3f5; /* لون خلفية أفتح وأكثر جاذبية لغير المقروء */
+  border-right: 6px solid #e74c3c; /* شريط جانبي أكثر سمكاً وأحمر بارز */
+}
+
+.reminder-summary.unread:hover {
+  border-right: 6px solid #c0392b; /* يصبح أغمق عند التحويم */
+}
+
+.reminder-summary.read {
+  background-color: #f9f9f9; /* لون رمادي فاتح جداً للمقروء */
+  color: #666; /* نص أغمق قليلاً للمقروء لتمييزه */
+  border-right: 1px solid #ddd; /* شريط رفيع جداً */
+}
+
 .reminder-header {
-  /* display: flex; */
+  display: flex;
   justify-content: space-between;
   align-items: center;
-  font-weight: bold;
-  font-size: 1rem;
+  font-weight: 600; /* جعل الخط أثقل قليلاً */
+  font-size: 1.1rem; /* تكبير حجم النص في الهيدر */
+  color: #2c3e50; /* لون أغمق للنص */
+}
+
+.message-text {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* مسافة بين الأيقونة والنص */
 }
 
 .unread-badge {
-  background-color: #e91e63;
+  background-color: #e74c3c; /* لون أحمر بارز */
   color: white;
-  padding: 2px 10px;
-  border-radius: 20px;
-  font-size: 0.75rem;
+  padding: 4px 12px; /* زيادة حجم البادج */
+  border-radius: 25px; /* زوايا دائرية جداً */
+  font-size: 0.8rem;
   font-weight: bold;
+  letter-spacing: 0.5px;
+  animation: pulse 1.5s infinite; /* إضافة تأثير النبض */
+}
+
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+  100% { transform: scale(1); }
 }
 
 .reminder-details {
-  border-top: 1px dashed #ccc;
-  margin-top: 8px;
-  padding-top: 8px;
-  color: #333;
-  font-size: 0.9rem;
+  border-top: 1px dashed #e0e0e0; /* خط منقط أفتح */
+  margin-top: 12px; /* زيادة المسافة العلوية */
+  padding-top: 12px; /* زيادة المساحة الداخلية العلوية */
+  color: #555;
+  font-size: 0.95rem;
+  line-height: 1.6; /* تباعد الأسطر لتحسين القراءة */
+}
+
+.reminder-details p {
+  margin-bottom: 6px; /* مسافة بين فقرات التفاصيل */
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .status {
-  margin-top: 6px;
-  font-weight: 500;
+  margin-top: 8px;
+  font-weight: 600; /* جعل الخط أثقل */
 }
 
 .sent-status {
-  color: #4caf50;
+  color: #28a745; /* أخضر أغمق قليلاً */
   font-weight: bold;
 }
 
 .pending-status {
-  color: #ffa000;
+  color: #ffc107; /* أصفر أكثر حيوية */
   font-weight: bold;
 }
 
 .ai-button {
-  background: #1976d2;
+  background: #17a2b8; /* لون أزرق سماوي جديد */
   color: white;
   border: none;
-  border-radius: 6px;
-  padding: 6px 10px;
-  margin-top: 8px;
+  border-radius: 8px; /* زوايا دائرية أكثر للزر */
+  padding: 10px 18px; /* زيادة حجم الزر */
+  margin-top: 15px; /* مسافة أكبر فوق الزر */
   cursor: pointer;
-  font-size: 0.85rem;
+  font-size: 0.9rem;
   font-weight: bold;
+  transition: background 0.3s ease, transform 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  width: fit-content; /* جعل الزر يتناسب مع محتواه */
 }
 
 .ai-button:hover {
-  background: #125ea7;
+  background: #138496; /* لون أغمق عند التحويم */
+  transform: translateY(-1px); /* رفع الزر قليلاً */
 }
 
+/* ألوان الشرائط الجانبية لأنواع التذكيرات */
 .upcoming {
-  border-right: 4px solid #2196f3;
+  border-right: 6px solid #007bff; /* أزرق داكن وواضح */
 }
-
 .missed {
-  border-right: 4px solid #e53935;
+  border-right: 6px solid #dc3545; /* أحمر تحذيري */
 }
-
 .completed {
-  border-right: 4px solid #43a047;
+  border-right: 6px solid #28a745; /* أخضر للإنجاز */
 }
 
+/* تحسينات للخطوط الصغيرة للشاشات الصغيرة */
 @media (max-width: 768px) {
-  .reminder-summary {
-    padding: 12px 14px;
+  .reminder-container {
+    margin: 20px auto;
+    padding: 15px;
   }
-
+  .title {
+    font-size: 1.6rem;
+    gap: 8px;
+  }
+  .title-icon {
+    font-size: 1.8rem;
+  }
+  .reminder-summary {
+    padding: 15px 18px;
+    font-size: 0.9rem;
+  }
   .reminder-header {
     flex-direction: column;
     align-items: flex-start;
-    gap: 6px;
+    gap: 8px;
+    font-size: 1rem;
+  }
+  .unread-badge {
+    padding: 3px 10px;
+    font-size: 0.7rem;
+  }
+  .reminder-details {
+    font-size: 0.85rem;
+  }
+  .ai-button {
+    padding: 8px 14px;
+    font-size: 0.8rem;
+  }
+  .email-notification {
+    text-align: center;
+    margin-bottom: 25px; /* مسافة تحت الرسالة */
+    padding: 12px;
+    background-color: #e6f7ff; /* خلفية زرقاء فاتحة */
+    border: 1px solid #91d5ff; /* حد أزرق فاتح */
+    border-radius: 8px;
+    color: #0056b3; /* نص أزرق داكن */
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   }
 
-  .title {
-    font-size: 1.3rem;
+  .email-notification span[role="img"] {
+    font-size: 1.2rem;
   }
 }

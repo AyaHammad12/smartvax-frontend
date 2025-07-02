@@ -1,184 +1,393 @@
-.appointments-container {
-  max-width: 800px;
-  margin: auto;
-  padding: 20px;
-  text-align: center;
-  direction: rtl;
-}
-h1 {
-  display: block;
-  font-weight: 900;
-  font-size: 32px;
+/* General Body Styling */
+body {
+  background: linear-gradient(135deg, #eaf6ff 0%, #f6fbff 100%);
+  font-family: 'Arial', sans-serif; /* You can switch to 'Rubik' if imported */
   color: #333;
-  margin-bottom: 30px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll on some effects */
 }
+
+/* Main Container: Centered and Responsive */
+.appointments-container {
+  max-width: 1500px; /* Adjusted max-width to better fit 3 cards */
+  margin: 44px auto 0 auto; /* Auto margins center the container */
+  /* --- NEW: Adjust margin-right to shift the box --- */
+  margin-right: 50px !important;  /* --- END NEW --- */
+  background: #fff;
+  border-radius: 32px;
+  box-shadow: 0 10px 50px #bbe9f455, 0 1.5px 6px #aad0eb24;
+  padding: 46px 44px 44px 44px;
+  min-height: 82vh;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch; /* Content stretches horizontally within the container */
+  text-align: center; /* This helps center block elements if they are naturally smaller than their parent */
+  direction: rtl; /* Keep RTL for Arabic content */
+}
+
+/* Heading Styling */
+.main-title {
+  font-weight: 900;
+  font-size: 2em; /* Slightly smaller main title */
+  color: #2574d2;
+  /* --- NEW: Centering the title using auto margins and keeping flex for icon --- */
+  text-align: center; /* Center the text itself */
+  margin-left: auto;   /* Push to center */
+  margin-right: auto;  /* Push to center */
+  /* --- END NEW --- */
+  margin-bottom: 34px;
+  display: flex;
+  align-items: center;
+  gap: 12px; /* Slightly reduced gap */
+  letter-spacing: 0.8px; /* Slightly reduced letter spacing */
+  justify-content: center; /* Center title and icon horizontally within its own flex container */
+  width: fit-content; /* Make the flex container only as wide as its content */
+}
+
+.main-title-icon {
+  font-size: 1.3em; /* Smaller main title icon */
+  color: #2574d2;
+}
+
+/* Filter Section Styling */
 .filter-container {
   display: flex;
+  gap: 20px; /* Slightly reduced gap */
+  align-items: flex-start;
+  background: #fff;
+  padding: 20px 25px 15px 20px; /* Adjusted padding */
+  border-radius: 19px;
+  box-shadow: 0 1.5px 8px #e3f3fd33;
+  margin-bottom: 30px; /* Slightly reduced margin */
   flex-wrap: wrap;
-  gap: 20px;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 20px;
+  border: 1.2px solid #e3eefe;
+  justify-content: center; /* Center filter items within their container */
 }
 
-.filter-container > * {
-  flex: 1 1 45%; /* يجعل كل عنصر يأخذ تقريبًا نصف العرض */
-  min-width: 250px; /* يمنع التصغير الزائد في الشاشات الصغيرة */
-}
-
-@media (max-width: 600px) {
-  .filter-container > * {
-    flex: 1 1 100%;
-  }
-}
-
-.filter-container label {
-  background-color: #ff3bab;
-  margin-right: 5px;
-  font-weight: bold;
-  padding-right: 5px ;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-
-}
-
-.filter-container select,
-.filter-container input[type="date"],
-.filter-container input[type="text"] {
-  padding: 5px;
-  border-radius: 4px;
-  border: 1px solid #ccc;
-}
-
-.appointments-list {
+.filter-item {
   display: flex;
-  flex-wrap: wrap; /* تسمح بأن تلتف العناصر لو ما في مساحة */
-  gap: 20px; /* مسافة بين البطاقات */
-  justify-content: flex-start;
+  flex-direction: column;
+  gap: 6px; /* Slightly reduced gap */
+  min-width: 180px; /* Adjusted min-width for filter items */
+  flex: 1 1 200px; /* Adjusted flex-basis to allow more items per row */
 }
+
+.filter-item label {
+  font-weight: bold;
+  color: #2574d2;
+  font-size: 0.95em; /* Smaller label font size */
+  margin-bottom: 0;
+}
+
+.filter-item select,
+.filter-item input[type="date"],
+.filter-item input[type="text"] {
+  padding: 8px 7px; /* Slightly reduced padding */
+  border-radius: 8px;
+  border: 1.2px solid #bdddfd;
+  font-size: 1em; /* Smaller input font size */
+  margin-top: 0;
+  background: #fcfcfe;
+  color: #1c4372;
+  transition: border 0.18s;
+  height: 38px; /* Slightly reduced height for consistency */
+  box-sizing: border-box;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-image: url('data:image/svg+xml;utf8,<svg fill="%232574d2" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>');
+  background-repeat: no-repeat;
+  background-position: left 8px center; /* Adjusted arrow position */
+  padding-left: 30px; /* Adjusted padding for the arrow */
+}
+
+.filter-item select:focus,
+.filter-item input:focus {
+  border: 1.5px solid #298bfb;
+  outline: none;
+  background: #f1f9ff;
+}
+
+/* Appointments List and Card Styling */
+.appointments-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(320px, 1fr)); /* Set to 3 columns explicitly */
+  gap: 28px; /* Slightly reduced gap between cards */
+  justify-content: center; /* Center cards in the grid horizontally */
+  align-items: stretch;
+  margin-top: 6px;
+  width: 100%;
+}
+
+/* Appointment Card */
+.appointment-card {
+  background: #fff;
+  border-radius: 20px; /* Slightly less rounded corners */
+  box-shadow: 0 6px 28px 0 rgba(187, 233, 244, 0.25), 0 1.5px 5px rgba(170, 208, 235, 0.08); /* Adjusted shadow */
+  padding: 30px 24px 24px 24px; /* Reduced padding */
+  min-height: 360px; /* Adjusted min-height */
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  position: relative;
+  transition: box-shadow 0.2s, transform 0.13s;
+  border-right: 6px solid #2574d2; /* Slightly thinner border */
+  border-left: none;
+}
+
+/* Card Status Colors */
+.appointment-card.completed { background: #e9ffe9; border-right-color: #18b356; }
+.appointment-card.pending { background: #fff8e3; border-right-color: #f4be3d; }
+.appointment-card.missed { background: #fff0f1; border-right-color: #ff5353; }
+.appointment-card.reshdualing { background: #fff0fa; border-right-color: #e06bf7; }
+.appointment-card.trlocation { background: #f1f5ff; border-right-color: #2574d2; }
+.appointment-card.confirmed { background: #eaf6ff; border-right-color: #3498db; }
+.appointment-card.cancelled { background: #f6f6f6; border-right-color: #868e96; }
+
+.appointment-card:hover {
+  box-shadow: 0 10px 35px rgba(137, 195, 247, 0.7); /* Adjusted hover shadow */
+  transform: translateY(-6px) scale(1.02); /* Slightly less aggressive hover effect */
+}
+
+/* Appointment Card Header (Status Icon & Label) */
+.appointment-header {
+  display: flex;
+  align-items: center;
+  gap: 8px; /* Reduced gap */
+  margin-bottom: 15px; /* Reduced margin */
+  padding-bottom: 8px; /* Reduced padding */
+  border-bottom: 1px solid #eee;
+}
+
+.status-icon {
+  font-size: 1.3em; /* Smaller status icon */
+}
+
+.status-label {
+  font-weight: bold;
+  font-size: 1.1em; /* Smaller status text */
+}
+
+/* Appointment Card Info (Details like Child, ID, Vaccines, Date, Time) */
+.appointment-info {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* Reduced gap between info lines */
+  margin-bottom: 18px; /* Reduced margin */
+}
+
+.appointment-info > div {
+  display: flex;
+  align-items: flex-start; /* IMPORTANT: Align items to start, allowing text to wrap below icons */
+  gap: 6px; /* Reduced gap between icon and text */
+  font-size: 0.95em; /* Smaller info text */
+  color: #17587b;
+  text-align: right; /* Ensure text aligns to the right within its container */
+}
+
+.info-icon {
+  font-size: 1em; /* Smaller info icons */
+  color: #2574d2;
+  opacity: 0.9;
+  min-width: 18px; /* Adjusted min-width for icons */
+  text-align: center;
+  /* Add flex-shrink to prevent icon from shrinking on wrapping text */
+  flex-shrink: 0;
+}
+
+.appointment-info strong {
+  font-weight: bold;
+  color: #2677c5;
+  /* Add flex-shrink to prevent strong text from shrinking */
+  flex-shrink: 0;
+}
+
+/* Specific styling for the vaccine names container */
+.vaccine-names-container {
+  /* Allow the container for vaccine names to take up remaining space */
+  flex-grow: 1;
+  /* If you want comma-separated names to break properly */
+  word-break: break-word; /* Allows long words (or comma-separated lists) to break and wrap */
+  overflow-wrap: break-word; /* Another property for word wrapping */
+}
+
+/* Manage Button */
 .manage-btn {
-  background-color: #007bff;
-  color: white;
-  padding: 8px 12px;
+  margin-top: auto;
+  background: linear-gradient(to left, #298bfb, #2bc7fa);
+  color: #fff;
+  padding: 11px 28px; /* Reduced padding */
   border: none;
-  border-radius: 5px;
+  border-radius: 12px; /* Slightly less rounded */
+  font-size: 1.05em; /* Smaller font size */
+  font-weight: bold;
+  box-shadow: 0 2px 8px rgba(29, 125, 202, 0.08); /* Adjusted shadow */
   cursor: pointer;
+  transition: background 0.22s, transform 0.14s, box-shadow 0.22s;
+  outline: none;
+  width: 100%;
+  text-align: center;
 }
 
 .manage-btn:hover {
-  background-color: #0056b3;
+  background: linear-gradient(to left, #1c67c8, #04bfff);
+  transform: translateY(-1.5px) scale(1.01); /* Subtle hover effect */
+  box-shadow: 0 4px 12px rgba(29, 125, 202, 0.2);
 }
 
-.appointment-card {
-  background: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  text-align: left;
-
-  /* تعديل العرض بحيث يظهر 3 بطاقات في صف */
-  flex: 1 1 calc(33.333% - 13.333px); /* 33.333% مع خصم جزء من المسافات */
-  box-sizing: border-box; /* لتشمل الحشو والحدود ضمن العرض */
-  min-width: 250px; /* حد أدنى للعرض */
+/* No Appointments Message */
+.no-appointments {
+  text-align: center;
+  color: #dc3545;
+  font-weight: bold;
+  font-size: 1.05em; /* Slightly smaller font */
+  background: #fff0f0;
+  padding: 16px; /* Reduced padding */
+  border-radius: 10px;
+  margin: 30px auto 0 auto; /* Center and adjusted margin */
+  max-width: 450px; /* Reduced max-width */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
-@media (max-width: 768px) {
+
+/* Loading Indicator */
+.loading-indicator {
+  text-align: center;
+  font-size: 1.2em; /* Slightly smaller */
+  color: #2574d2;
+  margin-top: 40px; /* Reduced margin */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px; /* Reduced gap */
+}
+
+.loading-indicator .spin {
+  animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 1350px) { /* Adjusted breakpoint for 3 columns */
+  .appointments-container {
+    max-width: 1000px; /* Max-width to fit 3 columns comfortably */
+    padding: 35px 30px;
+    margin-right: calc(auto + 10px); /* Maintain 10px shift */
+  }
+  .appointments-list {
+    grid-template-columns: repeat(3, minmax(280px, 1fr)); /* Keep 3 columns, adjust min-width */
+    gap: 20px; /* Adjusted gap */
+  }
   .appointment-card {
-    flex: 1 1 100%;
+    padding: 25px 20px;
+    min-height: 350px;
+  }
+  .main-title {
+    font-size: 1.9em;
+    gap: 10px;
+  }
+  .main-title-icon { font-size: 1.2em; }
+}
+
+@media (max-width: 992px) { /* Two columns on medium screens */
+  .appointments-container {
+    max-width: 700px; /* Max-width for 2 columns */
+    padding: 25px 20px;
+    margin-right: calc(auto + 10px); /* Maintain 10px shift */
+  }
+  .appointments-list {
+    grid-template-columns: repeat(2, minmax(300px, 1fr)); /* Two columns */
+    gap: 25px;
+  }
+  .filter-container {
+    gap: 15px;
+    padding: 18px 20px 12px 15px;
+  }
+  .filter-item {
+    min-width: unset; /* Allow flexibility */
+    flex: 1 1 250px; /* Adjust basis */
+  }
+  .main-title {
+    font-size: 1.8em;
+    gap: 8px;
+    justify-content: center; /* Ensure it stays centered on smaller screens */
+  }
+  .main-title-icon { font-size: 1.1em; }
+}
+
+@media (max-width: 768px) { /* Single column on small screens */
+  .appointments-container {
+    border-radius: 0;
+    box-shadow: none;
+    padding: 15px 10px;
+    margin: 0; /* Remove top margin on small screens */
+  }
+  .appointments-list {
+    grid-template-columns: 1fr; /* Single column */
+    gap: 18px;
+  }
+  .appointment-card {
+    min-height: unset;
+    padding: 20px 18px;
+    border-radius: 15px;
+    border-right: 5px solid;
+  }
+  .filter-container {
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+  }
+  .filter-item {
+    flex: 1 1 auto;
+  }
+  .main-title {
+    font-size: 1.6em;
+    margin-bottom: 20px;
+    justify-content: center; /* Center align title on small screens */
+  }
+  .main-title-icon { font-size: 1em; }
+  .status-label { font-size: 1em; }
+  .info-icon { font-size: 0.9em; min-width: 16px; }
+  .appointment-info > div, .appointment-info strong, .manage-btn, .no-appointments {
+    font-size: 0.95em;
   }
 }
 
-.appointment-card.missed {
-  border-left: 5px solid #d02645;
-  background-color: #d05a6f; /* خلفية صفراء فاتحة */
-  color: #ffffff; /* لون نص برتقالي غامق */
-}
-
-
-.appointment-card h3 {
-  margin: 0 0 5px;
-}
-
-.appointment-card p {
-  margin: 5px 0;
-}
-
-.status {
-  font-weight: bold;
-}
-
-.action-buttons {
-  margin-top: 10px;
-}
-
-.accept-btn {
-  background-color: #28a745;
-  color: white;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  margin-right: 5px;
-}
-
-.reject-btn {
-  background-color: #dc3545;
-  color: white;
-  padding: 8px 12px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-
-.accept-btn:hover {
-  background-color: #218838;
-}
-
-.reject-btn:hover {
-  background-color: #c82333;
-}
-.completed {
-  background-color: #93ea96;
-  color: #000; /* ✅ خلي النص أسود أو غامق */
-}
-
-.complete-btn {
-  color: white;
-  background-color: #4caf50;
-  padding: 10px 15px;
-  margin-right: 10px;
-  border: none;
-  border-radius: 5px;
-  font-weight: bold;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.complete-btn:hover {
-  background-color: #388e3c;
-}
-
-/* ألوان حسب حالة الموعد */
-.appointment-card.pending {
-  border-left: 5px solid orange;
-  background-color: #de8d4b; /* خلفية صفراء فاتحة */
-  color: #856404; /* لون نص برتقالي غامق */}
-
-.appointment-card.accepted {
-  border-left: 5px solid green;
-}
-
-.appointment-card.trlocation {
-  border-left: 5px solid #14289f;
-  background-color: #7587ef; /* خلفية صفراء فاتحة */
-
-}
-.appointment-card.reshdualing {
-  border-left: 5px solid #d50e7f;
-  background-color: #e575b4; /* خلفية صفراء فاتحة */
-
-}
-.appointment-card.completed {
-  border-left: 5px solid #1cc515;
-
-  background-color: #93ea96;
+@media (max-width: 480px) {
+  .appointments-container {
+    padding: 8px 5px;
+  }
+  .main-title {
+    font-size: 1.4em;
+    gap: 6px;
+  }
+  .filter-item select,
+  .filter-item input[type="date"],
+  .filter-item input[type="text"] {
+    font-size: 0.9em;
+    padding: 6px 5px;
+    height: 32px;
+    padding-left: 25px;
+  }
+  .appointment-card {
+    padding: 15px 12px;
+  }
+  .appointment-header {
+    margin-bottom: 10px;
+    padding-bottom: 5px;
+  }
+  .status-icon { font-size: 1.1em; }
+  .status-label { font-size: 0.9em; }
+  .info-icon { font-size: 0.85em; min-width: 14px; }
+  .appointment-info > div, .appointment-info strong, .manage-btn, .no-appointments {
+    font-size: 0.9em;
+  }
+  .manage-btn {
+    padding: 8px 15px;
+  }
 }

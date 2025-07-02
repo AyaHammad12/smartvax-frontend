@@ -1,5 +1,15 @@
 import React, { useEffect, useState } from "react";
-import "../styles/AccountPage.css"; // إعادة استخدام نفس CSS
+import "../styles/AccountPage.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faUser,
+  faPhone,
+  faHospital,
+  faBriefcase,
+  faLock,
+  faCheckCircle,
+  faSpinner
+} from "@fortawesome/free-solid-svg-icons";
 
 const HealthWorkerAccountPage = () => {
   const [accountInfo, setAccountInfo] = useState({
@@ -10,21 +20,19 @@ const HealthWorkerAccountPage = () => {
     password: "",
     confirmPassword: "",
   });
-
   const [loading, setLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [message, setMessage] = useState(null);
 
-  // 📌 تحميل بيانات حساب العامل الصحي
   useEffect(() => {
     const fetchData = async () => {
       try {
         const res = await fetch(
-          "http://localhost:8080/api/health-worker-account",
-          {
-            credentials: "include",
-          }
+            "http://localhost:8080/api/health-worker-account",
+            { credentials: "include" }
         );
+        if (!res.ok) throw new Error("فشل تحميل بيانات الحساب");
         const data = await res.json();
-
         setAccountInfo((prev) => ({
           ...prev,
           username: data.username,
@@ -34,10 +42,13 @@ const HealthWorkerAccountPage = () => {
         }));
         setLoading(false);
       } catch (err) {
-        console.error("فشل تحميل بيانات الحساب:", err);
+        setMessage({
+          type: "error",
+          text: err.message || "تعذر تحميل بيانات الحساب!"
+        });
+        setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
@@ -47,106 +58,165 @@ const HealthWorkerAccountPage = () => {
 
   const handleSaveChanges = async (e) => {
     e.preventDefault();
+    setIsSaving(true);
+    setMessage(null);
 
     if (
-      accountInfo.password &&
-      accountInfo.password !== accountInfo.confirmPassword
+        accountInfo.password &&
+        accountInfo.password !== accountInfo.confirmPassword
     ) {
-      alert("❌ كلمات المرور غير متطابقة!");
+      setMessage({ type: "error", text: "❌ كلمات المرور غير متطابقة!" });
+      setIsSaving(false);
       return;
     }
 
-    const payload = {
-      phone: accountInfo.phone,
-    };
-
+    const payload = { phone: accountInfo.phone };
     if (accountInfo.password) {
       payload.password = accountInfo.password;
     }
 
     try {
       const response = await fetch(
-        "http://localhost:8080/api/health-worker-account",
-        {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify(payload),
-        }
+          "http://localhost:8080/api/health-worker-account",
+          {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            credentials: "include",
+            body: JSON.stringify(payload),
+          }
       );
 
       if (response.ok) {
-        alert("✅ تم حفظ التعديلات بنجاح");
+        setMessage({ type: "success", text: "✅ تم حفظ التعديلات بنجاح!" });
         setAccountInfo((prev) => ({
           ...prev,
           password: "",
           confirmPassword: "",
         }));
       } else {
-        alert("❌ حدث خطأ أثناء التحديث");
+        setMessage({ type: "error", text: "❌ حدث خطأ أثناء التحديث" });
       }
     } catch (error) {
-      console.error("خطأ أثناء الإرسال:", error);
+      setMessage({ type: "error", text: "❌ حدث خطأ في الشبكة." });
+    } finally {
+      setIsSaving(false);
     }
   };
 
-  if (loading) return <p>جاري تحميل البيانات...</p>;
+  if (loading) {
+    return (
+        <div className="loading-message">
+          <FontAwesomeIcon icon={faSpinner} spin size="2x" color="#007bff" />
+          <p>جاري تحميل البيانات...</p>
+        </div>
+    );
+  }
 
   return (
-    <div className="account-container">
-      <h2>حسابي</h2>
-      <form className="account-form" onSubmit={handleSaveChanges}>
-        <label>اسم المستخدم:</label>
-        <input
-          type="text"
-          name="username"
-          autoComplete="username"
-          value={accountInfo.username}
-          disabled
-        />
+      <div className="account-container">
+        <div className="account-header">
+          <h2>حساب العامل الصحي</h2>
+          <p>قم بإدارة معلومات حسابك وتحديث كلمة المرور الخاصة بك.</p>
+        </div>
 
-        <label>رقم الهاتف:</label>
-        <input
-          type="text"
-          name="phone"
-          value={accountInfo.phone}
-          onChange={handleChange}
-        />
+        {message && (
+            <div className={`alert-message ${message.type}`}>{message.text}</div>
+        )}
 
-        <label>المركز الصحي:</label>
-        <input
-          type="text"
-          name="vaccinationCenterName"
-          value={accountInfo.vaccinationCenterName}
-          disabled
-        />
+        <form className="account-form" onSubmit={handleSaveChanges}>
+          <div className="form-group">
+            <label htmlFor="username">
+              <FontAwesomeIcon icon={faUser} /> اسم المستخدم:
+            </label>
+            <input
+                type="text"
+                name="username"
+                id="username"
+                value={accountInfo.username}
+                disabled
+            />
+          </div>
 
-        <label>الدور:</label>
-        <input type="text" name="role" value={accountInfo.role} disabled />
+          <div className="form-group">
+            <label htmlFor="phone">
+              <FontAwesomeIcon icon={faPhone} /> رقم الهاتف:
+            </label>
+            <input
+                type="text"
+                name="phone"
+                id="phone"
+                value={accountInfo.phone}
+                onChange={handleChange}
+            />
+          </div>
 
-        <label>كلمة مرور جديدة (اختياري):</label>
-        <input
-          type="password"
-          name="password"
-          value={accountInfo.password}
-          onChange={handleChange}
-        />
+          <div className="form-group">
+            <label htmlFor="vaccinationCenterName">
+              <FontAwesomeIcon icon={faHospital} /> المركز الصحي:
+            </label>
+            <input
+                type="text"
+                name="vaccinationCenterName"
+                id="vaccinationCenterName"
+                value={accountInfo.vaccinationCenterName}
+                disabled
+            />
+          </div>
 
-        <label>تأكيد كلمة المرور:</label>
-        <input
-          type="password"
-          name="confirmPassword"
-          value={accountInfo.confirmPassword}
-          onChange={handleChange}
-        />
+          <div className="form-group">
+            <label htmlFor="role">
+              <FontAwesomeIcon icon={faBriefcase} /> الدور:
+            </label>
+            <input
+                type="text"
+                name="role"
+                id="role"
+                value={accountInfo.role}
+                disabled
+            />
+          </div>
 
-        <button type="submit" className="save-btn">
-          حفظ التعديلات
-        </button>
-      </form>
-    </div>
+          <div className="form-group">
+            <label htmlFor="password">
+              <FontAwesomeIcon icon={faLock} /> كلمة مرور جديدة (اختياري):
+            </label>
+            <input
+                type="password"
+                name="password"
+                id="password"
+                value={accountInfo.password}
+                onChange={handleChange}
+                autoComplete="new-password"
+            />
+          </div>
+
+          <div className="form-group">
+            <label htmlFor="confirmPassword">
+              <FontAwesomeIcon icon={faLock} /> تأكيد كلمة المرور:
+            </label>
+            <input
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                value={accountInfo.confirmPassword}
+                onChange={handleChange}
+                autoComplete="new-password"
+            />
+          </div>
+
+          <button type="submit" className="save-btn" disabled={isSaving}>
+            {isSaving ? (
+                <>
+                  <FontAwesomeIcon icon={faSpinner} spin /> جاري الحفظ...
+                </>
+            ) : (
+                <>
+                  <FontAwesomeIcon icon={faCheckCircle} /> حفظ التعديلات
+                </>
+            )}
+          </button>
+        </form>
+      </div>
   );
 };
 

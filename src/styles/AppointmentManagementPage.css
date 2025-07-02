@@ -1,66 +1,192 @@
+body {
+    background: linear-gradient(135deg, #eaf6ff 0%, #f6fbff 100%);
+    font-family: "Tajawal", "Cairo", Arial, sans-serif;
+    margin: 0;
+    min-height: 100vh;
+}
+
 .appointment-management-container {
-    max-width: 600px;
-    margin: auto;
-    padding: 20px;
+    max-width: 900px;
+    margin: 56px 0px 36px 0;
+    margin-right: 30px;    /* هنا الإزاحة المطلوبة عن اليمين */
+    padding: 38px 34px 30px 24px;
     background: #fff;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgb(0 0 0 / 0.1);
-    font-family: "Tahoma", sans-serif;
-    direction: rtl;
+    border-radius: 18px;
+    box-shadow: 0 10px 38px #aee1f577, 0 1.5px 8px #aad0eb29;
     text-align: right;
+    direction: rtl;
+    border: 1.5px solid #e2eefc;
+    position: relative;
+    min-height: 420px;
+    animation: fadeInCard 0.7s;
 }
-
-.appointment-management-container h2 {
-    margin-bottom: 20px;
+.status-completed {
+    display: flex;
+    align-items: center;
+    color: #22c55e;
     font-weight: bold;
-    font-size: 28px;
-    color: #333;
-}
-
-.appointment-details p {
-    margin: 10px 0;
+    gap: 9px;    /* مسافة بين الأيقونة والنص */
+    margin-top: 9px;
     font-size: 18px;
 }
 
-.actions {
-    margin-top: 30px;
-    display: flex;
-    gap: 10px;
-    justify-content: flex-start;
-    flex-wrap: wrap;
+
+@keyframes fadeInCard {
+    from { opacity: 0; transform: translateY(40px) scale(.97);}
+    to   { opacity: 1; transform: translateY(0) scale(1);}
 }
 
+/* عنوان */
+.appointment-management-container h2 {
+    margin-bottom: 35px;
+    font-weight: 900;
+    font-size: 2em;
+    color: #1a5e9a;
+    letter-spacing: 1px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* كارت التفاصيل */
+.appointment-details {
+    background: #f4f9ff;
+    border-radius: 13px;
+    padding: 28px 23px 18px 13px;
+    box-shadow: 0 2px 8px #bbe9f433;
+    margin-bottom: 32px;
+    border: 1px solid #eaf2fc;
+}
+
+.appointment-details p {
+    margin: 14px 0 0 0;
+    font-size: 1.13em;
+    color: #040910;
+    line-height: 1.85;
+    display: flex;
+    align-items: flex-start;
+    gap: 9px;
+}
+.appointment-details strong {
+    color: #2677c5;
+    font-weight: bold;
+    min-width: 110px;
+    display: inline-block;
+}
+.icon {
+    font-size: 1.22em;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+/* التاريخ/الاختيار */
+.date-picker label {
+    color: #14a07b;
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    font-size: 1.09em;
+    gap: 4px;
+}
+.date-picker input[type="date"] {
+    border: 1.2px solid #bbe9f4;
+    background: #fff;
+    padding: 8px 13px;
+    font-size: 1em;
+    border-radius: 7px;
+    margin-top: 4px;
+    transition: border-color 0.18s;
+}
+.date-picker input[type="date"]:focus {
+    border-color: #2574d2;
+    outline: none;
+}
+
+/* أزرار الإجراءات */
+.actions {
+    margin-top: 28px;
+    display: flex;
+    gap: 17px;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+}
+
+/* أنماط الأزرار */
 .confirm-btn,
 .reject-btn,
-.back-btn {
+.back-btn,
+.complete-btn {
     cursor: pointer;
     border: none;
-    padding: 10px 18px;
-    border-radius: 5px;
-    font-size: 16px;
-    color: white;
+    min-width: 120px;
+    padding: 11px 0;
+    border-radius: 8px;
+    font-size: 1.09em;
+    font-weight: bold;
+    transition: all 0.18s;
+    box-shadow: 0 2px 7px #bbe9f429;
+    letter-spacing: 0.7px;
+    outline: none;
+    margin-bottom: 7px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
 }
 
+/* زر التأكيد */
 .confirm-btn {
-    background-color: #28a745;
+    background: linear-gradient(90deg, #10b873, #36de9d);
+    color: #fff;
 }
+.confirm-btn:hover { background: linear-gradient(90deg, #08965f, #18c07f); }
 
-.confirm-btn:hover {
-    background-color: #218838;
-}
-
+/* زر الرفض */
 .reject-btn {
-    background-color: #dc3545;
+    background: linear-gradient(90deg, #ff4757, #ff7070);
+    color: #fff;
 }
+.reject-btn:hover { background: linear-gradient(90deg, #d7263d, #ff3d6a); }
 
-.reject-btn:hover {
-    background-color: #c82333;
+/* زر "تم التطعيم" */
+.complete-btn {
+    background: linear-gradient(90deg, #298bfb, #2bc7fa);
+    color: #fff;
 }
+.complete-btn:hover { background: linear-gradient(90deg, #1a6cd9, #04bfff); }
 
+/* زر العودة */
 .back-btn {
-    background-color: #6c757d;
+    background: #eaf2ff;
+    color: #2574d2;
+    border: 1px solid #a2cdf5;
+}
+.back-btn:hover { background: #c2e2ff; color: #1a5e9a; }
+
+.status-completed {
+    color: #10b873;
+    font-weight: bold;
+    font-size: 1.08em;
 }
 
-.back-btn:hover {
-    background-color: #5a6268;
+.loading, .error-message {
+    text-align: center;
+    font-size: 1.16em;
+    color: #dc3545;
+    margin: 44px 0;
+}
+
+@media (max-width: 720px) {
+    .appointment-management-container {
+        padding: 14px 3vw 18px 8px;
+        max-width: 98vw;
+    }
+    .appointment-details {
+        padding: 13px 3vw 14px 2vw;
+    }
+    .appointment-details p {
+        font-size: 0.99em;
+        gap: 6px;
+    }
+    .actions { gap: 7px; }
 }

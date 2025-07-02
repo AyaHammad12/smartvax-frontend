@@ -1,111 +1,385 @@
-.vaccine-info-container {
-  max-width: 900px; /* زيادة العرض */
-  margin: auto;
-  padding: 20px;
+/* VaccineInfoPage.css - تصميم أزرق معكوس */
+
+:root {
+  --primary-blue-dark: #2c3e50;
+  --secondary-blue: #3498db;
+  --text-dark: #333;
+  --text-light: #ffffff;
+
+  --accent-blue: #186bb5; /* لون أزرق مميز للعناوين */
+  --light-blue-bg: #eef5ff; /* خلفية خفيفة لصفوف المعلومات (أزرق فاتح) */
+  --check-icon-blue: #3498db; /* لون أيقونات الصح (أزرق ثانوي) */
+  --button-main: #3498db; /* لون الزر الرئيسي (أزرق ثانوي) */
+  --button-hover: #2980b9; /* لون الزر عند المرور (أزرق أغمق) */
+  --button-review: #5bb8e9; /* لون زر التقييم (أزرق أفتح) */
+  --button-review-hover: #3971c1; /* لون زر التقييم عند المرور (أزرق متوسط) */
+}
+
+.vaccine-page-main-wrapper {
+  /* 🚨 تم عكس ترتيب العناصر: صندوق المعلومات أولاً على اليمين، ثم صندوق الذكاء الاصطناعي على اليسار */
+  display: flex;
+  flex-direction: row-reverse; /* يجعل العناصر تتدفق من اليمين لليسار، مما يعكس ترتيب HTML */
+  justify-content: center; /* 🚨 توسيط البوكسين داخل الـ wrapper */
+  align-items: flex-start;
+  min-height: 100vh;
+  position: relative;
+  /* تم إزالة خاصية 'background' هنا لجعلها شفافة وتظهر خلفية الـ body */
+
+  /* إزاحة المكون كله عن اليمين بـ 70 بكسل */
+  margin-right: -170px;
+  padding-left: 20px; /* بادينج داخلي على اليسار */
+  padding-top: 36px;
+  padding-bottom: 38px;
+}
+
+/* صندوق الذكاء الاصطناعي - الآن يظهر على اليسار (ثاني عنصر في الترتيب المرئي) */
+.ai-box {
+  background: white; /* خلفية بيضاء */
+  color: var(--text-dark); /* لون نص داكن */
+  padding: 35px 30px;
+  border-radius: 20px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /* 🚨 تحديد عرض ثابت لجعله بنفس حجم صندوق المعلومات */
+  width: 600px; /* 🚨 تم زيادة العرض */
+  /* 🚨 تعديل Margin: مسافة على اليسار بينه وبين صندوق المعلومات (الذي أصبح على يمينه) */
+  margin: 30px;
+  z-index: 15;
+  height: fit-content;
+  transition: box-shadow 0.2s, transform 0.2s;
+}
+.ai-box:hover {
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+  transform: translateY(-3px) scale(1.01);
+}
+.ai-box-header {
+  display: flex;
+  align-items: center;        /* ✅ يضعهم على نفس الخط عموديًا (وسطياً) */
+  justify-content: center;    /* ✅ يوسّطهم أفقيًا في الصندوق */
+  gap: 12px;
+  margin-bottom: 15px;
+  width: 100%;                /* ⬅️ مهم لضبط التوسيط الأفقي */
+}
+.ai-icon {
+  display: flex;
+  align-items: center;
+  font-size: 50px;
+  color: var(--accent-blue);
+  background: rgba(24, 107, 181, 0.1);
+  border-radius: 50%;
+  padding: 8px;
+  margin-bottom: 0; /* تأكد من عدم وجود margin-bottom */
+}
+.ai-title {
+  font-size: 32px;
+  font-weight: bold;
+  color: var(--accent-blue);
+  margin: 0;
+  display: flex;
+  align-items: center;
+}
+.ai-icon {
+  position: relative;
+  top: -17px;      /* جرب -5px أو -8px حتى تصل للمستوى الذي تريده */
+}
+
+
+
+.ai-box-description {
+  font-size: 17px;
+  color: var(--text-dark);
+  margin-bottom: 20px;
   text-align: center;
-  direction: rtl;
+  line-height: 1.6;
+}
+.ai-box-description .highlight {
+  color: var(--button-review); /* 🚨 استخدام لون زر التقييم المميز (أزرق) */
+  font-weight: bold;
+}
+.ai-benefits-list {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+.ai-benefits-list span {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--light-blue-bg); /* خلفية زرقاء فاتحة */
+  color: var(--accent-blue); /* 🚨 لون النص أزرق */
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  border: 1px solid rgba(24, 107, 181, 0.1); /* 🚨 حدود خفيفة بلون أزرق */
+}
+
+.share-experience-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 17px 36px;
+  font-size: 20px;
+  font-weight: bold;
+  background: var(--button-review); /* 🚨 استخدام لون زر التقييم (أزرق) */
+  color: #fff;
+  border: none;
+  border-radius: 13px;
+  box-shadow: 0 5px 18px rgba(61,121,194,0.13);
+  cursor: pointer;
+  transition: all 0.22s ease;
+  margin-top: 5px;
+  text-decoration: none;
+}
+
+.share-experience-btn:hover {
+  background: var(--button-review-hover); /* 🚨 استخدام لون زر التقييم عند المرور (أزرق) */
+  transform: scale(1.03) translateY(-2px);
+  box-shadow: 0 8px 20px rgba(61,121,194,0.21);
+}
+.button-icon {
+  font-size: 24px;
+  margin-left: 9px;
+}
+
+/* صندوق معلومات اللقاح - الآن يظهر على اليمين (أول عنصر في الترتيب المرئي) */
+.vaccine-info-container {
+  /* 🚨 تحديد عرض ثابت لجعله بنفس حجم صندوق الذكاء الاصطناعي */
+  width: 900px; /* 🚨 تم زيادة العرض */
+  margin: 30px; /* إزالة أي هوامش تلقائية */
+  padding: 30px;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  min-height: calc(10vh - 74px);
 }
 
 .vaccine-title {
-  color: #6c3483;
+  color: var(--accent-blue); /* 🚨 لون أزرق */
   font-size: 34px;
   font-weight: bold;
-  text-align: center;
+  text-align: right;
   margin-bottom: 20px;
+  border-bottom: 2px solid var(--light-blue-bg);
+  padding-bottom: 10px;
 }
 
 .vaccine-card {
-  background: white;
+  background: #fdfdfd;
   border-radius: 15px;
   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.15);
-  padding: 30px;
+  padding: 25px;
   margin-top: 20px;
-  border: 1px solid #ddd;
-  width: 100%; /* جعل العرض أكبر */
+  border: 1px solid #eee;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .vaccine-details {
   display: flex;
   flex-direction: column;
-  gap: 15px; /* تباعد بين الصفوف */
+  gap: 12px;
 }
 
 .vaccine-row {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 15px;
-  border-radius: 8px;
-  background: #eef5ff;
-  font-size: 18px;
-  transition: all 0.3s ease-in-out;
+  justify-content: flex-start;
+  padding: 12px 15px;
+  border-radius: 10px;
+  background: var(--light-blue-bg); /* خلفية زرقاء فاتحة */
+  font-size: 16px;
+  transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
   text-align: right;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.vaccine-row:hover {
+  background: #e0ecfb; /* لون أغمق عند المرور */
+  transform: translateY(-2px);
 }
 
 .vaccine-icon {
-  color: #2ecc71;
+  color: var(--check-icon-blue); /* 🚨 لون أزرق */
   font-size: 22px;
-  margin-right: 12px;
+  margin-left: 12px;
+  flex-shrink: 0;
 }
 
 .vaccine-info-container strong {
-  color: #6c3483 !important;
+  color: var(--accent-blue) !important; /* 🚨 لون أزرق */
   font-weight: bold;
   flex: 1;
   text-align: right;
+  font-size: 16px;
+  margin-left: 8px;
 }
 
-span {
+.vaccine-row span {
   flex: 2;
   text-align: right;
-  font-size: 17px;
-  /* color: #333; */
+  font-size: 15px;
+  color: var(--text-dark);
+  line-height: 1.5;
 }
 
 /* أزرار الإجراءات */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+  width: 100%;
+}
+
 .vaccine-button {
   width: 100%;
   padding: 15px;
-  margin-top: 15px;
   font-size: 18px;
   font-weight: bold;
   color: white;
-  background: #5a42d1;
+  background: var(--button-main); /* 🚨 لون أزرق */
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   cursor: pointer;
-  transition: 0.3s;
+  transition: background 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .vaccine-button:hover {
-  background: #4a35b1;
+  background: var(--button-hover); /* 🚨 لون أزرق عند المرور */
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
 }
 
-.vaccine-button.review {
-  background: #6356e5;
+.vaccine-button.write-review {
+  background: var(--button-review); /* 🚨 لون أزرق */
 }
 
-.vaccine-button.review:hover {
-  background: #5148c4;
+.vaccine-button.write-review:hover {
+  background: var(--button-review-hover); /* 🚨 لون أزرق عند المرور */
 }
 
-/* دعم الـ Responsive Design */
+/* Responsive Design */
+@media (max-width: 1300px) {
+  .vaccine-page-main-wrapper {
+    margin-right: 65px;
+    padding-left: 10px;
+  }
+  .vaccine-info-container {
+    width: 380px; /* 🚨 تصغير العرض للشاشات المتوسطة */
+  }
+  .ai-box {
+    width: 380px; /* 🚨 تصغير العرض للشاشات المتوسطة */
+    margin: 0 0 0 20px; /* 🚨 تعديل المارجن بين البوكسات */
+  }
+}
+
+@media (max-width: 992px) {
+  .vaccine-page-main-wrapper {
+    flex-direction: column;
+    align-items: center;
+    margin-right: 0;
+    padding-left: 0;
+  }
+  .vaccine-info-container {
+    margin: 30px auto 15px auto;
+    max-width: 98vw;
+    width: 97vw;
+    min-height: auto;
+  }
+  .ai-box {
+    position: static;
+    margin: 22px auto 0 auto;
+    max-width: 100%;
+    width: 97vw;
+    border-radius: 20px;
+    padding: 30px 10px;
+  }
+}
+
 @media (max-width: 768px) {
   .vaccine-info-container {
+    margin-right: 0;
     max-width: 95%;
+    padding: 15px;
+    margin: 20px auto;
   }
-
+  .vaccine-title {
+    font-size: 26px;
+    margin-bottom: 10px;
+  }
   .vaccine-card {
     padding: 20px;
   }
-
+  .vaccine-details {
+    gap: 10px;
+  }
   .vaccine-row {
     flex-direction: column;
     align-items: flex-start;
+    padding: 10px 15px;
+    font-size: 15px;
   }
-
-  span {
+  .vaccine-icon {
+    margin-bottom: 5px;
+    margin-right: 0;
+    font-size: 20px;
+  }
+  .vaccine-info-container strong {
+    font-size: 15px;
+    margin-left: 0;
+    margin-bottom: 5px;
+  }
+  .vaccine-row span {
+    font-size: 14px;
     text-align: right;
+  }
+  .vaccine-button {
     font-size: 16px;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ai-box {
+    min-width: unset;
+    width: 95vw;
+  }
+  .vaccine-info-container {
+    min-width: unset;
+    width: 95vw;
+  }
+  .ai-box-header {
+    flex-direction: column;
+    text-align: center;
+  }
+  .ai-icon {
+    margin-bottom: 5px;
+  }
+  .ai-benefits-list {
+    flex-direction: column;
+    gap: 10px;
+  }
+  .vaccine-info-container {
+    padding: 10px;
+    margin: 15px auto;
+  }
+  .vaccine-title {
+    font-size: 22px;
+  }
+  .vaccine-card {
+    padding: 15px;
+  }
+  .vaccine-button {
+    font-size: 14px;
+    padding: 10px;
   }
 }

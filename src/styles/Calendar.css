@@ -1,6 +1,11 @@
 .calendar-container {
-  width: 90%;
-  max-width: 800px;
+  width: 90vw;
+  max-width: 1000px;
+  margin-right: 300px; /* ← هذه تعمل الإزاحة فعلاً */
+  margin-left: auto;
+
+
+
   /* background: #43ceda; */
 
   /* background: #5cc0eaa1; */
@@ -11,9 +16,34 @@
   padding: 20px;
   border-radius: 15px;
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  margin: auto;
   text-align: center;
   direction: rtl;
+}
+.calendar-header button,
+.calendar-arrow-btn {
+  background: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  box-shadow: 0 1px 7px #1ab1de14;
+  cursor: pointer;
+  transition: background 0.18s, transform 0.11s;
+  font-size: 20px;
+}
+.calendar-header button:active,
+.calendar-arrow-btn:active {
+  background: #daf5ff;
+  transform: scale(0.93);
+}
+.calendar-arrow-icon svg {
+  display: block;
+  width: 22px;
+  height: 22px;
 }
 
 .calendar-header {
@@ -23,6 +53,11 @@
   font-size: 20px;
   font-weight: bold;
   margin-bottom: 10px;
+}
+.calendar-header h2 {
+  font-size: 25px;  /* الحجم الذي يناسبك */
+  margin: 0;
+  font-weight: bold;
 }
 
 .calendar-header button {
@@ -55,3 +90,155 @@
 .empty-cell {
   background: transparent;
 }
+/* شريط البحث عن التاريخ */
+.calendar-search-bar {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-bottom: 18px;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+
+
+  margin-top: 2px;
+  width: 100%;
+}
+.calendar-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  gap: 16px;
+}
+
+/* شكل زر السهم */
+.calendar-arrow {
+  background: #21bff8;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  font-size: 24px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.17s, box-shadow 0.11s;
+  box-shadow: 0 1px 7px #1ab1de19;
+}
+.calendar-arrow:hover {
+  background: #19a7e6;
+  box-shadow: 0 3px 15px #15b2ea33;
+}
+.arrow-icon {
+  font-size: 24px;
+  display: flex;
+}
+.day-cell.selected {
+  border: 2.5px solid #ffb400;
+  box-shadow: 0 0 8px #ffe1a0;
+  background: #fffbe6 !important;
+  color: #d38100;
+  font-weight: bold;
+}
+
+
+.search-date-input {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: 1.5px solid #d7e8ef;
+  font-size: 15px;
+  outline: none;
+  background: #f7fcff;
+  transition: border 0.2s;
+  font-family: inherit;
+  width: 190px;
+  direction: ltr;
+  text-align: left;
+}
+
+.search-date-input:focus {
+  border-color: #29b8e8;
+}
+.search-button {
+  background: #21bff8;
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  padding: 0;
+  width: 40px;
+  height: 40px;
+  font-size: 20px;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.11s;
+  display: flex;
+  margin-top: 0px;    /* ← غيّر هذه القيمة */
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 7px #1ab1de19;
+}
+
+.search-button:active {
+  background: #1096d0;
+  transform: scale(0.96);
+}
+.search-icon {
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 700px) {
+  .calendar-container { margin-right: 0; }
+  .calendar-search-bar { justify-content: center; }
+}
+.legend-under-calendar {
+  margin-top: 18px;
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+  font-size: 1rem;
+  direction: rtl;
+  flex-wrap: wrap;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+
+.legend-box {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  display: inline-block;
+  border: 1px solid #bbb;
+  margin-left: 6px;
+}
+
+.today-legend {
+  background: #baf3ff;
+  border: 2px solid #23a6d5;
+}
+.yesterday-legend {
+  background: #fbe8c7;
+}
+.tomorrow-legend {
+  background: #d4ffba;
+}
+.has-vaccination-legend {
+  background: #c2f7cb;
+  border: 2px solid #5eb66b;
+}
+
+
+
+

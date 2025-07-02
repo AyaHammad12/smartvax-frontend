@@ -29,7 +29,7 @@ const ReminderPage = () => {
 
   const toggleReminder = async (id, parentViewed) => {
     setOpenedIds((prev) =>
-      prev.includes(id) ? prev.filter((rId) => rId !== id) : [...prev, id]
+        prev.includes(id) ? prev.filter((rId) => rId !== id) : [...prev, id]
     );
 
     if (!parentViewed) {
@@ -39,9 +39,9 @@ const ReminderPage = () => {
           credentials: "include",
         });
         setReminders((prevReminders) =>
-          prevReminders.map((reminder) =>
-            reminder.id === id ? { ...reminder, parentViewed: true } : reminder
-          )
+            prevReminders.map((reminder) =>
+                reminder.id === id ? { ...reminder, parentViewed: true } : reminder
+            )
         );
       } catch (error) {
         console.error("خطأ في تحديث حالة التذكير:", error);
@@ -63,71 +63,65 @@ const ReminderPage = () => {
   };
 
   return (
-    <div className="reminder-container" dir="rtl">
-      <div className="title">
-        <span className="title-icon">🔔</span>
-        تذكيرات التطعيم
-      </div>
+      <div className="reminder-container" dir="rtl">
+        <div className="title">
+          <span className="title-icon">🔔</span>
+          تذكيرات التطعيم
+        </div>
 
-      {reminders.length === 0 ? (
-        <p className="no-reminder">لا يوجد تذكيرات حالياً.</p>
-      ) : (
-        <ul className="reminder-list">
-          {reminders.map((reminder) => {
-            const isOpen = openedIds.includes(reminder.id);
-            const typeClass = getTypeClass(reminder.type);
+        {reminders.length === 0 ? (
+            <p className="no-reminder">لا يوجد تذكيرات حالياً.</p>
+        ) : (
+            <>
+              <p className="email-notification">
+                <span role="img" aria-label="email icon">📧</span> تم إرسال هذه التذكيرات أيضاً إلى بريدك الإلكتروني المسجل.
+              </p>
+              <ul className="reminder-list">
+                {reminders.map((reminder) => {
+                  const isOpen = openedIds.includes(reminder.id);
+                  const typeClass = getTypeClass(reminder.type);
 
-            return (
-              <li
-                key={reminder.id}
-                className={`reminder-summary ${typeClass} ${
-                  reminder.parentViewed ? "read" : "unread"
-                }`}
-                onClick={() =>
-                  toggleReminder(reminder.id, reminder.parentViewed)
-                }
-              >
-                <div className="reminder-header">
-                  <span className="message-text">📌 {reminder.messageText}</span>
-                  {!reminder.parentViewed && (
-                    <span className="unread-badge">جديد</span>
-                  )}
-                </div>
-
-                {isOpen && (
-                  <div className="reminder-details">
-                    <p>
-                      🗓️ التاريخ:{" "}
-                      {new Date(reminder.scheduledDate).toLocaleDateString("ar-EG")}
-                    </p>
-                    <p className="status">
-                      الحالة:{" "}
-                      {reminder.sent ? (
-                        <span className="sent-status">✅ تم الإرسال</span>
-                      ) : (
-                        <span className="pending-status">⌛ لم يُرسل بعد</span>
-                      )}
-                    </p>
-
-                    {reminder.type === "POST_VACCINE" && (
-                      <button
-                        className="ai-button"
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          navigate("/ai-analyzer");
-                        }}
+                  return (
+                      <li
+                          key={reminder.id}
+                          className={`reminder-summary ${typeClass} ${
+                              reminder.parentViewed ? "read" : "unread"
+                          }`}
+                          onClick={() =>
+                              toggleReminder(reminder.id, reminder.parentViewed)
+                          }
                       >
-                        🤖 ابدأ تحليل الأعراض
-                      </button>
-                    )}
-                  </div>
-                )}
-              </li>
-            );
-          })}
-        </ul>
-      )}
-    </div>
+                        <div className="reminder-header">
+                          <span className="message-text">📌 {reminder.messageText}</span>
+                          {!reminder.parentViewed && (
+                              <span className="unread-badge">جديد</span>
+                          )}
+                        </div>
+
+                        {isOpen && (
+                            <div className="reminder-details">
+                              <p>
+                                🗓️ التاريخ:{" "}
+                                {new Date(reminder.scheduledDate).toLocaleDateString("ar-EG")}
+                              </p>
+                              <p className="status">
+                                الحالة:{" "}
+                                {reminder.sent ? (
+                                    <span className="sent-status">✅ تم الإرسال</span>
+                                ) : (
+                                    <span className="pending-status">⌛ لم يُرسل بعد</span>
+                                )}
+                              </p>
+                              {/* Removed the AI button from here */}
+                            </div>
+                        )}
+                      </li>
+                  );
+                })}
+              </ul>
+            </>
+        )}
+      </div>
   );
 };
 

@@ -1,174 +1,332 @@
+/* Importing a more modern and clean font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
-/* ملف: LoginPage.css */
-html, body {
-  font-size: 20px; /* هذا يكبر كل الكتابة */
-  font-family: 'Tajawal', sans-serif; /* خط جميل لو أردت */
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden; /* يمنع السكرول العرضي */
+:root {
+  /* Define a color palette for consistency */
+  --primary-color: #1a73e8; /* A vibrant blue, Google's primary blue */
+  --primary-dark: #0d47a1; /* Darker shade for hover states */
+  --secondary-color: #e3f2fd; /* Light blue background */
+  --text-color-dark: #333;
+  --text-color-light: #666;
+  --border-color: #d0e3f7;
+  --input-bg: #f8fbff;
+  --card-bg: #ffffff;
+  --shadow-light: rgba(0, 0, 0, 0.08);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+  --bright-blue-gradient-start: #b3e5fc; /* أزرق سماوي فاتح جداً */
+  --bright-blue-gradient-end: #81d4fa;   /* أزرق سماوي فاتح */
 }
 
-.login-btn {
-  all: unset;
-  background: #64b5f6;
-  color: white;
-  padding: 12px;
-  border-radius: 8px;
-  font-size: 16px;
-  cursor: pointer;
-  width: 100%;
-  text-align: center;
+html, body {
+  font-family: 'Poppins', sans-serif; /* Using Poppins for a modern feel */
+  font-size: 18px; /* Slightly larger base font size for better readability */
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  box-sizing: border-box;
+  background-color: var(--secondary-color); /* Apply background from variables */
+}
+
+/* Ensure all elements inherit box-sizing */
+*, *::before, *::after {
+  box-sizing: inherit;
 }
 
 .login-container {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #e3f2fd; /* خلفية أزرق فاتح جدا */
-  height: 100vh;
-  width: 100vw; /* إضافة */
-  overflow: hidden; /* منع أي سكرول */
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  min-height: 100vh; /* Use min-height for flexibility */
+  width: 100vw;
+  padding: 20px; /* Add some padding for smaller screens */
+  background: linear-gradient(to bottom right, var(--secondary-color), #cfe2f3); /* A subtle gradient for the background */
 }
 
 .login-card {
   display: flex;
-  flex-direction: row; /* خليها سطرية */
-  background: white;
-  border-radius: 20px; /* تدوير الزوايا أكثر */
-  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+  flex-direction: row;
+  background: var(--card-bg);
+  border-radius: 25px; /* More pronounced rounded corners */
+  box-shadow: 0 15px 40px var(--shadow-medium); /* Deeper, softer shadow */
   overflow: hidden;
   width: 100%;
-  max-width: 1100px; /* 🛑 زيدت العرض شوي */
-  height: 600px; /* 🛑 خليت ارتفاعه ثابت وكبير */
+  max-width: 1000px; /* Adjusted max-width */
+  min-height: 580px; /* Adjusted min-height for better proportion */
+  transition: all 0.3s ease-in-out; /* Smooth transitions for hover effects */
 }
 
-
+.login-card:hover {
+  transform: translateY(-5px); /* Slight lift on hover */
+  box-shadow: 0 20px 50px var(--shadow-medium); /* Enhanced shadow on hover */
+}
 
 .login-image {
   flex: 1;
-  background: linear-gradient(to bottom right, #bbdefb, #e3f2fd); /* سماوي فاتح */
+  /* التعديل هنا: جعل الخلفية أفتح باستخدام المتغيرات الجديدة */
+  background: linear-gradient(to top left, var(--bright-blue-gradient-start), var(--bright-blue-gradient-end));
   display: flex;
   align-items: center;
   justify-content: center;
   padding: 20px;
+  position: relative; /* For potential future additions like waves or patterns */
 }
 
 .login-image img {
-  width: 80%;
-  max-width: 300px;
+  width: 90%; /* Slightly larger image */
+  max-width: 350px; /* Max width for control */
+  animation: fadeInScale 1s ease-out forwards; /* Animation for the logo */
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .login-form {
   flex: 1;
-  padding: 40px;
+  padding: 50px; /* Increased padding */
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
 .login-form h1 {
-  color: #1565c0; /* أزرق غامق */
-  margin-bottom: 10px;
-  font-size: 30px;
-  font-weight: bold;
+  color: var(--primary-color);
+  margin-bottom: 8px;
+  font-size: 2.5em; /* Larger heading */
+  font-weight: 700; /* Bolder font weight */
+  letter-spacing: -0.5px; /* Tighten letter spacing slightly */
 }
+
 .subtitle {
-  color: #5c6bc0;
-  margin-bottom: 30px;
-  font-size: 20px; /* 🔥 بدل 14px كانت */
-  font-weight: bold; /* 🔥 أضفنا ثقل */
+  color: var(--text-color-light);
+  margin-bottom: 40px; /* More space below subtitle */
+  font-size: 1.1em;
+  font-weight: 500;
 }
+/* ... الكود السابق ... */
+
 .input-group {
   display: flex;
   align-items: center;
-  background: #f8fbff;
-  margin-bottom: 30px; /* كان موجود، نخليه مثلا 25px */
-  border-radius: 8px;
-  padding: 10px;
-  border: 1px solid #d0e3f7;
+  background: var(--input-bg);
+  margin-bottom: 25px;
+  border-radius: 12px; /* More rounded input fields */
+  padding: 12px 18px; /* More padding inside input fields */
+  border: 1px solid var(--border-color); /* هذا هو الإطار الوحيد الذي نريده */
+  transition: all 0.3s ease; /* Smooth transition for focus effect */
+  /* إضافة لضمان عدم وجود أي ظل داخلي */
+  box-shadow: none;
 }
 
+.input-group:focus-within {
+  border-color: var(--primary-color); /* Highlight border on focus */
+  /* هذا هو الظل الأزرق الخارجي عند التركيز، ليس إطارًا داخليًا */
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
+}
 
 .input-group input {
-  border: none;
-  outline: none;
-  background: transparent;
-  margin-right: 10px;
+  /* هذه التغييرات هي الأهم لإزالة أي مربع داخلي */
+  border: none !important; /* التأكد بقوة من عدم وجود إطار */
+  outline: none !important; /* إزالة إطار التركيز الافتراضي للمتصفح */
+  background: transparent !important; /* التأكد من الشفافية */
+  margin-right: 15px;
   flex: 1;
+  font-size: 1em;
+  color: var(--text-color-dark);
+  padding: 5px 0; /* Add vertical padding for input text */
+  /* لضمان عدم وجود ظل داخلي على ال input نفسه */
+  box-shadow: none !important;
 }
+
+/* ... بقية الكود ... */
 
 .input-icon {
-  color: #64b5f6;
-  font-size: 20px;
-}.remember-me {
-   display: flex;
-   align-items: center;
-   gap: 8px; /* هنا يتحكم بالمسافة بين التشيك بوكس والجملة */
-   margin-bottom: 0;
-   font-size: 16px; /* حجم خط مناسب */
-   color: #1565c0; /* اللون الأزرق الغامق */
- }.login-btn {
-    background-color: #64b5f6 !important;
-    color: #0d47a1 !important; /* أزرق غامق */
-    font-size: 18px !important;
-    font-weight: bold;
-    padding: 12px;
-    border: none;
-    border-radius: 8px;
-    width: 100%;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-
-
-.login-btn:hover {
-  background-color: #42a5f5 !important; /* أزرق أغمق شوي عند hover */
+  color: var(--primary-color);
+  font-size: 1.3em; /* Larger icon size */
+  min-width: 20px; /* Ensure icon has a minimum width */
 }
 
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  margin-bottom: 0px; /* More space before button */
+  font-size: 0.95em;
+  color: var(--text-color-light);
+  cursor: pointer;
+}
+
+.remember-me input[type="checkbox"] {
+  /* Custom checkbox styling */
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  border: 2px solid var(--primary-color);
+  border-radius: 6px;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.remember-me input[type="checkbox"]:checked {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+}
+
+.remember-me input[type="checkbox"]:checked::after {
+  content: '✓';
+  color: var(--card-bg);
+  font-size: 14px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.remember-me label {
+  cursor: pointer;
+}
+
+.login-btn {
+  all: unset; /* Reset all default button styles */
+  /* التعديل هنا: استخدام تدرج أزرق جميل للزر */
+  background: linear-gradient(to right, #42a5f5, #1976d2); /* أزرق فاتح إلى أزرق داكن */
+  color: var(--card-bg); /* نص أبيض */
+  font-size: 1.15em;
+  font-weight: 600; /* Semi-bold */
+  padding: 15px; /* More padding for a bigger button */
+  border-radius: 12px; /* Consistent rounded corners */
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  /* ظل أزرق للزر */
+  box-shadow: 0 5px 15px rgba(25, 118, 210, 0.4);
+}
 
 .login-btn:hover {
-  background: #4285f4; /* أزرق أغمق لما تمر عليه بالماوس */
+  /* تغيير اللون عند التمرير وتأثير رفع */
+  background: linear-gradient(to right, #1976d2, #0d47a1); /* أزرق أغمق عند التمرير */
+  transform: translateY(-2px); /* Slight lift on hover */
+  box-shadow: 0 8px 20px rgba(25, 118, 210, 0.5); /* Enhanced shadow on hover */
+}
+
+.login-btn:active {
+  transform: translateY(0); /* Press effect */
+  box-shadow: 0 3px 10px rgba(25, 118, 210, 0.3);
 }
 
 .login-links {
-  margin-top: 20px;
-  font-size: 14px;
+  margin-top: 35px; /* More space above links */
+  font-size: 0.9em;
   text-align: center;
+  color: var(--text-color-light);
 }
 
 .login-links span {
-  color: #1565c0;
+  color: var(--primary-color);
   cursor: pointer;
+  font-weight: 500;
+  text-decoration: none; /* No underline by default */
+  transition: color 0.2s ease, text-decoration 0.2s ease, transform 0.2s ease;
+  display: inline-block; /* Allows transform on span */
 }
+
 .login-links span:hover {
+  color: var(--primary-dark);
   text-decoration: underline;
-  color: #0d47a1; /* 🔵 أزرق داكن */
-  font-weight: bold;
-  transform: scale(1.05); /* تكبير خفيف */
-  transition: all 0.3s ease;
-}
-.forgot-password-link {
-  color: #1565c0;
-  font-weight: bold;
-  font-size: 16px;
-  cursor: pointer;
-  text-decoration: none;
-  margin-right: 5px;
+  transform: translateY(-2px); /* Slight lift on hover for links */
 }
 
-.forgot-password-link:hover {
-  text-decoration: underline;
-  color: #0d47a1;
+/* Add a subtle separator for links */
+.login-links span + span::before {
+  content: '|';
+  margin: 0 10px;
+  color: #ccc; /* Light grey separator */
 }
 
-
-/* Responsive */
-@media (max-width: 768px) {
+/* Responsive adjustments */
+@media (max-width: 992px) {
   .login-card {
-    flex-direction: column;
+    max-width: 800px; /* Adjust max-width for medium screens */
+    min-height: auto; /* Allow height to adjust */
+  }
+  .login-form {
+    padding: 40px; /* Reduce padding slightly */
+  }
+  .login-image {
+    padding: 15px; /* Reduce padding */
   }
 }
 
+@media (max-width: 768px) {
+  .login-card {
+    flex-direction: column; /* Stack elements vertically */
+    max-width: 500px; /* Max width for mobile */
+    border-radius: 20px;
+  }
+
+  .login-image {
+    height: 250px; /* Fixed height for image section on mobile */
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    /* التعديل هنا: خلفية أفتح ومتجاوبة */
+    background: linear-gradient(to bottom, var(--bright-blue-gradient-start), var(--bright-blue-gradient-end));
+  }
+
+  .login-image img {
+    width: 60%;
+    max-width: 250px;
+  }
+
+  .login-form {
+    padding: 30px; /* Further reduce padding */
+    text-align: center; /* Center align text */
+  }
+
+  .login-form h1 {
+    font-size: 2em; /* Smaller heading on mobile */
+  }
+
+  .subtitle {
+    font-size: 1em;
+    margin-bottom: 25px;
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+  }
+
+  .remember-me {
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 15px;
+  }
+  .login-form {
+    padding: 25px;
+  }
+  .login-image {
+    height: 200px;
+  }
+  .login-image img {
+    width: 70%;
+  }
+  .login-links span + span::before {
+    margin: 0 5px; /* Tighter spacing for links */
+  }
+}

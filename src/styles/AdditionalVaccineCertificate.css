@@ -1,135 +1,230 @@
-/* 📄 AdditionalVaccineCertificate.css */
-
-.additional-certificate-wrapper {
-    padding: 40px;
-    background-color: white;
-    font-family: "Arial", sans-serif;
-    direction: rtl;
-    max-width: 900px;
-    margin: auto;
-
+.certificate-bg {
+    min-height: 100vh;
+    background-image: url("../img/back1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 0 60px 0;
 }
 
+/* الكارد الأبيض */
 .certificate-page {
-    background-color: #fff;
-    padding: 30px;
+    background: #fff;
+    border-radius: 18px;
+    border: 1.5px solid #e1e1e1;
+    box-shadow: 0 4px 24px #0002;
+    padding: 44px 35px 40px 35px;
+    max-width: 900px;
+    width: 100%;
+    margin: 36px 0 0 0;
+    font-family: 'Tajawal', Arial, sans-serif;
 }
 
 .certificate-header {
     display: flex;
-    justify-content: space-between;
+    flex-direction: row;
     align-items: center;
-    border-bottom: 2px solid #555;
-    padding-bottom: 10px;
-    margin-bottom: 25px;
+    gap: 22px;
+    margin-bottom: 12px;
+    justify-content: flex-start;
 }
-
-.certificate-header h1 {
-    font-size: 26px;
-    color: #4b0082;
-    margin: 0;
+.logo {
+    height: 76px;
+    width: 76px;
+    border-radius: 11px;
+    border: 1.5px solid #d8d8d8;
+    background: #fff;
+    object-fit: contain;
 }
-
-.certificate-header .logo {
-    height: 60px;
+.header-texts {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
 }
-
+.certificate-title {
+    font-size: 2.1em;
+    font-weight: bold;
+    color: #222;
+    margin-bottom: 2px;
+    line-height: 1.18;
+}
+.certificate-subtitle {
+    color: #444;
+    font-size: 1.17em;
+}
+.header-hr {
+    border: none;
+    border-top: 2px solid #aaa;
+    margin: 12px 0 28px 0;
+}
 .info-section {
-    margin-bottom: 25px;
-    font-size: 18px;
-    line-height: 1.6;
+    margin-bottom: 29px;
+    font-size: 1.18em;
 }
-
-.additional-table {
+.info-row {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 10px;
+    font-size: 1.01em;
+}
+.info-row span:first-child {
+    color: #222;
+    min-width: 120px;
+    font-weight: 600;
+}
+.info-row span:last-child {
+    color: #222;
+    font-weight: 400;
+}
+.certificate-table {
     width: 100%;
     border-collapse: collapse;
-    margin-bottom: 20px;
-    font-size: 16px;
-    border: 2px solid #444; /* ✅ تأكيد ظهور الحدود */
+    margin-bottom: 36px;
+    font-size: 1.09em;
+    background: #fff;
+    border-radius: 11px;
+    overflow: hidden;
 }
-
-.additional-table th,
-.additional-table td {
-    border: 1px solid #333; /* ✅ حدود الخلايا */
-    padding: 12px;
+.certificate-table th,
+.certificate-table td {
+    border: 1px solid #cccccc;
+    padding: 12px 9px;
     text-align: center;
+    background: #fff !important;
+    color: #333;
+    letter-spacing: normal;
+    font-weight: normal;
 }
-
-.additional-table thead th {
-    background-color: #f2f2f2;
+.certificate-table th {
+    color: #111;
+    font-size: 1.05em;
     font-weight: bold;
-    border-bottom: 2px solid #333;
+    letter-spacing: normal;
 }
-
-.additional-table tbody tr:nth-child(even) {
-    background-color: #f9f9f9;
-}
-
-.additional-table tbody tr:nth-child(odd) {
-    background-color: #fff;
+.certificate-table td {
+    color: #222;
+    font-size: 1em;
 }
 
 .footer-note {
-    font-size: 14px;
+    font-size: 15px;
     color: #444;
     text-align: center;
-    margin-top: 15px;
+    margin-top: 12px;
 }
-
 .issue-date {
-    font-size: 16px;
-    text-align: center;
+    font-size: 1.13em;
+    text-align: right;
     font-weight: bold;
-    margin-top: 90px;
+    margin-top: 80px;
 }
-
-/* ✅ العنصر المهم: الـ dropdown */
+.btns-row {
+    display: flex;
+    gap: 18px;
+    justify-content: flex-end;
+    margin-top: 18px;
+}
+.print-btn {
+    display: inline-block;
+    background: #198ccf;
+    color: white;
+    font-weight: bold;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.09em;
+    border-radius: 8px;
+    cursor: pointer;
+    margin-top: 0;
+    transition: background 0.13s, box-shadow 0.13s, transform 0.12s;
+}
+.print-btn:hover {
+    background: #155891;
+    transform: translateY(-2px) scale(1.02);
+}
 .status-dropdown {
     padding: 6px 10px;
     border-radius: 6px;
     border: 1px solid #6597c2;
     font-size: 15px;
-    background-color: #6597c2;
+    background-color: #f6fbff;
     color: #333;
     transition: all 0.3s ease;
 }
-
 .status-dropdown:hover {
-    border-color: #007bff;
-    background-color: #007bff;
+    border-color: #198ccf;
+    background-color: #e8f6fe;
     cursor: pointer;
 }
-
 .status-dropdown:focus {
     outline: none;
-    border-color: #0056b3;
+    border-color: #198ccf;
 }
-
-
-
 .loading {
+    margin: 120px 0;
+    font-size: 1.24em;
+    color: #198ccf;
     text-align: center;
-    font-size: 20px;
-    color: #666;
-    margin-top: 50px;
+    font-family: 'Tajawal', Arial, sans-serif;
+    background: #e4f5ff;
+    width: fit-content;
+    padding: 28px 48px;
+    border-radius: 18px;
+    box-shadow: 0 2px 16px #8be5fd28;
 }
-
-.print-btn {
-    display: inline-block;
-    background-color: #007bff;
-    color: white;
-    font-weight: bold;
-    border: none;
-    padding: 10px 18px;
-    font-size: 15px;
-    border-radius: 5px;
-    cursor: pointer;
+@media (max-width: 900px) {
+    .certificate-page {
+        padding: 26px 4vw 25px 4vw;
+    }
+    .certificate-title {
+        font-size: 1.5em;
+    }
 }
-
+@media (max-width: 600px) {
+    .certificate-page {
+        padding: 7px 1vw 7px 1vw;
+        margin: 14px 0 0 0;
+    }
+    .certificate-header {
+        flex-direction: column;
+        gap: 6px;
+        align-items: flex-start;
+    }
+    .logo {
+        height: 60px;
+        width: 60px;
+        margin-bottom: 7px;
+    }
+    .info-section {
+        font-size: 1em;
+    }
+    .info-row {
+        gap: 8px;
+    }
+    .certificate-table th,
+    .certificate-table td {
+        padding: 7px 4px;
+    }
+}
 @media print {
+    .certificate-bg, .certificate-page {
+        background: #fff !important;
+        box-shadow: none !important;
+        padding: 0 !important;
+        margin: 0 !important;
+    }
     .print-btn,
     .sidebar,
-    .menu-icon {
+    .menu-icon,
+    .btns-row {
         display: none !important;
+    }
+    body {
+        margin: 0;
+        background: #fff !important;
     }
 }

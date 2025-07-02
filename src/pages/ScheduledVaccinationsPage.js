@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "../styles/ScheduledVaccinationsPage.css";
 
-// ✅ خريطة ترجمة الحالة إلى كلاس CSS
 const statusMapping = {
-    قادم: "upcoming",
-    مكتمل: "completed",
-    فائت: "missed",
-    "قيد التنفيذ": "in-progress",
-    ملغاة: "canceled",
+    قادم: { class: "upcoming", icon: "⏳" },
+    مكتمل: { class: "completed", icon: "✅" },
+    فائت: { class: "missed", icon: "❌" },
+    "قيد التنفيذ": { class: "in-progress", icon: "🕒" },
+    ملغاة: { class: "canceled", icon: "🚫" }
 };
 
-// ✅ ترجمة الحالة من الإنجليزي إلى العربي
 const translateStatus = (status) => {
     switch (status) {
         case "PENDING":
@@ -33,7 +31,7 @@ const ScheduledVaccinationsPage = () => {
 
     useEffect(() => {
         fetch("http://localhost:8080/api/schedule-vaccinations", {
-            credentials: "include",
+            credentials: "include"
         })
             .then((res) => {
                 if (!res.ok) throw new Error("فشل في جلب المواعيد");
@@ -41,7 +39,6 @@ const ScheduledVaccinationsPage = () => {
             })
             .then((data) => {
                 const grouped = {};
-
                 data.forEach((v) => {
                     if (
                         v.vaccination?.group?.name &&
@@ -51,17 +48,15 @@ const ScheduledVaccinationsPage = () => {
                         const date = v.scheduledDate;
                         const groupName = v.vaccination.group.name;
                         const translatedStatus = translateStatus(v.status);
-
                         if (!grouped[date]) {
                             grouped[date] = {
                                 name: groupName,
                                 date,
-                                status: translatedStatus,
+                                status: translatedStatus
                             };
                         }
                     }
                 });
-
                 setVaccinationsByDate(grouped);
             })
             .catch((err) => {
@@ -74,28 +69,60 @@ const ScheduledVaccinationsPage = () => {
 
     return (
         <div className="scheduled-vaccinations-container" dir="rtl">
-            <h2>📅 التطعيمات المجدولة</h2>
+            <h2 className="main-title" style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "12px" }}>
+                <span style={{ fontSize: "1.5em", marginLeft: "10px" }}>📅</span>
+                التطعيمات المجدولة
+            </h2>
+            <p className="page-desc">
+                هنا يمكنك الإطلاع على جميع التطعيمات المجدولة القادمة والسابقة.
+            </p>
 
             {vaccinations.length === 0 ? (
-                <p className="no-vaccinations">لا توجد تطعيمات مجدولة.</p>
+                <p className="no-vaccinations">لا توجد تطعيمات مجدولة حالياً.</p>
             ) : (
                 <div className="vaccination-list">
                     {vaccinations.map((vaccination) => {
-                        const cssClass = statusMapping[vaccination.status] || "default";
+                        const statusObj = statusMapping[vaccination.status] || { class: "default", icon: "❔" };
 
                         return (
-                            <div
-                                key={vaccination.date}
-                                className={`vaccination-card ${cssClass}`}
-                            >
-                                <h3>{vaccination.name}</h3>
-                                <p>
-                                    <strong>📅 التاريخ:</strong> {vaccination.date}
-                                </p>
-                                <p>
-                                    <strong>الحالة:</strong>{" "}
-                                    <span className="status">{vaccination.status}</span>
-                                </p>
+                            <div key={vaccination.date} className={`vaccination-card ${statusObj.class}`}>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "flex-start",
+                                        gap: "9px",
+                                        marginBottom: "10px"
+                                    }}
+                                >
+                                    <span style={{ fontSize: "1.18em" }}>💉</span>
+                                    <span style={{ fontWeight: "bold", color: "#174ea6", fontSize: "1.14em" }}>{vaccination.name}</span>
+                                </div>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "flex-start",
+                                        gap: "8px",
+                                        marginBottom: "6px"
+                                    }}
+                                >
+                                    <span style={{ fontSize: "1.13em" }}>📅</span>
+                                    <span>
+                    <strong>التاريخ:</strong> {vaccination.date}
+                  </span>
+                                </div>
+                                <div
+                                    style={{
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "flex-start",
+                                        gap: "8px"
+                                    }}
+                                >
+
+
+                                </div>
                             </div>
                         );
                     })}

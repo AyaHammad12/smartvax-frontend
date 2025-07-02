@@ -1,24 +1,481 @@
+/* Importing a more modern and clean font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* Define a color palette for consistency */
+  --primary-color: #1a73e8; /* A vibrant blue, Google's primary blue */
+  --primary-dark: #0d47a1; /* Darker shade for hover states */
+  --secondary-color: #e3f2fd; /* Light blue background */
+  --text-color-dark: #333;
+  --text-color-light: #666;
+  --border-color: #d0e3f7;
+  --input-bg: #f8fbff;
+  --card-bg: #ffffff;
+  --shadow-light: rgba(0, 0, 0, 0.08);
+  --shadow-medium: rgba(0, 0, 0, 0.15);
+  --bright-blue-gradient-start: #b3e5fc; /* أزرق سماوي فاتح جداً */
+  --bright-blue-gradient-end: #81d4fa;   /* أزرق سماوي فاتح */
+
+  /* ألوان جديدة للإشعارات المخصصة */
+  --alert-success-bg: #e6ffe6; /* خلفية خضراء فاتحة */
+  --alert-success-text: #28a745; /* نص أخضر */
+  --alert-error-bg: #ffe6e6; /* خلفية حمراء فاتحة */
+  --alert-error-text: #dc3545; /* نص أحمر */
+}
+
+html, body {
+  font-family: 'Poppins', sans-serif; /* Using Poppins for a modern feel */
+  font-size: 18px; /* Slightly larger base font size for better readability */
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden; /* Prevent horizontal scroll */
+  box-sizing: border-box;
+  background-color: var(--secondary-color); /* Apply background from variables */
+}
+
+/* Ensure all elements inherit box-sizing */
+*, *::before, *::after {
+  box-sizing: inherit;
+}
+
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  width: 100vw;
+  padding: 20px;
+  background: linear-gradient(to bottom right, var(--secondary-color), #cfe2f3);
+  position: relative;
+}
+
+.login-card {
+  display: flex;
+  flex-direction: row;
+  background: var(--card-bg);
+  border-radius: 25px;
+  box-shadow: 0 15px 40px var(--shadow-medium);
+  overflow: hidden; /* Keep overflow hidden for clean edges */
+  width: 100%;
+  max-width: 1000px;
+  min-height: 580px; /* Keep this for desktop to ensure card height */
+  transition: all 0.3s ease-in-out;
+}
+
+.login-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 20px 50px var(--shadow-medium);
+}
+
+.login-image {
+  flex: 1;
+  background: linear-gradient(to top left, var(--bright-blue-gradient-start), var(--bright-blue-gradient-end));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  position: relative;
+}
+
+.login-image img {
+  width: 90%;
+  max-width: 350px;
+  animation: fadeInScale 1s ease-out forwards;
+}
+
+@keyframes fadeInScale {
+  from {
+    opacity: 0;
+    transform: scale(0.8);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+.login-form {
+  flex: 1;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* تغيير من center إلى flex-start */
+  position: relative; /* مهم لجعل الخطوات المتداخلة تعمل بشكل صحيح */
+}
+
+.login-form h1 {
+  color: var(--primary-color);
+  margin-bottom: 25px;
+  font-size: 2.5em;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  text-align: center;
+}
+
+.subtitle {
+  color: var(--text-color-light);
+  margin-bottom: 30px;
+  font-size: 1.1em;
+  font-weight: 500;
+  text-align: center;
+  color: var(--text-color-light);
+}
+
 .input-group {
   display: flex;
   align-items: center;
-  background: #f4f4f4;
-  padding: 12px;
-  border-radius: 5px;
-  margin-bottom: 12px;
-  border: 1px solid #ccc;
-  direction: rtl;
+  background: var(--input-bg);
+  margin-bottom: 25px;
+  border-radius: 12px;
+  padding: 12px 18px;
+  border: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+  box-shadow: none;
+}
+
+.input-group:focus-within {
+  border-color: var(--primary-color);
+  box-shadow: 0 0 0 3px rgba(26, 115, 232, 0.2);
 }
 
 .input-group input {
-  border: none;
-  outline: none;
-  background: transparent;
-  padding: 8px;
+  border: none !important;
+  outline: none !important;
+  background: transparent !important;
+  margin-right: 15px;
   flex: 1;
+  font-size: 1em;
+  color: var(--text-color-dark);
+  padding: 5px 0;
+  box-shadow: none !important;
 }
 
 .input-icon {
-  color: #6358dc;
-  margin-right: 10px;
-  font-size: 18px; /* تغيير حجم الأيقونة */
+  color: var(--primary-color);
+  font-size: 1.3em;
+  min-width: 25px;
+  text-align: center;
+}
+
+.login-btn {
+  all: unset;
+  background: linear-gradient(to right, #42a5f5, #1976d2);
+  color: var(--card-bg);
+  font-size: 1.15em;
+  font-weight: 600;
+  padding: 15px;
+  border-radius: 12px;
+  width: 100%;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease, box-shadow 0.3s ease;
+  box-shadow: 0 5px 15px rgba(25, 118, 210, 0.4);
+  margin-top: 20px;
+}
+
+.login-btn:hover {
+  background: linear-gradient(to right, #1976d2, #0d47a1);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(25, 118, 210, 0.5);
+}
+
+.login-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 3px 10px rgba(25, 118, 210, 0.3);
+}
+
+.secondary-btn {
+  background: linear-gradient(to right, #bdbdbd, #9e9e9e);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  color: var(--text-color-dark);
+}
+
+.secondary-btn:hover {
+  background: linear-gradient(to right, #9e9e9e, #757575);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.button-group {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+  justify-content: space-between;
+}
+
+.button-group .login-btn {
+  flex: 1;
+  margin-top: 0;
+}
+
+.login-links {
+  margin-top: 35px;
+  font-size: 0.9em;
+  text-align: center;
+  color: var(--text-color-light);
+}
+
+.login-links span {
+  color: var(--primary-color);
+  cursor: pointer;
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease, text-decoration 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.login-links span:hover {
+  color: var(--primary-dark);
+  text-decoration: underline;
+  transform: translateY(-2px);
+}
+
+.login-links span + span::before {
+  content: '|';
+  margin: 0 10px;
+  color: #ccc;
+}
+
+/* ----- Step Indicator Styles ----- */
+.step-indicator {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 40px;
+  position: relative;
+  width: 100%;
+}
+
+.step-circle {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #e0e0e0;
+  color: var(--text-color-dark);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 600;
+  font-size: 1.1em;
+  z-index: 1;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+.step-circle.active {
+  background-color: var(--primary-color);
+  color: var(--card-bg);
+  box-shadow: 0 4px 10px rgba(26, 115, 232, 0.4);
+  transform: scale(1.1);
+}
+
+.step-line {
+  flex-grow: 1;
+  height: 4px;
+  background-color: #e0e0e0;
+  margin: 0 -5px;
+  transition: background-color 0.3s ease;
+}
+
+.step-line.active {
+  background-color: var(--primary-color);
+}
+
+/* ----- Custom Alert Styles ----- */
+.custom-alert {
+  position: fixed;
+  top: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  padding: 15px 25px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  min-width: 300px;
+  max-width: 90%;
+  opacity: 0;
+  animation: fadeInOutAlert 5s forwards;
+}
+
+.custom-alert.alert-success {
+  background-color: var(--alert-success-bg);
+  color: var(--alert-success-text);
+  border: 1px solid var(--alert-success-text);
+}
+
+.custom-alert.alert-error {
+  background-color: var(--alert-error-bg);
+  color: var(--alert-error-text);
+  border: 1px solid var(--alert-error-text);
+}
+
+.alert-content {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  flex-grow: 1;
+}
+
+.alert-icon {
+  font-size: 1.8em;
+  min-width: 30px;
+}
+
+.alert-content span {
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.alert-close-btn {
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  color: inherit;
+  cursor: pointer;
+  margin-left: 15px;
+  padding: 0 5px;
+  transition: transform 0.2s ease;
+}
+
+.alert-close-btn:hover {
+  transform: scale(1.2);
+}
+
+@keyframes fadeInOutAlert {
+  0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+  10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  90% { opacity: 1; transform: translateX(-50%) translateY(0); }
+  100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+}
+
+/* ----- Form Step Transition (التعديلات النهائية) ----- */
+.form-step {
+  /* اخفاء الخطوات غير النشطة تمامًا */
+  display: none;
+  opacity: 0;
+  /* لتوفير انتقال سلس عند الظهور/الاختفاء */
+  transition: opacity 0.4s ease-in-out;
+  width: 100%; /* تأكد أن عرضها 100% داخل الفورم */
+  /* لضمان أنها تأخذ المساحة اللازمة وتدفع العناصر الأخرى بشكل صحيح */
+  position: relative;
+  /* تعديل هام: ضبط الـ margin-top بشكل دقيق هنا */
+  margin-top: 15px; /* لتوفير مسافة بعد العنوان والsubtitle */
+}
+
+.form-step.active-step {
+  /* اظهار الخطوة النشطة */
+  display: block;
+  opacity: 1;
+  /* إلغاء أي تحويلات قديمة غير مرغوبة */
+  transform: none;
+}
+
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  .login-card {
+    max-width: 800px;
+    min-height: auto; /* مهم لتعديل الارتفاع تلقائياً */
+  }
+  .login-form {
+    padding: 40px;
+  }
+  .login-image {
+    padding: 15px;
+  }
+  .form-step {
+    width: 100%;
+    margin-top: 10px; /* تعديل الهامش على الشاشات المتوسطة */
+  }
+}
+
+@media (max-width: 768px) {
+  .login-card {
+    flex-direction: column;
+    max-width: 500px;
+    border-radius: 20px;
+  }
+
+  .login-image {
+    height: 250px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+    border-top-left-radius: 20px;
+    border-top-right-radius: 20px;
+    background: linear-gradient(to bottom, var(--bright-blue-gradient-start), var(--bright-blue-gradient-end));
+  }
+
+  .login-image img {
+    width: 60%;
+    max-width: 250px;
+  }
+
+  .login-form {
+    padding: 30px;
+    text-align: center;
+  }
+
+  .login-form h1 {
+    font-size: 2em;
+  }
+
+  .subtitle {
+    font-size: 1em;
+    margin-bottom: 25px;
+  }
+
+  .input-group {
+    margin-bottom: 20px;
+  }
+
+  .remember-me {
+    justify-content: center;
+    margin-bottom: 25px;
+  }
+
+  .button-group {
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 25px;
+  }
+  .button-group .login-btn {
+    width: 100%;
+  }
+
+  .step-indicator {
+    margin-bottom: 30px;
+  }
+  .step-circle {
+    width: 35px;
+    height: 35px;
+    font-size: 1em;
+  }
+  .form-step {
+    width: 100%;
+    margin-top: 5px; /* تعديل الهامش على الجوال */
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 15px;
+  }
+  .login-form {
+    padding: 25px;
+  }
+  .login-image {
+    height: 200px;
+  }
+  .login-image img {
+    width: 70%;
+  }
+  .login-links span + span::before {
+    margin: 0 5px;
+  }
+  .form-step {
+    width: 100%;
+    margin-top: 0px; /* قد لا تحتاج هامش علوي هنا على أصغر الشاشات */
+  }
 }

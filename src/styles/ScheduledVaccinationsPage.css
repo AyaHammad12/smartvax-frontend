@@ -1,48 +1,122 @@
 .scheduled-vaccinations-container {
-  max-width: 700px;
-  margin: auto;
-  padding: 20px;
-  text-align: center;
+  max-width: 730px;
+  margin: 35px 0 35px auto;
+  padding: 30px 32px 18px 10px;
+  background: #fafdff;
+  border-radius: 18px;
+  box-shadow: 0 6px 28px #b9e4fc44;
   direction: rtl;
+  text-align: right;
+  min-height: 60vh;
+  font-family: 'Tajawal', Arial, sans-serif;
+  margin-right: 40px;
+}
+
+.main-title {
+  color: #15467b;
+  font-size: 2.1em;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.page-desc {
+  background: #e9f3fd;
+  color: #2471a3;
+  padding: 13px 20px;
+  margin-bottom: 24px;
+  border-radius: 9px;
+  font-size: 1.05em;
+  line-height: 1.8;
+  text-align: right;
+  box-shadow: 0 2px 8px #b2d3f080;
+}
+
+.no-vaccinations {
+  font-size: 1.18em;
+  color: #a7a7a7;
+  margin-top: 30px;
+  text-align: center;
 }
 
 .vaccination-list {
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 20px;
 }
-
 .vaccination-card {
+  background: linear-gradient(101deg, #e3f1fd 80%, #daf1ff 100%);
+  /* أو إذا أردت لونًا صافيًا بدون تدرج: background: #e3f1fd; */
+  padding: 19px 18px 13px 10px;
+  border-radius: 11px;
+  box-shadow: 0 4px 15px #b7dafc30;
   text-align: right;
-  background: #fff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  text-align: right;
-  min-height: 80px; /* ✅ تجنب البطاقات الفارغة */
-  visibility: visible; /* ✅ تأكد من أن العناصر مرئية */
-  display: block; /* ✅ ضمان ظهور العناصر */
+  font-size: 1.18em;
+  min-height: 84px;
+  border-right: 6px solid #2471a3;
+  color: #174ea6;
+  display: block;
+  position: relative;
+  transition: box-shadow 0.22s, transform 0.14s, border-color 0.19s;
 }
 
-.vaccination-card h3,
+
+.vaccination-card:hover {
+  box-shadow: 0 10px 32px #6bc6f622;
+  border-right: 6px solid #15467b;
+}
+
+.vaccination-card h3 {
+  font-size: 1.17em;
+  color: #174ea6;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
 .vaccination-card p {
-  color: #333;
-  direction: rtl;
-  text-align: right;
+  margin: 8px 0 0 0;
+  color: #2471a3;
+  font-size: 1em;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.vaccination-card.upcoming {
-  border-right: 5px solid blue;
+/* الحالات بالألوان */
+.vaccination-card.upcoming { border-right: 6px solid #007bff; }
+.vaccination-card.completed { border-right: 6px solid #28a745; }
+.vaccination-card.missed   { border-right: 6px solid #d9534f; }
+.vaccination-card.in-progress { border-right: 6px solid #ffc107; }
+.vaccination-card.canceled { border-right: 6px solid #8a8686; }
+
+/* نصوص الحالة بألوان */
+.status-upcoming { color: #007bff; font-weight: bold;}
+.status-completed { color: #28a745; font-weight: bold;}
+.status-missed { color: #d9534f; font-weight: bold;}
+.status-in-progress { color: #ffc107; font-weight: bold;}
+.status-canceled { color: #8a8686; font-weight: bold;}
+.status-default { color: #b7b7b7; font-weight: bold;}
+
+.icon {
+  font-size: 1.22em;
+  margin-left: 7px;
+  vertical-align: middle;
 }
 
-.vaccination-card.completed {
-  border-right: 5px solid green;
+/* responsive */
+@media (max-width: 800px) {
+  .scheduled-vaccinations-container {
+    padding: 15px 6vw 10px 5px;
+    font-size: 0.97em;
+  }
+  .vaccination-list {
+    gap: 13px;
+  }
 }
-
-.vaccination-card.missed {
-  border-right: 5px solid red;
-}
-
-.vaccination-card.in-progress {
-  border-right: 5px solid rgba(255, 166, 0, 0.841);
+@media (max-width: 500px) {
+  .scheduled-vaccinations-container {
+    padding: 8px 2vw 6px 2px;
+    font-size: 0.95em;
+  }
 }

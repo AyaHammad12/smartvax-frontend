@@ -9,71 +9,90 @@
   font-size: 14px;
   position: relative;
   background: #f9f9f9;
-  transition: background-color 0.3s ease;
   text-align: center;
   direction: rtl;
+  transition: none;
+  border: 2px solid transparent;
 }
 
+/* ألوان الحالات فقط */
+.day-cell.completed { background-color: #4CAF50 !important; color: #fff; }
+.day-cell.missed    { background-color: #F44336 !important; color: #fff; }
+.day-cell.upcoming  { background-color: #FF9800 !important; color: #fff; }
+.day-cell.other     { background-color: #f9f9f9; color: #1598c3; }
+
+/* تظليل اليوم المختار (selected) */
+.day-cell.selected {
+  border: 2.5px solid #ffb400 !important;
+  background: #fffbe6 !important;
+  color: #d38100 !important;
+  font-weight: bold;
+  box-shadow: 0 2px 8px #f7c56655;
+}
+/* هذه فقط لو كنت تريد إزالة تأثير الظل أو الإطار عند الهوفر (بدون تغيير الخلفية): */
+.day-cell:hover,
+.day-cell:active {
+  /* لا يوجد background هنا إطلاقًا! */
+  box-shadow: unset !important;
+  border: unset !important;
+  color: unset !important;
+}
+
+
+/* رقم اليوم */
 .day-number {
   font-weight: bold;
   margin-bottom: 5px;
 }
-.vaccine-tooltip {
+
+/* Popup */
+.vaccine-popup {
   position: absolute;
-  top: 40px;
-  right: 5px;
-  background-color: #fff;
-  border: 1px solid #ddd;
-  box-shadow: 0px 2px 6px rgba(0,0,0,0.15);
-  padding: 6px 10px;
-  border-radius: 5px;
-  z-index: 999;
-  white-space: nowrap;
+  top: 45px;
+  right: 8px;
+  background: #fff;
+  border: 1px solid #c2e2f8;
+  box-shadow: 0px 6px 18px #50b2de32;
+  padding: 9px 12px;
+  border-radius: 10px;
+  z-index: 1001;
+  min-width: 120px;
+  text-align: right;
+  animation: fadeInPop 0.17s;
 }
-
-.tooltip-item {
-  padding: 4px 6px;
-  font-size: 13px;
+@keyframes fadeInPop {
+  from { opacity: 0; transform: translateY(7px);}
+  to   { opacity: 1; transform: none;}
+}
+.vaccine-popup-item {
+  font-size: 15px;
+  color: #1881b6;
   cursor: pointer;
-  color: #333;
-}
-
-.tooltip-item:hover {
-  background-color: #f2f2f2;
-}
-
-
-.vaccine-name {
-  font-size: 12px;
-  padding: 4px 8px;
-  border-radius: 5px;
-  color: white;
-  text-align: center;
+  padding: 7px 0;
+  border-bottom: 1px solid #eee;
   font-weight: bold;
-  width: 90%;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+  transition: background 0.18s, color 0.11s;
 }
-
-.day-cell:hover {
-  box-shadow: 0 0 10px rgba(0,0,0,0.2);
-  cursor: pointer;
+.vaccine-popup-item:last-child { border-bottom: none; }
+.vaccine-popup-item:hover {
+  background: #e8f6fd;
+  color: #F44336;
 }
-
-.day-cell.completed {
-  background-color: #4CAF50; /* أخضر */
-  color: white;
+.day-cell.has-vaccination {
+  background: #ffeaea !important;      /* خلفية حمراء فاتحة */
+  border: 2px solid #e64545 !important; /* إطار أحمر غامق */
+  box-shadow: 0 0 8px 2px #e6454533 !important;
+  color: #b40000 !important;
 }
-
-.day-cell.missed {
-  background-color: #F44336; /* أحمر */
-  color: white;
+.day-cell.today-cell {
+  background: #baf3ff !important;    /* اليوم */
+  border: 2px solid #23a6d5;
 }
-
-.day-cell.upcoming {
-  background-color: #FF9800; /* برتقالي */
-  color: white;
+.day-cell.yesterday-cell {
+  background: #fbe8c7 !important;    /* امبارح */
+}
+.day-cell.tomorrow-cell {
+  background: #d4ffba !important;    /* بكرا */
 }
 
 

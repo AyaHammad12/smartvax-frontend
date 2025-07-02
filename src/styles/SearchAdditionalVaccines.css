@@ -1,67 +1,141 @@
-/* SearchAdditionalVaccines.css */
-.search-additional-container {
-    max-width: 700px;
-    margin: auto;
-    padding: 40px;
-    text-align: center;
-    background-color: #fff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-    margin-top: 50px;
-    font-family: 'Cairo', sans-serif;
+body{
+    background: linear-gradient(135deg, #dbeafe 0%, #e0f2fe 100%);
 }
-
-.search-additional-container h1 {
-    color: #4a148c;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-.search-form-row {
+.search-vaccine-wrapper {
     display: flex;
-    justify-content: right;
-    align-items: center;
-    gap: 10px; /* مسافة بين العناصر */
-    flex-wrap: wrap; /* حتى لا ينكسر على الشاشات الصغيرة */
-    margin-top: 20px;
+    justify-content: flex-start;
+    align-items: flex-start;
+    width: 100%;
+    min-height: 100vh;
+    padding: 30px 40px 30px 15px;
+    box-sizing: border-box;
+    direction: rtl;
+    font-family: 'Tajawal', Arial, sans-serif;
 }
 
-.search-form-row label {
-    background-color: #5368e3;
-    color: white;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 6px;
-    max-width: none;
-    white-space: nowrap;
+.search-vaccine-container {
+    background: #fff;
+    border-radius: 18px 0 0 18px;
+    box-shadow: 0 6px 28px #b9e4fc44;
+    max-width: 700px;   /* ⬅️ زيدنا العرض */
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 40px 46px 36px 38px; /* زيد البادينغ */
+    text-align: right;
+    border-right: 8px solid #2471a3;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
+
+.title-row {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 38px;
+}
+
+.logo {
+    width: 65px;
+    height: 65px;
+    object-fit: contain;
+    display: block;
+    margin: 0;
+    padding: 0;
+}
+
+.title {
+    color: #174ea6;
+    font-weight: bold;
+    font-size: 2em;
+    margin: 0;
+    letter-spacing: 0.5px;
+    line-height: 1.2;
+}.search-form-row {
+     display: flex;
+     flex-direction: row;
+     align-items: flex-end;    /* أهم سطر: خليه يصفهم من تحت */
+     gap: 13px;
+     width: 100%;
+ }
 
 .search-form-row input {
-    padding: 12px;
-    font-size: 16px;
-    border: 1px solid #090909;
-    border-radius: 6px;
+    border: 1.5px solid #bdddfd;
+    background: #f6faff;
+    border-radius: 10px;
+    font-size: 1.13em;
+    color: #174ea6;
+    padding: 14px 13px;
+    width: 100%;
+    max-width: 330px;
+    transition: border 0.2s, box-shadow 0.2s;
+    outline: none;
+    font-family: inherit;
     text-align: right;
-    width: 200px;
+    height: 52px;           /* اضبط الطول بشكل يدوي */
 }
 
 .search-form-row button {
-    background-color: #14289f;
+    background: linear-gradient(to left, #298bfb, #2bc7fa);
     color: white;
-    padding: 12px 20px;
+    padding: 0 40px;        /* خفف البادينغ من فوق وتحت */
+    height: 52px;           /* نفس ارتفاع الإنبت بالضبط */
     border: none;
-    border-radius: 6px;
-    font-size: 16px;
+    border-radius: 10px;
+    font-size: 1.18em;
+    font-weight: bold;
     cursor: pointer;
-    transition: background 0.3s;
+    transition: background 0.22s, transform 0.14s, box-shadow 0.16s;
+    box-shadow: 0 2px 7px #b1eaff40;
+    white-space: nowrap;
+    margin-bottom: 0;       /* تأكد ما في مارجن سفلي */
+    display: flex;
+    align-items: center;    /* وسط النص رأسياً */
+}
+
+
+.search-form-row input::placeholder {
+    color: #adc7df;
+    font-size: 1em;
+}
+
+.search-form-row button {
+    background: linear-gradient(to left, #298bfb, #2bc7fa);
+    color: white;
+    padding: 13px 40px;
+    border: none;
+    border-radius: 10px;
+    font-size: 1.18em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.22s, transform 0.14s, box-shadow 0.16s;
+    box-shadow: 0 2px 7px #b1eaff40;
+    white-space: nowrap;
 }
 
 .search-form-row button:hover {
-    background-color: #0d1d85;
+    background: linear-gradient(to left, #1c67c8, #04bfff);
+    transform: translateY(-1.5px) scale(1.03);
 }
 
+/* Responsive adjustments */
+@media (max-width: 900px) {
+    .search-vaccine-container {
+        max-width: 99vw;
+        padding: 28px 10px 24px 7px;
+        border-radius: 0 0 18px 18px;
+    }
+    .logo { width: 45px; height: 45px; }
+    .title { font-size: 1.15em; }
+    .title-row { gap: 7px; margin-bottom: 20px; }
+    .search-form-row { gap: 8px; }
+}
 
-.search-additional-container img.logo {
-    width: 70px;
-    margin-bottom: 20px;
+@media (max-width: 600px) {
+    .search-vaccine-container { padding: 8px 3px; }
+    .logo { width: 36px; height: 36px; }
+    .title { font-size: 1em; }
+    .search-form-row { gap: 7px; }
+    .search-form-row input, .search-form-row button { max-width: 100%; }
 }

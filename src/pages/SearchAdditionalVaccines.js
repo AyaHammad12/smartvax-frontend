@@ -8,11 +8,8 @@ const SearchAdditionalVaccines = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!childId) return alert("يرجى إدخال رقم هوية الطفل");
-
-        const role = localStorage.getItem("role"); // ✅ الحصول على الدور من التخزين المحلي
-
-        // ✅ التوجيه إلى route الصحيح مع تمرير الدور في state
+        if (!childId.trim()) return alert("يرجى إدخال رقم هوية الطفل");
+        const role = localStorage.getItem("role");
         navigate(`/additional-vaccines/certificate/${childId}`, {
             state: { role },
         });
@@ -21,16 +18,18 @@ const SearchAdditionalVaccines = () => {
     return (
         <div className="search-vaccine-wrapper" dir="rtl">
             <div className="search-vaccine-container">
-                <img src="/moh.png" alt="شعار وزارة الصحة" className="logo" />
-                <h1 className="title">التطعيمات الإضافية</h1>
+                <div className="title-row">
+                    <img src="/moh.png" alt="شعار وزارة الصحة" className="logo" />
+                    <h1 className="title">التطعيمات الإضافية</h1>
+                </div>
                 <form onSubmit={handleSubmit} className="search-form-row">
-                    <label htmlFor="childId">أدخل رقم هوية الطفل:</label>
                     <input
                         type="text"
                         id="childId"
                         value={childId}
                         onChange={(e) => setChildId(e.target.value)}
-                        placeholder="رقم الهوية"
+                        placeholder="رقم هوية الطفل"
+                        autoFocus
                     />
                     <button type="submit">بحث</button>
                 </form>

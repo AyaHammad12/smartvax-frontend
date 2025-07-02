@@ -1,130 +1,222 @@
 .appointments-container {
-  max-width: 1000px;
-  margin: auto;
-  padding: 20px;
-  text-align: center;
+  max-width: 1050px;
+  margin: 35px 0 35px auto;
+  padding: 30px 38px 22px 10px;
+  background: #f6fbfe;
+  border-radius: 18px;
+  box-shadow: 0 6px 32px #b9e4fc55;
   direction: rtl;
+  text-align: right;
+  min-height: 70vh;
+  font-family: 'Tajawal', 'Cairo', Arial, sans-serif;
 }
 
 h1 {
-  color: #2989c5;
-  margin-bottom: 20px;
+  color: #1d72b8;
+  font-size: 2.25em;
+  margin-bottom: 12px;
+  font-weight: bold;
+  text-align: right;
+}
+
+/* شرح الصفحة */
+.page-desc {
+  background: #ffeeba;
+  color: #444;
+  padding: 17px 24px;
+  margin-bottom: 24px;
+  border-radius: 11px;
+  font-size: 1.12em;
+  line-height: 1.85;
+  text-align: right;
+  box-shadow: 0 2px 8px #ffecb330;
+  border: 1.5px solid #ffe082;
+}
+
+.no-appointments {
+  font-size: 1.18em;
+  color: #a7a7a7;
+  margin-top: 30px;
 }
 
 .appointments-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(330px, 1fr));
+  gap: 28px 20px;
+  margin-top: 10px;
 }
 
-/* البطاقة العامة */
 .appointment-card {
-  background: #f8f9fa;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
-  transition: transform 0.3s ease-in-out;
-  text-align: center;
-  font-size: 16px;
+  background: #fafdff;
+  padding: 22px 18px 16px 10px;
+  border-radius: 13px;
+  box-shadow: 0 4px 18px #b0d6ef1a;
+  text-align: right;
+  font-size: 1.23em;          /* أكبر خط */
+  min-height: 180px;
+  border-right: 7px solid #2471a3;
+  color: #133464;
+  transition: box-shadow 0.22s, transform 0.16s, border-color 0.18s;
+  position: relative;
 }
 
 .appointment-card:hover {
-  transform: scale(1.04);
+  box-shadow: 0 10px 32px #2471a352;
+  border-right: 7px solid #174ea6;
 }
 
-/* حالات الموعد */
+.card-header,
+.appointment-card p,
+.appointment-card strong {
+  color: #174ea6 !important;   /* أزرق غامق */
+}
+
+.icon {
+  font-size: 1.19em;
+  vertical-align: middle;
+  margin-left: 7px;
+  margin-right: 0;
+}
+
+/* حالات البطاقة */
 .appointment-card.confirmed {
   background: #d4edda;
-  border-right: 5px solid #28a745;
+  border-right: 7px solid #28a745;
 }
-
 .appointment-card.rescheduled {
-  background: #fff3cd;
-  border-right: 5px solid #ffc107;
+  background: #fff9e1;
+  border-right: 7px solid #ffc107;
 }
-
 .appointment-card.requested-location {
   background: #d1ecf1;
-  border-right: 5px solid #17a2b8;
+  border-right: 7px solid #17a2b8;
 }
-
 .appointment-card.pending {
   background: #f8f9fa;
-  border-right: 5px solid #6c757d;
+  border-right: 7px solid #6c757d;
+}
+.appointment-card.completed {
+  background: #e0e6ea;
+  border-right: 7px solid #2bc4aa;
+}
+.appointment-card.missed {
+  background: #fbe7e6;
+  border-right: 7px solid #d9534f;
 }
 
-.appointment-card p {
-  margin: 5px 0;
+/* أزرار الإجراءات */
+.actions {
+  margin-top: 15px;
+  margin-bottom: 8px;
+  display: flex;
+  gap: 9px;
+  flex-wrap: wrap;
 }
-
-/* أزرار */
 .confirm-btn,
 .reschedule-btn,
 .location-btn,
 .submit-btn {
   border: none;
-  padding: 10px 14px;
-  margin: 5px 4px;
+  padding: 11px 17px;
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
-  transition: 0.2s;
+  font-size: 1em;
+  transition: 0.18s;
+  box-shadow: 0 2px 7px #c0e8f020;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .confirm-btn {
-  background: #28a745;
+  background: linear-gradient(90deg, #36cf80 60%, #21b173 100%);
   color: white;
 }
-
-.reschedule-btn {
-  background: #ffc107;
-  color: black;
-}
-
-.location-btn {
-  background: #17a2b8;
-  color: white;
-}
-
-.submit-btn {
-  background: #6f42c1;
-  color: white;
-}
-
 .confirm-btn:hover {
-  background: #218838;
+  background: linear-gradient(90deg, #1ba362 60%, #117547 100%);
 }
-
+.reschedule-btn {
+  background: linear-gradient(90deg, #ffd400 60%, #ffb800 100%);
+  color: #543b02;
+}
 .reschedule-btn:hover {
-  background: #e0a800;
+  background: linear-gradient(90deg, #ffe57a 60%, #ffe200 100%);
 }
-
+.location-btn {
+  background: linear-gradient(90deg, #17a2b8 70%, #158196 100%);
+  color: white;
+}
 .location-btn:hover {
-  background: #138496;
+  background: linear-gradient(90deg, #1987a5 70%, #176476 100%);
 }
-
+.submit-btn {
+  background: linear-gradient(90deg, #6f42c1 70%, #532991 100%);
+  color: white;
+}
 .submit-btn:hover {
-  background: #5a32a3;
+  background: linear-gradient(90deg, #502985 70%, #422169 100%);
 }
 
-/* قائمة المراكز */
-.dropdown-container {
-  margin-top: 10px;
+.action-input {
+  margin: 13px 0 2px 0;
+}
+.action-input label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 1em;
+  color: #0d69a2;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  gap: 5px;
+  display: flex;
+  align-items: center;
 }
 
-.dropdown-container select {
-  padding: 8px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+.action-input select {
+  padding: 9px 16px;
+  border-radius: 8px;
+  border: 1.3px solid #c2d5e2;
+  background: #f7fafc;
+  font-size: 1em;
+  font-family: inherit;
 }
 
-/* ملاحظات أو أسباب التأجيل */
 .reschedule-textarea {
-  margin-top: 10px;
-  padding: 8px;
-  width: 90%;
-  border-radius: 5px;
-  border: 1px solid #ccc;
+  margin-top: 8px;
+  padding: 9px;
+  width: 95%;
+  border-radius: 6px;
+  border: 1.2px solid #adc2d3;
   resize: vertical;
-  font-size: 14px;
+  font-size: 1em;
+  font-family: inherit;
+  background: #f6faff;
+}
+
+.submit-section {
+  margin-top: 12px;
+  display: flex;
+  justify-content: flex-start;
+}
+
+@media (max-width: 900px) {
+  .appointments-container {
+    padding: 13px 3vw 18px 3px;
+    font-size: 0.99em;
+  }
+  .appointments-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 8px;
+  }
+}
+@media (max-width: 600px) {
+  .appointments-container {
+    padding: 7px 1vw 8px 1px;
+    font-size: 0.95em;
+  }
+  .appointments-grid {
+    grid-template-columns: 1fr;
+    gap: 10px;
+  }
 }

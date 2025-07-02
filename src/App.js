@@ -1,23 +1,16 @@
 import React, { useEffect, useState } from "react";
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route,
-  useLocation,
-  useNavigate,
+    BrowserRouter as Router,
+    Routes,
+    Route,
+    useLocation,
+    useNavigate,
 } from "react-router-dom";
 
-// import { requestPermission, listenToMessages } from "./utils/pushNotifications";
-
-// import { messaging, getToken, onMessage } from "./firebase-config";
-// import { messaging, getToken, vapidKey } from "./firebase-config";
-import "./styles/Navbar.css"; /* تأكد من صحة المسار */
-import "./App.css";
-
+// استيراد كل الصفحات التي تستخدمها
 import LogoutPage from "./pages/LogoutPage";
 import LoginPage from "./pages/LoginPage";
 import VaccineInfoPage from "./pages/VaccineInfoPage";
-import FeedbackPage from "./pages/FeedbackPage";
 import ParentDashboard from "./pages/ParentDashboard";
 import HealthWorkerDashboard from "./pages/HealthWorkerDashboard";
 import Navbar from "./components/Navbar";
@@ -32,9 +25,6 @@ import SearchPage from "./pages/SearchPage";
 import SearchChildByID from "./pages/SearchChildByID";
 import ManegmentRequestsAppointment from "./pages/ManegmentRequestsAppointment";
 import SearchAdditionalVaccines from "./pages/SearchAdditionalVaccines";
-import ManagerDashboard from "./pages/ManagerDashboard";
-import ManageWorkers from "./pages/ManageWorkers";
-import ReportsPage from "./pages/ReportsPage";
 import ReschedulePage from "./pages/ReschedulePage";
 import ParentAppointments from "./pages/ParentAppointments";
 import VaccineAppointments from "./pages/VaccineAppointments";
@@ -45,215 +35,174 @@ import AppointmentManagementPage from "./pages/AppointmentManagementPage";
 import HealthWorkerAccountPage from "./pages/HealthWorkerAccountPage";
 import SearchVaccineInfoPage from "./pages/SearchVaccineInfoPage";
 import VaccinationCertificate from "./pages/VaccinationCertificate";
-import ChildGrowthHistory from "./pages/ChildGrowthHistory";
 import ChildGrowthForm from "./pages/ChildGrowthForm";
+import VaccineBotInteraction from "./pages/VaccineBotInteraction"; // بوت التطعيم
+
+// استيراد الأنماط
+import "./styles/Navbar.css";
+import "./App.css";
 
 const AppContent = () => {
-  const location = useLocation();
-  const navigate = useNavigate();
+    const location = useLocation();
+    const navigate = useNavigate();
 
-  // قائمة بالمسارات التي لا يجب أن يظهر فيها شريط التنقل
-  const hideNavbarRoutes = ["/login", "/register", "/logout"];
+    // لا تعرض الشريط في هذه الصفحات
+    const hideNavbarRoutes = ["/login", "/register", "/logout"];
 
-  // حالة لتخزين الدور (role)
-  const [role, setRole] = useState(null);
-  const [appointments, setAppointments] = useState([
-    {
-      id: 1,
-      vaccine: "شلل الأطفال",
-      date: "2024-04-15",
-      status: "مجدول",
-      center: "",
-    },
-    {
-      id: 2,
-      vaccine: "الحصبة والنكاف والحصبة الألمانية",
-      date: "2024-06-10",
-      status: "مجدول",
-      center: "",
-    },
-  ]);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+    const [role, setRole] = useState(null);
+    const [appointments, setAppointments] = useState([
+        {
+            id: 1,
+            vaccine: "شلل الأطفال",
+            date: "2024-04-15",
+            status: "مجدول",
+            center: "",
+        },
+        {
+            id: 2,
+            vaccine: "الحصبة والنكاف والحصبة الألمانية",
+            date: "2024-06-10",
+            status: "مجدول",
+            center: "",
+        },
+    ]);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  useEffect(() => {
-    const updateRole = () => {
-      const storedRole = localStorage.getItem("role");
-      setRole(storedRole);
+    useEffect(() => {
+        const updateRole = () => {
+            const storedRole = localStorage.getItem("role");
+            setRole(storedRole);
+        };
+
+        updateRole();
+        window.addEventListener("storage", updateRole);
+
+        return () => {
+            window.removeEventListener("storage", updateRole);
+        };
+    }, [location.pathname]);
+
+    const handleLogout = () => {
+        localStorage.removeItem("role");
+        setRole(null);
+        navigate("/login");
     };
 
-    // جلب الدور عند تحميل الصفحة
-    updateRole();
+    const showNavbar = role && !hideNavbarRoutes.includes(location.pathname);
 
-    // مراقبة أي تغيير في `localStorage`
-    window.addEventListener("storage", updateRole);
+    return (
+        <div>
+            {showNavbar && (
+                <Navbar
+                    role={role}
+                    isSidebarOpen={isSidebarOpen}
+                    setIsSidebarOpen={setIsSidebarOpen}
+                />
+            )}
 
-    return () => {
-      window.removeEventListener("storage", updateRole);
-    };
-  }, [location.pathname]);
-
-  // useEffect(() => {
-  //   requestPermission();
-  //   listenToMessages();
-  // }, []);
-
-  // useEffect(() => {
-  //   Notification.requestPermission().then((permission) => {
-  //     if (permission === "granted") {
-  //       navigator.serviceWorker
-  //         .register("/firebase-messaging-sw.js")
-  //         .then((registration) => {
-  //           console.log("✅ Service worker registered:", registration);
-
-  //           return getToken(messaging, {
-  //             vapidKey: vapidKey,
-  //             serviceWorkerRegistration: registration,
-  //           });
-  //         })
-  //         .then((currentToken) => {
-  //           if (currentToken) {
-  //             console.log("🔥 FCM Token:", currentToken);
-  //           } else {
-  //             console.log("⚠️ No token available. Request permission to generate one.");
-  //           }
-  //         })
-  //         .catch((err) => {
-  //           console.error("❌ An error occurred while retrieving token.", err);
-  //         });
-  //     }
-  //   });
-  // }, []);
-
-  const handleLogout = () => {
-    localStorage.removeItem("role"); // مسح الدور عند تسجيل الخروج
-    setRole(null); // تحديث الحالة
-    navigate("/login"); // إعادة التوجيه إلى صفحة تسجيل الدخول
-  };
-
-  // التحقق مما إذا كان يجب عرض شريط التنقل أم لا
-  const showNavbar = role && !hideNavbarRoutes.includes(location.pathname);
-
-  return (
-    <div>
-      {/* {showNavbar && <Navbar role={role} />} */}
-      {showNavbar && (
-        <Navbar
-          role={role}
-          isSidebarOpen={isSidebarOpen}
-          setIsSidebarOpen={setIsSidebarOpen}
-        />
-      )}
-
-      <div className={`main-content ${isSidebarOpen ? "sidebar-open" : ""}`}>
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/login" element={<LoginPage />} />
-          <Route
-            path="/logout"
-            element={<LogoutPage handleLogout={handleLogout} />}
-          />
-          <Route path="/register" element={<RegisterPage />} />
-          <Route
-            path="/appointment-management/:appointmentId"
-            element={<AppointmentManagementPage />}
-          />
-          <Route
-            path="/additional-vaccines/search"
-            element={<SearchAdditionalVaccines />}
-          />
-          <Route path="/vaccine-info/:id" element={<VaccineInfoPage />} />
-          <Route path="/feedback" element={<FeedbackPage />} />
-          <Route
-            path="/certificate/:childId"
-            element={<VaccinationCertificate />}
-          />
-          <Route
-            path="/additional-certificate/:childId"
-            element={<AdditionalVaccineCertificate />}
-          />
-          <Route path="/dashboard/parent" element={<ParentDashboard />} />
-          <Route
-            path="/dashboard/healthworker"
-            element={<HealthWorkerDashboard />}
-          />
-
-          <Route
-            path="/hw-appointment-scheduling/:day"
-            element={<HWAppointmentScheduling />}
-          />
-
-          <Route path="/profile" element={<ProfilePage />} />
-          <Route path="/account" element={<AccountPage />} />
-          <Route path="/reminder" element={<ReminderPage />} />
-          <Route
-            path="/heal_thworker_reminder"
-            element={<HealthWorkerReminders />}
-          />
-          <Route path="/help" element={<HelpPage />} />
-          <Route path="/search" element={<SearchPage />} />
-          <Route path="/Search-Child-By-ID" element={<SearchChildByID />} />
-          <Route
-            path="/Manegment-Requests-Appointment"
-            element={<ManegmentRequestsAppointment />}
-          />
-          <Route path="/dashboard/manager" element={<ManagerDashboard />} />
-          <Route path="/manage-workers" element={<ManageWorkers />} />
-          <Route path="/reports" element={<ReportsPage />} />
-          <Route
-            path="/additional-vaccines/certificate/:childId"
-            element={<AdditionalVaccineCertificate />}
-          />
-
-          <Route path="/growth/history/:childId" element={<ChildGrowthHistory />} />
-          <Route path="/growth/form/:childId" element={<ChildGrowthForm />} />
-
-          <Route
-            path="/appointments"
-            element={
-              <ParentAppointments
-                appointments={appointments}
-                setAppointments={setAppointments}
-              />
-            }
-          />
-          <Route
-            path="/reschedule/:appointmentId"
-            element={
-              <ReschedulePage
-                appointments={appointments}
-                setAppointments={setAppointments}
-              />
-            }
-          />
-          <Route
-            path="/vaccine-appointments"
-            element={<VaccineAppointments />}
-          />
-          <Route
-            path="/scheduled-vaccinations"
-            element={<ScheduledVaccinationsPage />}
-          />
-          <Route path="/write-review/:id" element={<ReviewsPage />} />
-          <Route
-            path="/health-worker-account"
-            element={<HealthWorkerAccountPage />}
-          />
-          <Route
-            path="/search-vaccine-info/:id"
-            element={<SearchVaccineInfoPage />}
-          />
-        </Routes>
-      </div>
-    </div>
-  );
+            <div className={`main-content ${isSidebarOpen ? "sidebar-open" : ""}`}>
+                <Routes>
+                    <Route path="/" element={<LoginPage />} />
+                    <Route path="/login" element={<LoginPage />} />
+                    <Route
+                        path="/logout"
+                        element={<LogoutPage handleLogout={handleLogout} />}
+                    />
+                    <Route path="/register" element={<RegisterPage />} />
+                    <Route
+                        path="/appointment-management/:appointmentId"
+                        element={<AppointmentManagementPage />}
+                    />
+                    {/* 👇👇👇 أضفت كلا المسارين هنا 👇👇👇 */}
+                    <Route path="/manage-additional-vaccines" element={<SearchAdditionalVaccines />} />
+                    <Route path="/SearchAdditionalVaccines" element={<SearchAdditionalVaccines />} />
+                    {/* 👆👆👆 يمكنك حذف أحد المسارين إذا لا تحتاجه 👆👆👆 */}
+                    <Route path="/vaccine-info/:id" element={<VaccineInfoPage />} />
+                    <Route
+                        path="/certificate/:childId"
+                        element={<VaccinationCertificate />}
+                    />
+                    <Route
+                        path="/additional-certificate/:childId"
+                        element={<AdditionalVaccineCertificate />}
+                    />
+                    <Route path="/dashboard/parent" element={<ParentDashboard />} />
+                    <Route
+                        path="/dashboard/healthworker"
+                        element={<HealthWorkerDashboard />}
+                    />
+                    <Route
+                        path="/hw-appointment-scheduling/:day"
+                        element={<HWAppointmentScheduling />}
+                    />
+                    <Route path="/profile" element={<ProfilePage />} />
+                    <Route path="/account" element={<AccountPage />} />
+                    <Route path="/reminder" element={<ReminderPage />} />
+                    <Route
+                        path="/heal_thworker_reminder"
+                        element={<HealthWorkerReminders />}
+                    />
+                    <Route path="/help" element={<HelpPage />} />
+                    <Route path="/search" element={<SearchPage />} />
+                    <Route path="/Search-Child-By-ID" element={<SearchChildByID />} />
+                    <Route
+                        path="/Manegment-Requests-Appointment"
+                        element={<ManegmentRequestsAppointment />}
+                    />
+                    <Route
+                        path="/additional-vaccines/certificate/:childId"
+                        element={<AdditionalVaccineCertificate />}
+                    />
+                    <Route path="/growth/form/:childId" element={<ChildGrowthForm />} />
+                    <Route
+                        path="/appointments"
+                        element={
+                            <ParentAppointments
+                                appointments={appointments}
+                                setAppointments={setAppointments}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/reschedule/:appointmentId"
+                        element={
+                            <ReschedulePage
+                                appointments={appointments}
+                                setAppointments={setAppointments}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/vaccine-appointments"
+                        element={<VaccineAppointments />}
+                    />
+                    <Route
+                        path="/scheduled-vaccinations"
+                        element={<ScheduledVaccinationsPage />}
+                    />
+                    <Route path="/write-review/:id" element={<ReviewsPage />} />
+                    <Route path="/vaccine-bot-interaction" element={<VaccineBotInteraction />} />
+                    <Route path="/vaccine-bot" element={<VaccineBotInteraction />} />
+                    <Route
+                        path="/health-worker-account"
+                        element={<HealthWorkerAccountPage />}
+                    />
+                    <Route
+                        path="/search-vaccine-info/:id"
+                        element={<SearchVaccineInfoPage />}
+                    />
+                </Routes>
+            </div>
+        </div>
+    );
 };
 
 function App() {
-  return (
-    <Router>
-      <AppContent />
-    </Router>
-  );
+    return (
+        <Router>
+            <AppContent />
+        </Router>
+    );
 }
 
 export default App;

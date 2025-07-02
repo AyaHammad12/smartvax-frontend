@@ -1,19 +1,93 @@
+/* في ملف ParentDashboard.css */
+
 .dashboard-container {
-  text-align: center;
-  padding: 20px;
-  background-color: #f9f9f9;
+  /* ❌ تمت إزالة خاصية 'background' هنا لجعلها شفافة */
+  /* background: linear-gradient(120deg, #f7fafe 80%, #e9f3fb 100%); */
+
+  padding: 36px 0 38px 0;
+  min-height: 100vh;
   direction: rtl;
+  text-align: right;
+  font-family: 'Tajawal', Arial, Helvetica, sans-serif;
+  /* لا margin-right ولا padding-right هنا */
 }
 
-.dashboard-container ul {
-  list-style: none;
-  padding: 0;
+.dashboard-title {
+  text-align: right;
+  margin-right: 90px;
+  color: #1881b6;
+  font-size: 2.1rem;
+  font-weight: bold;
+  letter-spacing: 1.2px;
+  margin-bottom: 15px;
 }
 
-.dashboard-container li {
-  background: #ba5bee;
-  color: white;
-  padding: 10px;
-  margin: 5px 0;
-  border-radius: 4px;
+.reminder-box {
+  background: #fff6e0;
+  color: #ff9800;
+  border-radius: 17px;
+  padding: 15px 20px 11px 12px;
+  font-size: 1.18rem;
+  font-weight: bold;
+  margin-right: 90px;
+  margin-left: 0;
+  margin-bottom: 30px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: 0 3px 15px #fdd58033;
+  width: fit-content;
+  text-align: right;
 }
+
+.reminder-icon {
+  font-size: 1.7em;
+  color: #f49e1a;
+  margin-left: 8px;
+}
+
+.reminder-text {
+  margin: 0;
+  font-size: 1.15em;
+}
+
+.calendar-section {
+  /* لا margin ولا padding هنا، الكاليندر عنده margin-right داخلي */
+}
+.legend {
+  display: flex;
+  gap: 26px;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin-top: 24px;
+  margin-bottom: 0;
+}
+
+.legend-under-calendar {
+  /* إزالة أي margin-right من النسخة القديمة */
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+  justify-content: center;
+  text-align: center;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  font-size: 1.04rem;
+  color: #186bb5;
+  font-weight: bold;
+  gap: 6px;
+}
+.legend-box {
+  width: 23px; height: 23px;
+  border-radius: 6px;
+  border: 1.2px solid #bbb;
+  margin-left: 9px;
+  background: #f5fcff;
+}
+.legend-box.completed { background: #4CAF50;}
+.legend-box.missed { background: #F44336;}
+.legend-box.upcoming { background: #FF9800;}
+.legend-box.other { background: #f5fcff; border: 1.2px solid #bbb; }
