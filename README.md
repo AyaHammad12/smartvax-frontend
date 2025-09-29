@@ -1,70 +1,104 @@
-# Getting Started with Create React App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# 💉 SmartVax – Frontend
 
-## Available Scripts
+This is the **React frontend** for the SmartVax system – a vaccination management platform for children.
+It provides an intuitive interface for parents and health workers to manage vaccination schedules, view children's health data, and interact with the AI-powered chatbot and feedback analyzer.
 
-In the project directory, you can run:
+It connects to the **SmartVax backend** via RESTful APIs.
+This frontend is part of the **COMP4382 Graduation Project at Birzeit University**.
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+## 📥 How to Download the Project
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Clone the repository from GitHub:
 
-### `npm test`
+```bash
+git clone https://github.com/AyaHammad12/smartvax-frontend.git
+cd smartvax-frontend
+```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+---
 
-### `npm run build`
+## ▶️ How to Run the Frontend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### ✅ Requirements:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+* Node.js 18+
+* npm or yarn
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### ▶️ Steps:
 
-### `npm run eject`
+```bash
+npm install
+npm start
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+The frontend will run at:
+[http://localhost:3000](http://localhost:3000)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+---
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## 📁 Project Structure
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+src/
+├─ components/       # Reusable components (Calendar, DayCell, Navbar, etc.)
+├─ pages/            # Main pages (HomePage, Dashboard, AppointmentPage, etc.)
+├─ services/         # API service calls
+├─ data/             # Mock or static data
+├─ App.js            # Main app component
+├─ index.js          # Entry point
+```
 
-## Learn More
+---
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## ⭐ Main Features
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### 📅 Vaccination Appointment Management
 
-### Code Splitting
+* Parents can view, book, or reschedule appointments.
+* Health workers can manage appointments and access scheduling tools.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### 📋 Vaccination Records
 
-### Analyzing the Bundle Size
+* View children’s vaccination history and certificates.
+* Integration with backend API for real-time updates.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### 📈 Growth Analysis
 
-### Making a Progressive Web App
+* Displays weight and height analysis for children.
+* Highlights if measurements are within the normal range.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+### 🔔 Reminder System
 
-### Advanced Configuration
+* Shows upcoming and missed vaccination notifications.
+* Visual indicators for critical appointments.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### 💬 AI Chatbot & Feedback
 
-### Deployment
+* Chat with the built-in AI chatbot about symptoms.
+* Feedback analyzer summarizes parent-submitted responses.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+### 🛡️ Role-Based Access
 
-### `npm run build` fails to minify
+* Different views and functionality for **PARENT**, **HEALTH_WORKER**, and **ADMIN**.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+---
+
+## 👩‍💻 Team Members
+
+* Hala Qurt
+* Aya Hammad
+* Asmaa Ankoush
+
+---
+
+## 📝 Notes
+
+* Uses **React Router** for page navigation.
+* State management handled with React **Context API** or **Hooks**.
+* Connects to SmartVax backend via RESTful APIs.
+* Responsive design optimized for desktop and tablet.
+
+---
