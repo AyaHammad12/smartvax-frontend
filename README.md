@@ -88,8 +88,6 @@ src/
 
 ## Screenshots
 
-### Home Page
-![Home Page](screenshots/HomePageScreen.png)
 
 ### Login Page
 ![Login Page](screenshots/lofginPage.png)
@@ -97,15 +95,18 @@ src/
 ### New Account Registration
 ![New Account Registration](screenshots/NewAccountRegistrationScreen.png)
 
+### Home Page
+![Home Page](screenshots/HomePageScreen.png)
+
 ### Child Growth Tracking
 ![Child Growth Tracking](screenshots/ChildGrowthTrackingScreen.png)
 
-### Vaccine Info & AI Symptom Tool
-![Vaccine Info & AI Symptom Tool](screenshots/VaccineInfo&AISymptomToolScreen.png)
 
 ### SmartVax Comprehensive Post-Vaccination Care Tool
 ![SmartVax Comprehensive Post-Vaccination Care Tool](screenshots/SmartVaxComprehensivePost-VaccinationCareTool.png)
 
+### Vaccine Info & AI Symptom Tool
+![Vaccine Info & AI Symptom Tool](screenshots/VaccineInfo&AISymptomToolScreen.png)
 
 ## 👩‍💻 Team Members
 
