@@ -86,6 +86,27 @@ src/
 
 ---
 
+## Screenshots
+
+### Home Page
+![Home Page](screenshots/HomePageScreen.png)
+
+### Login Page
+![Login Page](screenshots/lofginPage.png)
+
+### New Account Registration
+![New Account Registration](screenshots/NewAccountRegistrationScreen.png)
+
+### Child Growth Tracking
+![Child Growth Tracking](screenshots/ChildGrowthTrackingScreen.png)
+
+### Vaccine Info & AI Symptom Tool
+![Vaccine Info & AI Symptom Tool](screenshots/VaccineInfo&AISymptomToolScreen.png)
+
+### SmartVax Comprehensive Post-Vaccination Care Tool
+![SmartVax Comprehensive Post-Vaccination Care Tool](screenshots/SmartVaxComprehensivePost-VaccinationCareTool.png)
+
+
 ## 👩‍💻 Team Members
 
 * Hala Qurt
