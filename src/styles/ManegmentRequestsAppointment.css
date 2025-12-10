@@ -277,7 +277,8 @@ body {
   .appointments-container {
     max-width: 1000px; /* Max-width to fit 3 columns comfortably */
     padding: 35px 30px;
-    margin-right: calc(auto + 10px); /* Maintain 10px shift */
+    margin: 10px auto;
+
   }
   .appointments-list {
     grid-template-columns: repeat(3, minmax(280px, 1fr)); /* Keep 3 columns, adjust min-width */
@@ -298,7 +299,8 @@ body {
   .appointments-container {
     max-width: 700px; /* Max-width for 2 columns */
     padding: 25px 20px;
-    margin-right: calc(auto + 10px); /* Maintain 10px shift */
+    margin: 10px auto;
+
   }
   .appointments-list {
     grid-template-columns: repeat(2, minmax(300px, 1fr)); /* Two columns */
