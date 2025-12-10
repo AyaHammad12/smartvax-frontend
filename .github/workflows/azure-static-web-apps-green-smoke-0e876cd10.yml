@@ -16,22 +16,29 @@ jobs:
     name: Build and Deploy Job
     steps:
       - uses: actions/checkout@v3
+
+      # --- NEW: Install Node & Build manually (CI disabled) ---
+      - name: Setup Node
+        uses: actions/setup-node@v3
         with:
-          submodules: false
-          lfs: false
-      - name: Build And Deploy
-        id: builddeploy
+          node-version: '18'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build app (disable CI)
+        run: |
+          CI=false npm run build
+
+      # --- Deploy to Azure ---
+      - name: Deploy to Azure Static Web Apps
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GREEN_SMOKE_0E876CD10 }}
-          repo_token: ${{ secrets.GITHUB_TOKEN }} # Used for Github integrations (i.e. PR comments)
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
-          # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
-          app_location: "/" # App source code path
-          api_location: "" # Api source code path - optional
-          output_location: "build" # Built app content directory - optional
-          ###### End of Repository/Build Configurations ######
+          app_location: "/"
+          output_location: "build"
 
   close_pull_request_job:
     if: github.event_name == 'pull_request' && github.event.action == 'closed'
@@ -39,7 +46,6 @@ jobs:
     name: Close Pull Request Job
     steps:
       - name: Close Pull Request
-        id: closepullrequest
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_GREEN_SMOKE_0E876CD10 }}
